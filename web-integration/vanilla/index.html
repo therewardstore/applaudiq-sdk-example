@@ -1,0 +1,62 @@
+<!doctype html>
+<!-- ApplaudIQ Web SDK example (vanilla). Author: Arulraj V <abofficial1997@gmail.com> -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ApplaudIQ Web SDK — Vanilla JS example</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+
+    <!--
+      Load the SDK once. The portal serves it at <portal>/embed.js (same origin as baseUrl).
+      👉 REPLACE the host with your portal origin — shown in Admin → Clients → your org → Embed SDK tab.
+         (Production is https://recognize.applaudiq.com/embed.js)
+    -->
+    <script src="https://recognize.applaudiq.com/embed.js"></script>
+  </head>
+  <body>
+    <div class="aiq-app">
+      <nav id="nav"></nav>
+
+      <main class="aiq-main">
+        <div class="aiq-home">
+          <div class="aiq-hero">
+            <h1>Embed recognition in a plain HTML page</h1>
+            <p>Drop the Applaud IQ recognition portal into your app. Pick how employees sign in:</p>
+          </div>
+
+          <div class="aiq-cards">
+            <article class="aiq-card">
+              <span class="icon">🔁</span>
+              <h3>Auto-login</h3>
+              <p class="desc">Your server mints a one-time token and the employee is signed in silently.</p>
+              <p class="when">Use when your app already authenticated the employee (needs a server).</p>
+              <a class="cta" href="auto.html">Open auto-login →</a>
+            </article>
+
+            <article class="aiq-card">
+              <span class="icon">🔑</span>
+              <h3>Manual login</h3>
+              <p class="desc">The embed shows Applaud IQ's own login (email / SSO) — no server, no secret.</p>
+              <p class="when">Use to try it in minutes, or when you have no backend.</p>
+              <a class="cta" href="manual.html">Open manual login →</a>
+            </article>
+          </div>
+
+          <p class="aiq-note" id="config-note" hidden>
+            👉 Set your publishable key and portal URL in <code>src/config.js</code> before the embed will load.
+          </p>
+        </div>
+      </main>
+    </div>
+
+    <script type="module">
+      import { renderNav } from './src/nav.js';
+      import { keyIsPlaceholder } from './src/config.js';
+
+      renderNav('index.html');
+      if (keyIsPlaceholder) document.getElementById('config-note').hidden = false;
+    </script>
+  </body>
+</html>

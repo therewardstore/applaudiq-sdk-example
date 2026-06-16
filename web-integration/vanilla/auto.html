@@ -1,0 +1,58 @@
+<!doctype html>
+<!-- ApplaudIQ Web SDK example (vanilla). Author: Arulraj V <abofficial1997@gmail.com> -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ApplaudIQ Web SDK — Auto-login (Vanilla JS)</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+
+    <!--
+      Load the SDK once. The portal serves it at <portal>/embed.js (same origin as baseUrl).
+      👉 REPLACE the host with your portal origin — shown in Admin → Clients → your org → Embed SDK tab.
+         (Production is https://recognize.applaudiq.com/embed.js)
+    -->
+    <script src="https://recognize.applaudiq.com/embed.js"></script>
+  </head>
+  <body>
+    <div class="aiq-app">
+      <nav id="nav"></nav>
+
+      <main class="aiq-main">
+        <section class="aiq-mode" id="mode">
+          <div class="aiq-subhead">
+            <h2>Auto-login</h2>
+            <span class="what">Signed in silently with a server-minted token.</span>
+            <span id="status" class="pill pill-right">opening…</span>
+          </div>
+          <div id="aiq-banner" class="aiq-banner"></div>
+          <div id="applaudiq-recognition" class="aiq-embed"></div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module">
+      import { renderNav } from './src/nav.js';
+      import { openEmbed } from './src/embed.js';
+      import { getEmbedToken } from './src/mint.js';
+
+      renderNav('auto.html');
+
+      // Auto-login: your SERVER mints a one-time token first, then we open the embed.
+      getEmbedToken()
+        .then((token) => openEmbed({ mode: 'auto', token }))
+        .catch(() => {
+          // No mint endpoint wired — show the same guidance the React example does.
+          document.getElementById('mode').innerHTML =
+            '<div class="aiq-callout">' +
+            '<h3>Auto-login needs a server</h3>' +
+            '<p>Wire <code>getEmbedToken()</code> in <code>src/mint.js</code> to your' +
+            ' <code>/api/mint</code> endpoint — it exchanges your <code>aiq_embed_…</code> secret for a' +
+            ' one-time token. See <strong>MINTING.md</strong>. Or try <strong>Manual login</strong> —' +
+            ' it needs no server.</p>' +
+            '</div>';
+        });
+    </script>
+  </body>
+</html>

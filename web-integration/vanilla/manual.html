@@ -1,0 +1,44 @@
+<!doctype html>
+<!-- ApplaudIQ Web SDK example (vanilla). Author: Arulraj V <abofficial1997@gmail.com> -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ApplaudIQ Web SDK — Manual login (Vanilla JS)</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+
+    <!--
+      Load the SDK once. The portal serves it at <portal>/embed.js (same origin as baseUrl).
+      👉 REPLACE the host with your portal origin — shown in Admin → Clients → your org → Embed SDK tab.
+         (Production is https://recognize.applaudiq.com/embed.js)
+    -->
+    <script src="https://recognize.applaudiq.com/embed.js"></script>
+  </head>
+  <body>
+    <div class="aiq-app">
+      <nav id="nav"></nav>
+
+      <main class="aiq-main">
+        <section class="aiq-mode">
+          <div class="aiq-subhead">
+            <h2>Manual login</h2>
+            <span class="what">The embed shows Applaud IQ's own login (email / SSO). No server, no token.</span>
+            <span id="status" class="pill pill-right">opening…</span>
+          </div>
+          <div id="aiq-banner" class="aiq-banner"></div>
+          <div id="applaudiq-recognition" class="aiq-embed"></div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module">
+      import { renderNav } from './src/nav.js';
+      import { openEmbed } from './src/embed.js';
+
+      renderNav('manual.html');
+      // Manual login: publishable key only; the embed shows the portal's own login.
+      openEmbed({ mode: 'manual' });
+    </script>
+  </body>
+</html>

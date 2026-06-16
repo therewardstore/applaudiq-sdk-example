@@ -1,0 +1,109 @@
+/* ApplaudIQ Web SDK example — shared UI theme (clean, light, framework-agnostic). */
+:root {
+  --accent: #4f46e5;
+  --accent-weak: #eef2ff;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --muted: #64748b;
+  --ok-bg: #dcfce7; --ok-fg: #166534;
+  --warn-bg: #fef9c3; --warn-fg: #854d0e;
+  --err-bg: #fee2e2; --err-fg: #991b1b;
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font: 15px/1.55 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+a { color: inherit; }
+
+/* App shell: sticky nav + content that fills the rest. */
+.aiq-app { height: 100%; display: flex; flex-direction: column; }
+.aiq-nav {
+  flex: none; display: flex; align-items: center; gap: 20px;
+  padding: 0 20px; height: 56px;
+  background: var(--card); border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 10;
+}
+.aiq-brand { font-weight: 700; letter-spacing: -0.01em; }
+.aiq-brand .dot { color: var(--accent); }
+.aiq-links { margin-left: auto; display: flex; gap: 4px; }
+.aiq-links a {
+  text-decoration: none; color: var(--muted); font-weight: 500;
+  padding: 8px 12px; border-radius: 8px; line-height: 1;
+}
+.aiq-links a:hover { background: var(--bg); color: var(--text); }
+.aiq-links a.active { color: var(--accent); background: var(--accent-weak); }
+
+/* Home / landing */
+.aiq-main { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow-y: auto; }
+.aiq-home { max-width: 880px; margin: 0 auto; padding: 56px 24px; }
+.aiq-hero h1 { font-size: 30px; letter-spacing: -0.02em; margin: 0 0 8px; }
+.aiq-hero p { color: var(--muted); margin: 0 0 32px; font-size: 16px; }
+.aiq-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 620px) { .aiq-cards { grid-template-columns: 1fr; } }
+.aiq-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 20px; display: flex; flex-direction: column; gap: 8px;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+.aiq-card:hover { box-shadow: 0 6px 20px rgba(2, 6, 23, 0.06); transform: translateY(-2px); }
+.aiq-card .icon { font-size: 22px; }
+.aiq-card h3 { margin: 0; font-size: 17px; }
+.aiq-card .desc { color: var(--text); margin: 0; }
+.aiq-card .when { color: var(--muted); font-size: 13px; margin: 0; }
+.aiq-card .cta {
+  margin-top: 8px; align-self: flex-start; text-decoration: none;
+  background: var(--accent); color: #fff; font-weight: 600;
+  padding: 8px 14px; border-radius: 8px;
+}
+.aiq-card .cta:hover { filter: brightness(1.05); }
+
+/* Mode pages: sub-header + full-bleed embed */
+.aiq-mode { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.aiq-subhead {
+  flex: none; display: flex; align-items: center; gap: 12px;
+  padding: 12px 20px; border-bottom: 1px solid var(--border); background: var(--card);
+}
+.aiq-subhead h2 { margin: 0; font-size: 16px; }
+.aiq-subhead .what { color: var(--muted); font-size: 13px; }
+.aiq-embed { flex: 1; min-height: 0; width: 100%; background: var(--card); }
+
+/* Status pill */
+.pill {
+  font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px;
+  background: var(--border); color: var(--text); white-space: nowrap;
+}
+.pill.ready { background: var(--ok-bg); color: var(--ok-fg); }
+.pill.pending { background: var(--warn-bg); color: var(--warn-fg); }
+.pill.error { background: var(--err-bg); color: var(--err-fg); }
+.pill-right { margin-left: auto; }
+
+/* HR-pending banner — shown inside the embed view while an employee awaits approval */
+.aiq-banner {
+  flex: none; padding: 10px 20px; font-size: 13px; font-weight: 500;
+  border-bottom: 1px solid var(--border);
+}
+.aiq-banner.pending { background: var(--warn-bg); color: var(--warn-fg); }
+
+/* Callout (e.g. auto-login needs a server) */
+.aiq-callout {
+  margin: 24px; padding: 16px 18px; border-radius: var(--radius);
+  background: var(--warn-bg); color: var(--warn-fg); max-width: 640px;
+}
+.aiq-callout h3 { margin: 0 0 6px; font-size: 15px; }
+.aiq-callout p { margin: 0; font-size: 14px; }
+.aiq-callout code { background: rgba(0,0,0,0.06); padding: 1px 5px; border-radius: 4px; }
+
+/* Placeholder-key config note */
+.aiq-note {
+  margin-top: 24px; padding: 12px 14px; border: 1px dashed var(--border);
+  border-radius: 10px; color: var(--muted); font-size: 13px; background: var(--card);
+}
+.aiq-note code { background: var(--bg); padding: 1px 5px; border-radius: 4px; }

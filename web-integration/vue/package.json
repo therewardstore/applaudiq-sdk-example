@@ -1,0 +1,21 @@
+{
+  "name": "applaudiq-example-vue",
+  "private": true,
+  "version": "1.0.0",
+  "author": "Arulraj V <abofficial1997@gmail.com>",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.4.0",
+    "vue-router": "^4.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.0",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.0"
+  }
+}

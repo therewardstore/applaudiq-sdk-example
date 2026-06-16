@@ -1,0 +1,23 @@
+{
+  "name": "applaudiq-example-svelte",
+  "private": true,
+  "version": "1.0.0",
+  "author": "Arulraj V <abofficial1997@gmail.com>",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "build": "svelte-check --tsconfig ./tsconfig.json && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "svelte-routing": "^2.13.0"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^3.1.0",
+    "svelte": "^4.2.0",
+    "svelte-check": "^3.8.0",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.0"
+  }
+}

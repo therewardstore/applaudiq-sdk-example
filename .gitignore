@@ -1,0 +1,27 @@
+node_modules/
+
+# Lock files — each example is standalone and installs fresh; don't commit lockfiles.
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+dist/
+.next/
+out-tsc/
+.svelte-kit/
+.angular/
+*.log
+.env
+.env.local
+.env.*.local
+.DS_Store
+*.tsbuildinfo
+
+# Native SDK build artifacts (for upcoming Android / iOS / Flutter SDKs maintained here)
+.gradle/
+build/
+*.iml
+.dart_tool/
+Pods/
+DerivedData/
+*.xcuserstate

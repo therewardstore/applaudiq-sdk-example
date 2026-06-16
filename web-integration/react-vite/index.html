@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>ApplaudIQ — React (Vite)</title>
+    <style>html, body, #root { height: 100%; margin: 0; }</style>
+    <!--
+      Load the SDK once (global window.ApplaudIQ). The portal serves it at <portal>/embed.js (same origin).
+      👉 REPLACE the host with your portal origin — shown in Admin → Clients → your org → Embed SDK tab.
+         (Production is https://recognize.applaudiq.com/embed.js)
+    -->
+    <script src="https://recognize.applaudiq.com/embed.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
