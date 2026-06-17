@@ -29,6 +29,7 @@ export default defineConfig({
       {
         text: 'Frameworks',
         items: [
+          { text: 'Plain HTML', link: '/web/html' },
           { text: 'Vanilla JS', link: '/web/vanilla' },
           { text: 'React (Vite)', link: '/web/react' },
           { text: 'Vue 3', link: '/web/vue' },
@@ -60,6 +61,7 @@ export default defineConfig({
       {
         text: 'Web frameworks',
         items: [
+          { text: 'Plain HTML', link: '/web/html' },
           { text: 'Vanilla JS', link: '/web/vanilla' },
           { text: 'React (Vite)', link: '/web/react' },
           { text: 'Vue 3', link: '/web/vue' },

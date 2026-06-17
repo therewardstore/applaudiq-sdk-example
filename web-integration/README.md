@@ -23,7 +23,8 @@ Each example's README maps these steps to its own files.
 
 | Framework | Folder | Run | Dev port |
 |---|---|---|---|
-| Vanilla JS / HTML | [`vanilla/`](./vanilla/) | `npx serve -l 5180 vanilla` | 5180 |
+| Plain HTML (single file, no build) | [`html/`](./html/) | `npx serve -l 5181 html` | 5181 |
+| Vanilla JS (multi-page) | [`vanilla/`](./vanilla/) | `npx serve -l 5180 vanilla` | 5180 |
 | React (Vite) | [`react-vite/`](./react-vite/) | `cd react-vite && npm i && npm run dev` | 5173 |
 | Vue 3 (Vite) | [`vue/`](./vue/) | `cd vue && npm i && npm run dev` | 5175 |
 | Angular | [`angular/`](./angular/) | `cd angular && npm i && npm start` | 5176 |
