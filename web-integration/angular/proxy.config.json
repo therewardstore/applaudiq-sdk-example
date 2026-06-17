@@ -1,0 +1,8 @@
+{
+  "/api/mint": {
+    "target": "http://localhost:8787",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": { "^/api/mint": "/mint" }
+  }
+}

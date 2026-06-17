@@ -1,12 +1,10 @@
 // ApplaudIQ Web SDK example (vanilla) — auto-login token.
 // Your SERVER mints a one-time token (it holds the aiq_embed_ secret). See MINTING.md.
 
-export function getEmbedToken() {
-  // TODO: replace with a call to your backend, e.g.:
-  //   const res = await fetch('/api/mint', { method: 'POST' });
-  //   const { embedToken } = await res.json();
-  //   return embedToken;
-  return Promise.reject(
-    new Error('Wire getEmbedToken() to your /api/mint endpoint (see MINTING.md)'),
-  );
+export async function getEmbedToken() {
+  // Demo: the dev mint server runs at http://localhost:8787 (web-integration/tools/mint-server.mjs).
+  const res = await fetch('http://localhost:8787/mint', { method: 'POST' });
+  if (!res.ok) throw new Error('mint failed (' + res.status + ')');
+  const { embedToken } = await res.json();
+  return embedToken;
 }

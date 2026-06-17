@@ -9,11 +9,11 @@ export type EmbedTokenState =
 // Auto-login: your SERVER mints a one-time token (it holds the aiq_embed_ secret).
 // See MINTING.md. Wire this to YOUR backend mint endpoint.
 async function getEmbedToken(): Promise<string> {
-  // TODO: replace with a call to your backend, e.g.:
-  //   const res = await fetch('/api/mint', { method: 'POST' });
-  //   const { embedToken } = await res.json();
-  //   return embedToken;
-  throw new Error('Wire getEmbedToken() to your /api/mint endpoint (see MINTING.md)');
+  // Demo: /api/mint is proxied to the dev mint server (web-integration/tools/mint-server.mjs).
+  const res = await fetch('/api/mint', { method: 'POST' });
+  if (!res.ok) throw new Error('mint failed (' + res.status + ')');
+  const { embedToken } = (await res.json()) as { embedToken: string };
+  return embedToken;
 }
 
 /** Mints a one-time embed token and resolves to a loading/ready/needs-server state. */

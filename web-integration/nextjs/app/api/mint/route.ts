@@ -14,7 +14,7 @@ export async function POST() {
   }
 
   // Identify the employee from YOUR session — never trust a client-supplied identity.
-  const employee = { email: 'you@example.com' }; // 👉 replace with your authenticated user
+  const employee = { email: 'arulraj@vananam.com' }; // 👉 replace with your authenticated user
 
   const res = await fetch(`${API_BASE}/api/v1/embed/sessions`, {
     method: 'POST',
