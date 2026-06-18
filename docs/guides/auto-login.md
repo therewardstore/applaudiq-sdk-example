@@ -11,7 +11,7 @@ It works in three moves:
 
 1. Your **server** swaps the **secret** (`aiq_embed_…`) for a one-time `embedToken`.
 2. Your **browser** fetches that token from your own endpoint.
-3. You pass the token to `open({ mode: 'auto', token })` and the SDK signs the user in.
+3. You hand the SDK a `getToken` fetcher — `open({ mode: 'auto', getToken })` — and it signs the user in.
 
 > New to the modes? See **[auto vs manual](/guides/login-modes)** first. Just want manual? See
 > **[Manual login](/guides/manual-login)** — no server required.
@@ -90,18 +90,18 @@ async function getEmbedToken() {
 ## Step 3 — Open the embed in auto mode
 
 ```js
-const token = await getEmbedToken();
-
 ApplaudIQ.init({ key: PUBLISHABLE_KEY, baseUrl: BASE_URL }).open({
   mode: 'auto',
-  token, // the one-time token from your server
+  getToken: getEmbedToken, // async fetcher — the SDK calls it for a one-time token
   render: 'inline',
   container: '#applaudiq-recognition',
   onReady: () => console.log('signed in ✓'),
   onAuthPending: () => console.log('waiting for HR approval'),
-  onError: (e) => console.error('embed error:', e.message),
 });
 ```
+
+If the mint fails, the **portal shows the error itself** (e.g. *"We couldn't sign you in"*) — you don't need
+`onError`. The recommended `getToken` form keeps all failure UI inside the embed.
 
 ## What you'll see
 

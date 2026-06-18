@@ -123,7 +123,6 @@ from the top nav. The status pill on each mode page shows the result.
 - `src/views/Home.vue` — landing page with the two mode cards.
 - `src/views/ManualLogin.vue` / `src/views/AutoLogin.vue` — the two mode pages (Auto mints the token first).
 - `src/components/EmbedView.vue` — shared sub-header + status pill + HR-pending banner + the `#applaudiq-recognition` container.
-- `src/components/EmbedLoading.vue` — the auto-login "minting…" loading state.
 - `src/useApplaudIQ.ts` — the `init().open()` call + cleanup (the composable).
 - `.env.example` — copy to `.env.local` and set `APPLAUDIQ_SECRET` for auto-login (read server-side by `vite.config.ts`).
 - `public/favicon.svg` — the app favicon.

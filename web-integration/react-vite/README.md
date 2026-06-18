@@ -123,7 +123,6 @@ from the top nav. The status pill on each mode page shows the result.
 - `src/routes/Home.tsx` — landing page with the two mode cards.
 - `src/routes/ManualLogin.tsx` / `src/routes/AutoLogin.tsx` — the two mode pages (Auto mints the token first).
 - `src/components/EmbedView.tsx` — shared sub-header + status pill + HR-pending banner + the `#applaudiq-recognition` container.
-- `src/components/EmbedLoading.tsx` — the auto-login "minting…" loading state.
 - `src/useApplaudIQ.ts` — the `init().open()` call + cleanup (the hook).
 - `.env.example` — copy to `.env.local` and set `APPLAUDIQ_SECRET` for auto-login (read server-side by `vite.config.ts`).
 - `public/favicon.svg` — the app favicon.

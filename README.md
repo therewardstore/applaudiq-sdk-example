@@ -101,6 +101,17 @@ portal renders inline in your <div id="applaudiq-recognition">
 > lines in step 3 differ per framework. The identifiers used above are defined in
 > [The three identifiers](#the-three-identifiers).
 
+### What your users see
+
+**The portal owns all failure UI** — the client renders none of these error screens:
+
+- **Mint can't resolve the employee** → portal shows *"We couldn't sign you in / contact your HR admin"*.
+- **HR‑pending** (new auto‑provisioned employee) → portal shows its own *"Pending HR approval"* screen (and `onAuthPending` fires as a notification).
+- **Bad / expired token** → portal shows *"sign‑in link invalid"*.
+- **Sign‑out in an auto/SSO embed** → portal shows its own **signed‑out screen** and `onSignOut` fires — you can `handle.close()`, run your own logout, or relaunch with a fresh token.
+
+So with `getToken`, even a mint failure surfaces inside the embed — **you don't write any error UI**.
+
 ## SDK options reference
 
 Every example calls `ApplaudIQ.init({ key, baseUrl }).open({ … })`. Here is what each value means and **when
@@ -119,7 +130,8 @@ to use it** — the canonical glossary the per-framework examples refer back to.
 |---|---|---|
 | `mode` | `'auto'` | Silently sign in a user you **already know** — your server minted the `token`. Use when your app authenticated the employee and you can mint server‑side. |
 | | `'manual'` | Let Applaud IQ handle login (email / SSO) **inside the embed**. Use when you have **no server** / don't want to mint. No token, no secret — just the publishable `key`. |
-| `token` | `embedToken` | The one‑time token from your mint call. **Auto mode only** — omit for manual. |
+| `getToken` | `() => Promise<string>` | **Auto mode (recommended)** — an async fetcher the SDK calls to get a one‑time token. If it **rejects**, the embedded portal shows the error itself — you write **no error UI**. Prefer this over `token`. |
+| `token` | `embedToken` | The direct/legacy alternative to `getToken` — a **pre‑fetched** one‑time token from your mint call. **Auto mode only** — omit for manual. |
 | `render` | `'inline'` | Mount into your own `container` `<div>` — embeds the portal **inside your page**. The default for these examples. |
 | | `'modal'` | A centered overlay dialog over your app. Use for an "open recognition" button. |
 | | `'fullscreen'` | A full‑screen takeover. Use on mobile web or a dedicated recognition screen. |
@@ -130,7 +142,8 @@ to use it** — the canonical glossary the per-framework examples refer back to.
 | Callback | Fires when | Use it to |
 |---|---|---|
 | `onReady` | The employee is signed in and the portal is shown. | Hide your loading state. |
-| `onAuthPending` | Signed in but **awaiting HR approval** (new / auto‑provisioned employee). | Show a "pending approval" message. |
+| `onAuthPending` | Signed in but **awaiting HR approval** (new / auto‑provisioned employee). The **portal renders its own "Pending HR approval" screen** — this callback is just a notification. | Optionally track / log it; you don't need to render a pending screen yourself. |
+| `onSignOut` | The user **signed out** of an auto/SSO embed. The portal shows its **own signed‑out screen**. | `handle.close()` the embed, run your own logout, or relaunch with a fresh token. |
 | `onError(message)` | Sign‑in failed — bad / expired key or token, blocked origin, network. | Show an error + a retry. |
 | `onClose` | The embed was dismissed (modal / fullscreen closed). | Restore your own UI. |
 
@@ -193,6 +206,9 @@ Every example does the same three things: load the SDK, render a container, call
 
 - **Allowed origins** — the embed only loads on origins registered on the key. Add `http://localhost:5173`
   (or your dev port) for local testing.
+- **Blank / "refused to connect" frame** — the SDK loads the portal in an `<iframe>` governed by a
+  `frame-ancestors` CSP scoped to the **allowed origins registered on the publishable key**. A blank or
+  *"refused to connect"* frame almost always means **your origin isn't on that list** — add it.
 - **Single‑use token** — mint one `embedToken` per session, just‑in‑time; never cache or reuse it.
 - **HTTPS** in production — the embed session cookies require it.
 - Handle **`onError`** and **`onAuthPending`** to drive your own UI (new employees wait for HR approval).

@@ -25,14 +25,37 @@ Content-Type: application/json
 }
 ```
 
+The response is **wrapped in a `data` envelope**:
+
 ```jsonc
 // 200 OK
 {
-  "embedToken": "9f3a8c1b…", // opaque, single-use, ~60s — hand to the SDK in the browser
-  "expiresIn": 60,
-  "hrPending": false, // true until an HR admin approves the employee
+  "data": {
+    "embedToken": "9f3a8c1b…", // opaque, single-use, ~60s — hand to the SDK in the browser
+    "expiresIn": 60,
+    "hrPending": false // true until an HR admin approves the employee
+  }
 }
 ```
+
+> Unwrap it defensively with `(body.data ?? body).embedToken` — clients tolerate both the wrapped and
+> unwrapped shapes.
+
+### Identifying the employee
+
+The `employee` object identifies who the token is for. **One of `externalId` / `email` is required.**
+
+| Field | What it is |
+|---|---|
+| `externalId` | Your own **stable** id (e.g. your HRIS / SSO id). **Matched first** and **email‑independent** — it's linked to the employee on first sign‑in, so it survives email / name changes. **Preferred for production.** |
+| `email` | The human identifier and **fallback / bootstrap** key. Required if you don't send `externalId`. |
+| `firstName` / `lastName` | Used **only when auto‑provisioning** a brand‑new (pending) employee — they set the display name HR sees. **Ignored if the employee already exists.** |
+
+### HR approval (`hrPending`)
+
+`hrPending: true` means a newly **auto‑provisioned** employee is **awaiting HR approval**. In that case the
+token exchange returns **403**, the **portal shows its own "Pending HR approval" screen**, and `onAuthPending`
+fires in the SDK (a notification only — you don't render the pending screen yourself).
 
 `<YOUR_API_BASE>` is the gateway origin that exposes `/api/v1/embed/sessions`. It's **env-only** — set it
 in your server's environment (e.g. `APPLAUDIQ_API_BASE`), with **no hardcoded default**: local

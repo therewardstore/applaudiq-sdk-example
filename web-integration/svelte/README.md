@@ -123,7 +123,6 @@ from the top nav. The status pill on each mode page shows the result.
 - `src/routes/Home.svelte` — landing page with the two mode cards.
 - `src/routes/ManualLogin.svelte` / `src/routes/AutoLogin.svelte` — the two mode pages (`AutoLogin.svelte` defines `getEmbedToken()` and mints first).
 - `src/components/EmbedView.svelte` — shared sub-header + status pill + HR-pending banner + the `#applaudiq-recognition` container.
-- `src/components/EmbedLoading.svelte` — the auto-login "minting…" loading state.
 - `.env.example` — copy to `.env.local` and set `APPLAUDIQ_SECRET` for auto-login (read server-side by `vite.config.ts`).
 - `src/applaudiq.d.ts` — TypeScript types for the global SDK (copy into your app if you use TS).
 

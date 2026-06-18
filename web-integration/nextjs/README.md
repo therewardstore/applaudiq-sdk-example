@@ -127,7 +127,6 @@ from the top nav. The status pill on each mode page shows the result.
 - `app/manual/page.tsx` / `app/auto/page.tsx` — the two mode pages (`app/auto/page.tsx` defines `getEmbedToken()`, which calls `/api/mint`, and mints first).
 - `app/components/Nav.tsx` — sticky top nav with active highlighting.
 - `app/components/EmbedView.tsx` — shared sub-header + status pill + HR-pending banner + the `#applaudiq-recognition` container.
-- `app/components/EmbedLoading.tsx` — the auto-login "minting…" loading state.
 - `app/lib/useApplaudIQ.ts` — the `init().open()` call + cleanup (the hook).
 - `app/api/mint/route.ts` — the **real** server mint route (the only place your `aiq_embed_…` secret appears).
 - `app/icon.svg` — the app favicon (Next.js auto-serves it).

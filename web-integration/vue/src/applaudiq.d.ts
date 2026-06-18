@@ -18,6 +18,9 @@ export interface ApplaudIQOpenOptions {
   onClose?: () => void;
   onError?: (e: { message: string }) => void;
   onAuthPending?: () => void;
+  /** Fired when the user signs out of an auto/SSO embed; the portal shows its own
+   *  signed-out screen - close the embed, run your own logout, or relaunch. */
+  onSignOut?: () => void;
 }
 export interface ApplaudIQHandle {
   close(): void;

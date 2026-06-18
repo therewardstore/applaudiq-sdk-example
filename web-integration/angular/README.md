@@ -124,7 +124,6 @@ from the top nav. The status pill on each mode page shows the result.
 - `src/app/app.component.ts` — app shell: sticky top nav + `<router-outlet>`.
 - `src/app/home.component.ts` — landing page with the two mode cards.
 - `src/app/manual-login.component.ts` / `src/app/auto-login.component.ts` — the two mode pages (Auto mints first).
-- `src/app/embed-loading.component.ts` — the auto-login "minting…" loading state.
 - `proxy.conf.js` — the dev proxy that mints `/api/mint` → the gateway and injects `APPLAUDIQ_SECRET`.
 - `.env.example` — the secret/API-base values for auto-login (the CLI doesn't auto-load `.env`; pass them on `npm start`).
 - `src/app/embed-view.component.ts` — shared sub-header + status pill + HR-pending banner + the `#applaudiq-recognition` container.
