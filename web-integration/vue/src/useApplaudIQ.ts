@@ -1,4 +1,4 @@
-import { onUnmounted, watch, type Ref } from 'vue';
+import { onMounted, onUnmounted, watch, type Ref } from 'vue';
 
 import { BASE_URL, PUBLISHABLE_KEY } from './config';
 import type { ApplaudIQHandle, ApplaudIQOpenOptions } from './applaudiq.d';
@@ -27,6 +27,9 @@ export function useApplaudIQ(containerId: string, options: Ref<ApplaudIQOpenOpti
     }
   };
 
-  watch(() => [options.value.mode, options.value.token], open, { immediate: true });
+  // Open AFTER the component mounts so the inline `container` element exists in the DOM
+  // (an immediate watch would run during setup, before the template is rendered).
+  onMounted(open);
+  watch(() => [options.value.mode, options.value.token], open);
   onUnmounted(() => handle?.close());
 }
