@@ -111,22 +111,29 @@
 
       // ---- AUTO login (optional) --------------------------------------------------
       // Sign the employee in silently with a one-time token your SERVER mints (it holds
-      // the aiq_embed_ secret — never put that secret in this page). Replace the MANUAL
-      // block above with this once you have a mint endpoint:
-      //
-      //   var res = await fetch('/api/mint', { method: 'POST' });   // your backend
-      //   var embedToken = (await res.json()).embedToken;
+      // the aiq_embed_ secret — never put that secret in this page). Hand the SDK a
+      // getToken fetcher — that's all the client does. If the mint fails (e.g. the
+      // employee isn't set up), the embedded portal shows the error itself; you write no
+      // error UI. Replace the MANUAL block above with this once you have a mint endpoint:
       //
       //   window.ApplaudIQ.init({ key: PUBLISHABLE_KEY, baseUrl: BASE_URL }).open({
       //     mode: 'auto',
-      //     token: embedToken,
+      //     getToken: function () {                                   // your backend
+      //       return fetch('/api/mint', { method: 'POST' })
+      //         .then(function (res) {
+      //           if (!res.ok) throw new Error('mint failed (' + res.status + ')');
+      //           return res.json();
+      //         })
+      //         .then(function (data) { return data.embedToken; });
+      //     },
       //     render: 'inline',
       //     container: '#applaudiq-recognition',
       //     onReady: function () { setStatus('signed in', 'ready'); },
       //   });
       //
-      // To try auto-login locally, run the repo's dev mint server (see
-      // ../README.md → "Dev mint server") and fetch from it instead of /api/mint.
+      // This page is a single static file, so /api/mint must be a backend mint endpoint
+      // YOU host — it holds the secret and returns only the embedToken. The canonical
+      // backend route ships in the nextjs example (app/api/mint/route.ts).
     </script>
   </body>
 </html>

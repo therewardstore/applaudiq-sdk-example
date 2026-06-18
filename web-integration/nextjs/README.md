@@ -15,7 +15,12 @@ A small app with a persistent top nav and **three pages**:
 
 Each mode page renders the recognition feed **inside your app** (inline, full-page).
 
-> **Login modes — this example supports both.** New here? Compare [auto vs manual](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/login-modes.md), then follow the full [Auto-login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/auto-login.md) or [Manual login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/manual-login.md) guide for the complete step-by-step.
+> **Login modes — this example supports both. Try [manual](#2-manual-login-no-server) first** — no server,
+> just your publishable key — then add [auto-login](#3-auto-login-optional--uses-the-mint-route) (this
+> example ships the real mint route). New here? Compare
+> [auto vs manual](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/login-modes.md),
+> then follow the full [Auto-login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/auto-login.md)
+> or [Manual login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/manual-login.md) guide for the complete step-by-step.
 
 ## How it works in this example
 
@@ -27,9 +32,10 @@ This is the one example that ships a **server mint route**, so the full flow is 
 3. **Open** — `ApplaudIQ.init({ key, baseUrl }).open({ … })` lives in `app/lib/useApplaudIQ.ts`; the shared
    `app/components/EmbedView.tsx` calls it to mount the iframe inline and cleans up on unmount.
 4. **Config** — the publishable key + portal URL live in `app/lib/config.ts` (one place, imported everywhere).
-5. **Mint (server)** — the `useEmbedToken` hook (`app/lib/useEmbedToken.ts`) calls **`app/api/mint/route.ts`**,
-   which exchanges your `aiq_embed_…` **secret** (server-only, from `process.env`) for a one-time `embedToken`;
-   the hook exposes a `loading | ready | needs-server` state and `app/auto/page.tsx` just switches on it.
+5. **Mint (server)** — `app/auto/page.tsx` defines `getEmbedToken()`, which calls the real backend route
+   **`app/api/mint/route.ts`**. That route exchanges your `aiq_embed_…` **secret** (server-only, from
+   `process.env`) for a one-time `embedToken` and returns **only the token**. The page hands the SDK that
+   fetcher via `open({ mode: 'auto', getToken })`; if the mint fails, the embedded portal shows the error.
 6. **Callbacks** — `onReady` / `onAuthPending` / `onError` update the status pill in `EmbedView`.
 
 ### The three user flows
@@ -73,18 +79,26 @@ ApplaudIQ
 
 ## 3. Auto-login (optional — uses the mint route)
 
-Visit the **`/auto`** route. It calls the bundled **`/api/mint`** route for real, then opens the embed with
-`open({ mode: 'auto', token, render: 'inline', container })`. Until you set your secret, the page shows a
-friendly **"Auto-login needs a server"** callout (the mint route returns `501`). Copy the env template and
-fill in your **secret** (`.env.local` is gitignored — never commit it):
+**This is the canonical production pattern** — a real backend route holds the secret and mints the token.
+Visit the **`/auto`** route: `app/auto/page.tsx` defines `getEmbedToken()`, which calls the bundled
+**`/api/mint`** route, then opens the embed with `open({ mode: 'auto', getToken })`. Until you set your
+secret, the mint route returns `501` and the embedded portal shows the error. Copy the env template and
+fill in your **secret** + **gateway origin** (`.env.local` is gitignored — never commit it; both are
+**env-only**, no default baked into the code):
 
 ```bash
 cp .env.example .env.local
 # then edit .env.local: APPLAUDIQ_SECRET=aiq_embed_…   APPLAUDIQ_API_BASE=https://api.<your-domain>
 ```
 
-In **`app/api/mint/route.ts`**, replace the placeholder employee with **your authenticated user** (never
-trust a client-supplied identity). **What you'll see:** the recognition feed, signed in **silently** — no visible login.
+In **`app/api/mint/route.ts`**, replace the placeholder employee (`employee@example.com`) with **your
+authenticated user** (never trust a client-supplied identity). **What you'll see:** the recognition feed,
+signed in **silently** — no visible login.
+
+> **Local vs production — it's the same request.** This route *is* the production pattern: it's a real
+> backend endpoint that injects your secret server-side. The Vite/Angular examples fake this with a dev proxy
+> for local testing only; here it's the real thing. Deploy this route (or an equivalent on your own backend)
+> to ship auto-login.
 
 ## 4. Run
 
@@ -110,11 +124,10 @@ from the top nav. The status pill on each mode page shows the result.
 - `app/lib/config.ts` — publishable key + portal URL (the only two values you set); derives `SDK_URL`.
 - `app/layout.tsx` — app shell: sticky top nav + the SDK loaded once via `next/script`.
 - `app/page.tsx` — Home landing page with the two mode cards.
-- `app/manual/page.tsx` / `app/auto/page.tsx` — the two mode pages (Auto switches on token state).
+- `app/manual/page.tsx` / `app/auto/page.tsx` — the two mode pages (`app/auto/page.tsx` defines `getEmbedToken()`, which calls `/api/mint`, and mints first).
 - `app/components/Nav.tsx` — sticky top nav with active highlighting.
 - `app/components/EmbedView.tsx` — shared sub-header + status pill + HR-pending banner + the `#applaudiq-recognition` container.
-- `app/components/EmbedLoading.tsx` / `app/components/NeedsServerNotice.tsx` — the auto-login loading + needs-server UI states.
-- `app/lib/useEmbedToken.ts` — calls `/api/mint` to mint the one-time auto-login token; exposes `loading | ready | needs-server`.
+- `app/components/EmbedLoading.tsx` — the auto-login "minting…" loading state.
 - `app/lib/useApplaudIQ.ts` — the `init().open()` call + cleanup (the hook).
 - `app/api/mint/route.ts` — the **real** server mint route (the only place your `aiq_embed_…` secret appears).
 - `app/icon.svg` — the app favicon (Next.js auto-serves it).

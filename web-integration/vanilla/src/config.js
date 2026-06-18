@@ -2,7 +2,7 @@
 // The only two values you set.
 
 // 👉 REPLACE with your publishable key — HR portal → Settings → Embed SDK Keys (pk_live_/pk_test_). Browser-safe.
-export const PUBLISHABLE_KEY = 'pk_test_92db034db06cc264fbe5cf5a201c26e6';
+export const PUBLISHABLE_KEY = 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxx';
 
 // 👉 REPLACE with your portal origin — shown in Admin → Clients → your org → Embed SDK tab.
 // The SDK <script> in each page's <head> is just <BASE_URL>/embed.js.

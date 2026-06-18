@@ -4,14 +4,17 @@ layout: home
 hero:
   name: ApplaudIQ Web SDK
   text: Embed recognition in your app
-  tagline: Drop the Applaud IQ recognition portal into any web framework — auto-login or manual, a few lines of code.
+  tagline: Drop the Applaud IQ recognition portal into any web framework. Try manual login first — no server, just your publishable key. Then add auto-login.
   actions:
     - theme: brand
+      text: Try manual login first
+      link: /guides/manual-login
+    - theme: alt
       text: Get your keys
       link: /get-keys
     - theme: alt
       text: Pick your framework
-      link: /web/vanilla
+      link: /web/html
     - theme: alt
       text: Minting (server)
       link: /MINTING
@@ -50,8 +53,10 @@ mounts into a container you provide. Your employees see and send recognition wit
 
 ## Two ways to sign in
 
+**Try manual login first** — no server, just your publishable key. Then add auto-login.
+
 - **[Manual login](/guides/manual-login)** — the embed shows Applaud IQ's own login (email / SSO).
-  **No token, no server.** Great to try first.
+  **No token, no server.** Start here.
 - **[Auto-login](/guides/auto-login)** — your **server** mints an `embedToken` and the SDK signs the
   employee in **silently**. Needs the secret on your server — see [Minting](/MINTING).
 
@@ -59,14 +64,24 @@ mounts into a container you provide. Your employees see and send recognition wit
 
 ## Pick your framework
 
+Not sure which? Use the **Which example?** aid below.
+
 | Framework | Guide | Dev port |
 |---|---|---|
-| Vanilla JS / HTML | [Vanilla](/web/vanilla) | 5180 |
+| Plain HTML (single file, no build) | [Plain HTML](/web/html) | 5181 |
+| Vanilla JS (multi-page) | [Vanilla](/web/vanilla) | 5180 |
 | React (Vite) | [React](/web/react) | 5173 |
 | Vue 3 (Vite) | [Vue](/web/vue) | 5175 |
 | Angular | [Angular](/web/angular) | 5176 |
 | Svelte (Vite) | [Svelte](/web/svelte) | 5177 |
-| Next.js (App Router) | [Next.js](/web/nextjs) | 5174 |
+| Next.js (App Router) — **canonical backend-mint reference** | [Next.js](/web/nextjs) | 5174 |
+
+### Which example?
+
+- **Plain HTML** — no build, the simplest possible drop-in.
+- **Vanilla** — plain JS, no framework.
+- **React / Vue / Svelte / Angular** — pick your framework.
+- **Next.js** — the **canonical backend-mint reference** (ships a real server mint route).
 
 **Web** integrations live in [`web-integration/`](https://github.com/therewardstore/applaudiq-sdk-example/tree/master/web-integration);
 **native** SDKs (Android, iOS, React Native, Flutter) are coming next under `native-integration/`. The
@@ -74,6 +89,7 @@ server-side token mint is the **same for every platform** — see [Minting](/MIN
 
 > **One URL to set:** your **portal origin** (`baseUrl`). The SDK script is served by the portal at
 > `<baseUrl>/embed.js` — same origin — so the `<script src>` is just `<baseUrl>/embed.js`. Each example
-> defaults to production (`https://recognize.applaudiq.com`) and marks it `// 👉 REPLACE`.
+> ships a placeholder marked `// 👉 REPLACE` — **paste your own portal origin** (no baked-in default).
 
-New here? Start with **[Get your keys](/get-keys)**, then open your framework's guide.
+New here? Get a publishable key (**[Get your keys](/get-keys)**), open your framework's guide, and run the
+**manual** route first.

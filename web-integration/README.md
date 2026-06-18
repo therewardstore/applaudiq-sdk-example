@@ -19,6 +19,9 @@ container, and call `ApplaudIQ.init({ key, baseUrl }).open({ mode, token?, rende
 → Full step-by-step + diagram: **[root README → How it works](../README.md#how-it-works-the-flow)**.
 Each example's README maps these steps to its own files.
 
+> **Try manual login first** — no server, just your publishable key. Then add auto-login. Every example's
+> README leads with the manual route.
+
 ## Examples
 
 | Framework | Folder | Run | Dev port |
@@ -29,7 +32,15 @@ Each example's README maps these steps to its own files.
 | Vue 3 (Vite) | [`vue/`](./vue/) | `cd vue && npm i && npm run dev` | 5175 |
 | Angular | [`angular/`](./angular/) | `cd angular && npm i && npm start` | 5176 |
 | Svelte (Vite) | [`svelte/`](./svelte/) | `cd svelte && npm i && npm run dev` | 5177 |
-| Next.js (App Router) | [`nextjs/`](./nextjs/) | `cd nextjs && npm i && npm run dev` | 5174 |
+| Next.js (App Router) — **canonical backend-mint reference** | [`nextjs/`](./nextjs/) | `cd nextjs && npm i && npm run dev` | 5174 |
+
+### Which example?
+
+- **Plain HTML** — no build, the simplest possible drop-in.
+- **Vanilla** — plain JS, no framework.
+- **React / Vue / Svelte / Angular** — pick your framework.
+- **Next.js** — the **canonical backend-mint reference** (ships a real server mint route at
+  `app/api/mint/route.ts`).
 
 ## Before you start
 
@@ -40,33 +51,43 @@ Each example's README maps these steps to its own files.
   login needs no server and no secret — just the publishable key.)
 - Add this example's dev origin (e.g. `http://localhost:5173`) to the key's **allowed origins**.
 
-## Dev mint server (auto-login)
+## Auto-login secret (local testing)
 
-**Auto-login** needs a one-time `embedToken`, and that token is minted **on a server** from your
-`aiq_embed_…` **secret** — the secret must never reach the browser. For local demos the repo ships a tiny
-shared server, [`tools/mint-server.mjs`](./tools/mint-server.mjs), that the client-only examples point
-their `/api/mint` at (so you run **one** mint server, not one per example).
+> **Do manual login first.** This section is only for the **second** step — auto-login. Manual login needs
+> none of it (no server, no secret).
 
-**Start it** with your secret (HR portal → Settings → Embed SDK Keys — shown once):
+**Auto-login** needs a one-time `embedToken`, minted **server-side** from your `aiq_embed_…` **secret** —
+the secret must never reach the browser. **There is no separate mint server to run.** The gateway origin is
+**env-only** — there's **no `http://localhost:8000` default baked into the code**; you set
+`APPLAUDIQ_API_BASE` yourself (in `.env.local`, or on the CLI for Angular).
 
-```bash
-cd web-integration
-APPLAUDIQ_SECRET=aiq_embed_xxxxx \
-APPLAUDIQ_API_BASE=http://localhost:3017 \   # where /api/v1/embed/sessions is reachable (portal or gateway)
-node tools/mint-server.mjs                    # → http://localhost:8787
-```
+- **Vite examples (react-vite, vue, svelte)** — the dev server's **own proxy** mints. `getEmbedToken()`
+  calls same-origin `/api/mint`; `vite.config.ts` proxies that to the gateway's
+  `POST /api/v1/embed/sessions` and injects your secret server-side. **Copy `.env.example` → `.env.local`**
+  (gitignored) and set:
 
-- `APPLAUDIQ_API_BASE` — origin that mints (`POST /api/v1/embed/sessions`). Defaults to `http://localhost:3017`
-  (the portal, which proxies to the gateway); the gateway directly (`http://localhost:8000`) also works.
-- `DEMO_EMPLOYEE_EMAIL` — who the demo signs in as (auto-provisioned). A brand-new employee lands on the
-  "waiting for HR approval" screen; point it at an already-approved employee to see the feed.
-- `MINT_PORT` — overrides `8787`.
+  ```bash
+  APPLAUDIQ_SECRET=aiq_embed_xxxxx          # HR portal → Settings → Embed SDK Keys (shown once)
+  APPLAUDIQ_API_BASE=http://localhost:8000  # 👉 your gateway origin (POST /api/v1/embed/sessions) — env-only, no default
+  ```
 
-How the examples reach it: the Vite examples proxy `POST /api/mint` → `:8787` (in `vite.config.ts`);
-`getEmbedToken()` calls `/api/mint`, the server mints, and returns **only** `{ embedToken }`. The secret
-stays in the server process. This mirrors the Next.js example's
-[`app/api/mint/route.ts`](./nextjs/app/api/mint/route.ts) — in production, host an equivalent on your own
-backend. See [`MINTING.md`](../MINTING.md) for the mint request/response contract.
+  Then `npm run dev`. (A direct browser fetch to the gateway is CORS-blocked — that's why the dev proxy
+  exists. The secret stays server-side and never reaches the browser.)
+
+- **Angular** — same idea, but the dev proxy is `proxy.conf.js` and the CLI does **not** auto-load `.env`,
+  so pass the values on the command line:
+  `APPLAUDIQ_SECRET=aiq_embed_… APPLAUDIQ_API_BASE=http://localhost:8000 npm start`.
+
+- **Next.js** — the mint runs in a real backend route, [`app/api/mint/route.ts`](./nextjs/app/api/mint/route.ts);
+  set `APPLAUDIQ_SECRET` + `APPLAUDIQ_API_BASE` in its `.env.local`. **This is the canonical production pattern.**
+
+- **vanilla / html** — static (`npx serve`), so they have **no** dev proxy and cannot inject a secret. Their
+  auto-login `getEmbedToken()` must call a backend mint endpoint **you** host (the Next.js route is the model).
+
+> **Local vs production — the same request, only the place that holds the secret differs.** The dev proxies
+> above inject your secret for **local testing only**. In **production your own backend mints** the token —
+> see the Next.js [`app/api/mint/route.ts`](./nextjs/app/api/mint/route.ts). It's one mint request, not two
+> code paths. See [`MINTING.md`](../MINTING.md) for the request/response contract and a Node (Express) endpoint.
 
 > What does each `open()` value (`mode`, `render`, callbacks, …) mean? See the
 > **[SDK options reference](../README.md#sdk-options-reference)** in the root README.

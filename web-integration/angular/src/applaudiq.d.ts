@@ -9,6 +9,9 @@ export interface ApplaudIQInitOptions {
 export interface ApplaudIQOpenOptions {
   mode?: ApplaudIQLoginMode;
   token?: string;
+  /** Auto mode: fetch a one-time token from your mint endpoint. On failure the
+   *  embedded portal renders the error itself — you write no error UI. */
+  getToken?: () => Promise<string>;
   render?: ApplaudIQRenderMode;
   container?: string | HTMLElement;
   onReady?: () => void;

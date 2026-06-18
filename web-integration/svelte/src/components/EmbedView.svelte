@@ -8,6 +8,7 @@
   export let what: string;
   export let mode: ApplaudIQLoginMode;
   export let token: string | undefined = undefined;
+  export let getToken: (() => Promise<string>) | undefined = undefined;
 
   const CONTAINER = 'applaudiq-recognition';
 
@@ -21,6 +22,7 @@
     handle = openEmbed(`#${CONTAINER}`, {
       mode,
       token,
+      getToken,
       onReady: () => ((status = 'signed in'), (kind = 'ready')),
       onAuthPending: () => ((status = 'waiting for HR approval'), (kind = 'pending')),
       onError: (e) => ((status = e.message), (kind = 'error')),

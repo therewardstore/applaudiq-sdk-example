@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 // The browser calls POST /api/mint; this exchanges the secret for a one-time
 // embedToken and returns ONLY the token. See MINTING.md.
 
-const API_BASE = process.env.APPLAUDIQ_API_BASE ?? 'http://localhost:8000';
+const API_BASE = process.env.APPLAUDIQ_API_BASE;
 const SECRET = process.env.APPLAUDIQ_SECRET; // aiq_embed_… — set in .env.local / secret manager, NEVER in git
 
 export async function POST() {
@@ -14,7 +14,7 @@ export async function POST() {
   }
 
   // Identify the employee from YOUR session — never trust a client-supplied identity.
-  const employee = { email: 'arulraj@vananam.com' }; // 👉 replace with your authenticated user
+  const employee = { email: 'employee@example.com' }; // 👉 replace with your authenticated user
 
   const res = await fetch(`${API_BASE}/api/v1/embed/sessions`, {
     method: 'POST',

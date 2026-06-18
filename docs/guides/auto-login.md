@@ -27,14 +27,15 @@ It works in three moves:
 
 ## Step 1 — Mint a token on your server
 
-Your server exchanges the secret for a one-time token by calling the portal:
+Your server exchanges the secret for a one-time token by calling the gateway's mint endpoint
+(`APPLAUDIQ_API_BASE` — an env-only value, no hardcoded default; see [Minting](/MINTING)):
 
 ```http
-POST <baseUrl>/api/v1/embed/sessions
+POST <APPLAUDIQ_API_BASE>/api/v1/embed/sessions
 Authorization: Bearer aiq_embed_…        ← your SECRET, server-side only
 Content-Type: application/json
 
-{ "employee": { "email": "alex@yourco.com" }, "autoProvision": true }
+{ "employee": { "email": "employee@example.com" }, "autoProvision": true }
 ```
 
 The response carries the token (single-use, ~60s) and whether the employee is awaiting HR approval:
@@ -51,13 +52,15 @@ A complete, working server route ships in the Next.js example —
 [`web-integration/nextjs/app/api/mint/route.ts`](/web/nextjs):
 
 ```ts
+const API_BASE = process.env.APPLAUDIQ_API_BASE; // gateway origin — env-only, no hardcoded default
 const SECRET = process.env.APPLAUDIQ_SECRET; // aiq_embed_… — server only
 const res = await fetch(`${API_BASE}/api/v1/embed/sessions`, {
   method: 'POST',
   headers: { Authorization: `Bearer ${SECRET}`, 'Content-Type': 'application/json' },
   body: JSON.stringify({ employee, autoProvision: true }),
 });
-const data = (await res.json()).data ?? (await res.json());
+const body = await res.json();
+const data = body.data ?? body; // gateway wraps in { data }
 return Response.json({ embedToken: data.embedToken }); // ONLY the token
 ```
 
@@ -72,6 +75,17 @@ async function getEmbedToken() {
   return embedToken;
 }
 ```
+
+> **Local vs production — the same request, only the place that holds the secret differs.** A direct browser
+> fetch to the gateway is CORS-blocked, so for **local testing** the Vite examples (React, Vue, Svelte) don't
+> run a separate server — their **dev server's own proxy** forwards `/api/mint` →
+> `POST /api/v1/embed/sessions` and **injects your secret server-side** from a gitignored `.env.local`
+> (copy each example's `.env.example`; set `APPLAUDIQ_SECRET` + `APPLAUDIQ_API_BASE`). Angular does the same
+> via `proxy.conf.js`. **This dev proxy is local testing only.** **In production your backend mints** the
+> token — `/api/mint` is a real route on **your** backend, exactly like the Next.js example's
+> [`app/api/mint/route.ts`](/web/nextjs). It's **one code path**, not two: the same mint request, just moved
+> from the dev proxy to your real backend. The static examples (vanilla, plain HTML) have no dev proxy, so
+> they always need a backend endpoint you host.
 
 ## Step 3 — Open the embed in auto mode
 

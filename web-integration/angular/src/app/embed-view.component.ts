@@ -40,6 +40,7 @@ export class EmbedViewComponent implements OnInit {
   @Input() what = '';
   @Input() mode: 'auto' | 'manual' = 'manual';
   @Input() token?: string;
+  @Input() getToken?: () => Promise<string>;
 
   private sdk = inject(ApplaudIQService);
   status: Status = { text: 'opening…' };
@@ -48,6 +49,7 @@ export class EmbedViewComponent implements OnInit {
     this.sdk.open(CONTAINER, {
       mode: this.mode,
       token: this.token,
+      getToken: this.getToken,
       onReady: () => (this.status = { text: 'signed in', kind: 'ready' }),
       onAuthPending: () => (this.status = { text: 'waiting for HR approval', kind: 'pending' }),
       onError: (e) => (this.status = { text: e.message, kind: 'error' }),

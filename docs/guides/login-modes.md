@@ -39,7 +39,9 @@ ApplaudIQ.init({ key: PUBLISHABLE_KEY, baseUrl: BASE_URL }).open({
   secret — so you can see the portal rendering in your app within minutes.
 - **Move to [Auto-login](/guides/auto-login)** when your app has **already** signed the employee in and you
   want them dropped straight into recognition with no second login. This needs a server endpoint that holds
-  your secret and mints a one-time token.
+  your secret and mints a one-time token. For **local testing**, each example's dev proxy injects the secret
+  server-side; in **production your own backend mints** the token (the same request — see
+  [Auto-login](/guides/auto-login) and [Minting](/MINTING)).
 
 You don't have to pick one forever — the same key supports both, and you can switch by changing `mode`.
 Every [framework example](/web/vanilla) ships a toggle that flips between the two so you can compare them

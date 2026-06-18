@@ -11,7 +11,11 @@ server-rendered view) without a bundler. If you already use a framework, see the
 [Svelte](https://github.com/therewardstore/applaudiq-sdk-example/tree/master/web-integration/svelte) or
 [Next.js](https://github.com/therewardstore/applaudiq-sdk-example/tree/master/web-integration/nextjs) examples instead.
 
-> **Login modes — this example uses manual by default.** New here? Compare [auto vs manual](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/login-modes.md), then follow the full [Auto-login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/auto-login.md) or [Manual login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/manual-login.md) guide for the complete step-by-step.
+> **Login modes — this example uses manual by default (start here)** — no server, just your publishable key.
+> Add [auto-login](#auto-login-optional) as a second step. New here? Compare
+> [auto vs manual](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/login-modes.md),
+> then follow the full [Auto-login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/auto-login.md)
+> or [Manual login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/manual-login.md) guide for the complete step-by-step.
 
 ## How it works
 
@@ -37,15 +41,24 @@ npx serve -l 5181 html
 
 ## Configure
 
-Edit the two values in `index.html` (and the host in the `<script src>` to match `BASE_URL`):
+Edit the two `// 👉 REPLACE` values in `index.html` — paste **your** publishable key and **your** portal
+origin (and update the host in the `<script src>` to match `BASE_URL`):
 
 ```js
-var PUBLISHABLE_KEY = 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxx'; // HR portal → Settings → Embed SDK Keys
-var BASE_URL = 'https://recognize.applaudiq.com';        // your portal origin
+var PUBLISHABLE_KEY = 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxx'; // 👉 your pk_… — HR portal → Settings → Embed SDK Keys
+var BASE_URL = 'https://recognize.applaudiq.com';        // 👉 your portal origin (e.g. http://localhost:3017 for local)
 ```
+
+That's all manual login needs — no server, no secret, no token.
 
 ## Auto-login (optional)
 
-Manual login is enough to get started. For **silent** sign-in, your server mints a one-time token (it holds
-the `aiq_embed_` secret — never put that in the page) and you pass `mode: 'auto'` + `token`. See the commented
-block in `index.html`, the [Auto-login guide](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/auto-login.md), and to try it locally the repo's [dev mint server](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/web-integration/README.md#dev-mint-server-auto-login).
+**Do manual login first** — it's all most apps need to get started. For **silent** sign-in as a second step,
+your server mints a one-time token (it holds the `aiq_embed_` secret — never put that in the page) and you
+pass `mode: 'auto'` + a `getToken` fetcher. This page is a single **static** file with **no dev server**, so
+the token must come from a **backend mint endpoint you host** — the canonical route ships in the
+[nextjs example](https://github.com/therewardstore/applaudiq-sdk-example/tree/master/web-integration/nextjs) (`app/api/mint/route.ts`).
+It's the **same** `POST /api/v1/embed/sessions` mint request the framework examples make — only here **your
+backend** holds the secret (local and production alike), never these static files. See the commented
+auto-login block in `index.html` and the
+[Auto-login guide](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/auto-login.md).
