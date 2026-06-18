@@ -56,22 +56,45 @@ struct ContentView: View {
         }
         .padding()
         .fullScreenCover(isPresented: $presented) {
-            EmbedView(mode: mode, token: token, status: $status) { presented = false }
-                .ignoresSafeArea()
+            VStack(spacing: 0) {
+                // Host chrome: the SDK view is chrome-less, so provide a way back to this screen.
+                HStack {
+                    Button {
+                        presented = false
+                    } label: {
+                        HStack(spacing: 2) {
+                            Image(systemName: "chevron.left")
+                            Text("Back")
+                        }
+                    }
+                    Spacer()
+                }
+                .overlay(
+                    Text(mode == .auto ? "Auto-login" : "Manual login")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                )
+                .padding(.horizontal)
+                .padding(.vertical, 10)
+
+                Divider()
+
+                EmbedView(mode: mode, token: token, status: $status) { presented = false }
+                    .ignoresSafeArea(edges: .bottom)  // fill to the home indicator; header stays in safe area
+            }
         }
     }
 
     private func startAuto() async {
         busy = true
         status = "Minting a one-time token…"
-        do {
-            token = try await MintClient.getEmbedToken()
-            mode = .auto
-            presented = true
-            status = "Token minted — opening…"
-        } catch {
-            status = "Auto-login: \(error.localizedDescription)"
-        }
+        // Always open the embed in auto mode. On mint failure we open with a nil token so the SDK
+        // sends `init-error` and the PORTAL shows the error itself (centralized error UI — same as the
+        // web SDK; the host app renders no error of its own). See the employee portal's /embed handling.
+        token = try? await MintClient.getEmbedToken()
+        mode = .auto
         busy = false
+        status = token == nil ? "Opening — the portal will show any sign-in error…" : "Token minted — opening…"
+        presented = true
     }
 }
