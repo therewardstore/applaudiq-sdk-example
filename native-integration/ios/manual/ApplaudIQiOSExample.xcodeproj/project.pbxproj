@@ -11,6 +11,7 @@
 		29BF85D083B9031BCD98C6D7 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02D75222BDE883C2544D13B /* Config.swift */; };
 		5F8B3F4E6596ABCD89522CB4 /* ApplaudIQExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EA12B175A021C38CD6518D /* ApplaudIQExampleApp.swift */; };
 		7FF6A1A0AC5990FF73C34900 /* EmbedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CB92C8EC1EA293F0D434EB /* EmbedView.swift */; };
+		8562A43AEC351F94D74C7AE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98A68B40C74FF129E32BDAE7 /* Assets.xcassets */; };
 		A89478701DE4E58BBE409440 /* ApplaudIQEmbed.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F35AB2EBF57B52B9668DA7 /* ApplaudIQEmbed.swift */; };
 		A9D188E1B0817AE7BD8907B5 /* MintClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D983B27861B066EBF52BDC /* MintClient.swift */; };
 		D8EAD23C96BEAE13B5B9B35D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD481E9EAD3455679FF5FB2 /* ContentView.swift */; };
@@ -49,6 +50,7 @@
 		73CB92C8EC1EA293F0D434EB /* EmbedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedView.swift; sourceTree = "<group>"; };
 		7660614FD4DA2CD64A862BE1 /* ApplaudIQEmbedObjC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplaudIQEmbedObjC.swift; sourceTree = "<group>"; };
 		83D983B27861B066EBF52BDC /* MintClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MintClient.swift; sourceTree = "<group>"; };
+		98A68B40C74FF129E32BDAE7 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C0DEB887D0D08D60512FFF32 /* ApplaudIQEmbed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApplaudIQEmbed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0F35AB2EBF57B52B9668DA7 /* ApplaudIQEmbed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplaudIQEmbed.swift; sourceTree = "<group>"; };
 		D02D75222BDE883C2544D13B /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				6CD481E9EAD3455679FF5FB2 /* ContentView.swift */,
 				73CB92C8EC1EA293F0D434EB /* EmbedView.swift */,
 				83D983B27861B066EBF52BDC /* MintClient.swift */,
+				98A68B40C74FF129E32BDAE7 /* Assets.xcassets */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -136,8 +139,6 @@
 			dependencies = (
 			);
 			name = ApplaudIQEmbed;
-			packageProductDependencies = (
-			);
 			productName = ApplaudIQEmbed;
 			productReference = C0DEB887D0D08D60512FFF32 /* ApplaudIQEmbed.framework */;
 			productType = "com.apple.product-type.framework";
@@ -149,6 +150,7 @@
 				F0585A75763DEE0C71237DB4 /* Sources */,
 				00BF8839D69C16E21BEB348F /* Frameworks */,
 				63EA874A2CDEDAF8CE37DC9B /* Embed Frameworks */,
+				61725533C087E2C1C4012C2D /* Resources */,
 			);
 			buildRules = (
 			);
@@ -156,8 +158,6 @@
 				433287D00A24FF001D5D723F /* PBXTargetDependency */,
 			);
 			name = ApplaudIQiOSExample;
-			packageProductDependencies = (
-			);
 			productName = ApplaudIQiOSExample;
 			productReference = 30B417EEACAE494E8C72D953 /* ApplaudIQiOSExample.app */;
 			productType = "com.apple.product-type.application";
@@ -192,6 +192,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		61725533C087E2C1C4012C2D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8562A43AEC351F94D74C7AE0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8B799D167EEA792799EA71C1 /* Sources */ = {

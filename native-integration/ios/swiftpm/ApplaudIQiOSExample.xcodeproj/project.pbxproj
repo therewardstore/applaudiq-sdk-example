@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		11328F2B589852AEFDD5B791 /* ApplaudIQEmbed in Frameworks */ = {isa = PBXBuildFile; productRef = D5873C7F165580FA3E21F9DD /* ApplaudIQEmbed */; };
 		29BF85D083B9031BCD98C6D7 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02D75222BDE883C2544D13B /* Config.swift */; };
+		37AF46D32FD93A0C57074B07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8955EE27E04016C7DFBD437A /* Assets.xcassets */; };
 		5F8B3F4E6596ABCD89522CB4 /* ApplaudIQExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EA12B175A021C38CD6518D /* ApplaudIQExampleApp.swift */; };
 		7FF6A1A0AC5990FF73C34900 /* EmbedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CB92C8EC1EA293F0D434EB /* EmbedView.swift */; };
 		A9D188E1B0817AE7BD8907B5 /* MintClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D983B27861B066EBF52BDC /* MintClient.swift */; };
@@ -21,6 +22,7 @@
 		6CD481E9EAD3455679FF5FB2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		73CB92C8EC1EA293F0D434EB /* EmbedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedView.swift; sourceTree = "<group>"; };
 		83D983B27861B066EBF52BDC /* MintClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MintClient.swift; sourceTree = "<group>"; };
+		8955EE27E04016C7DFBD437A /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D02D75222BDE883C2544D13B /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -44,6 +46,7 @@
 				6CD481E9EAD3455679FF5FB2 /* ContentView.swift */,
 				73CB92C8EC1EA293F0D434EB /* EmbedView.swift */,
 				83D983B27861B066EBF52BDC /* MintClient.swift */,
+				8955EE27E04016C7DFBD437A /* Assets.xcassets */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -82,6 +85,7 @@
 			buildPhases = (
 				F0585A75763DEE0C71237DB4 /* Sources */,
 				00BF8839D69C16E21BEB348F /* Frameworks */,
+				68D89B5EC1FC76489A77D331 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -127,6 +131,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		68D89B5EC1FC76489A77D331 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37AF46D32FD93A0C57074B07 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F0585A75763DEE0C71237DB4 /* Sources */ = {
