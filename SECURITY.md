@@ -21,9 +21,13 @@ Embed integrations use three values — only one is sensitive:
 | `embedToken` | server → browser | Low — single-use, ~60s; never cache or reuse |
 
 **Do:**
-- Keep `aiq_embed_…` in an environment variable / secret manager. The only example that uses it
-  (`web-integration/nextjs`) reads `process.env.APPLAUDIQ_SECRET` and ships a `.env.example` → copy it
-  to `.env.local` (which is gitignored).
+- Keep `aiq_embed_…` in an environment variable / secret manager, always **server-side**. Wherever an
+  example uses it, it stays off the browser: the Vite/Angular examples read it from a gitignored `.env.local`
+  (copy each example's `.env.example`) and inject it in their **dev proxy** for **local testing only**; the
+  **Next.js** example reads `process.env.APPLAUDIQ_SECRET` in its real backend route
+  (`app/api/mint/route.ts`) — the production pattern.
+- In **production**, your own backend mints the token (the dev proxies are a local-testing convenience). It's
+  the **same mint request** either way — only the place that holds the secret differs.
 - Mint **one** `embedToken` per session, server-side, just-in-time. Identify the employee from **your**
   session — never trust a client-supplied identity.
 - Register your real site **origins** on the key (the embed only loads on those) and serve over **HTTPS**

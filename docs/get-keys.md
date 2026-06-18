@@ -34,9 +34,10 @@ for your organization and hand the right values to your developers.
 
 ## What your developer needs
 
-- The **publishable key** (`pk_…`) → goes in the client code (`BASE_URL` + `PUBLISHABLE_KEY`).
-- The **portal origin** (`baseUrl`) → shown in the admin **Embed SDK** tab (e.g.
-  `https://recognize.applaudiq.com`). The SDK script is `<baseUrl>/embed.js`.
+- The **publishable key** (`pk_…`) → goes in the client code's config (`PUBLISHABLE_KEY`). Browser-safe.
+- The **portal origin** (`baseUrl`) → shown in the admin **Embed SDK** tab. The developer pastes it as
+  `BASE_URL`; the SDK script is `<baseUrl>/embed.js`. (Examples ship a `// 👉 REPLACE` placeholder — there's
+  no baked-in default.)
 - For **auto-login only**: the **secret** (`aiq_embed_…`) → server-side, for [minting](/MINTING).
 
 ## HR-approval gate
@@ -44,5 +45,13 @@ for your organization and hand the right values to your developers.
 A brand-new (auto-provisioned) employee can sign in but sees **no data** until an HR admin approves them —
 the embed shows a *"waiting for HR approval"* screen until then. This applies to both login modes.
 
-Next: **[Minting on your server](/MINTING)** (for auto-login) or jump straight to your
-[framework guide](/web/vanilla).
+## Developer hand-off
+
+Once the key exists, the rest is the developer's job. Hand them the **publishable key** (`pk_…`) and the
+**portal origin** — that's all **manual login** needs. They [pick a framework example](/web/html), paste
+those two values into its config, and open the **manual** route to see the portal rendering inline — no
+server. They add **auto-login** later (and you give them the `aiq_embed_…` **secret** for that, server-side
+only).
+
+Next: jump straight to a [framework guide](/web/html) — start with **manual login** — or, for auto-login,
+**[Minting on your server](/MINTING)**.

@@ -13,7 +13,7 @@
       👉 REPLACE the host with your portal origin — shown in Admin → Clients → your org → Embed SDK tab.
          (Production is https://recognize.applaudiq.com/embed.js)
     -->
-    <script src="https://recognize.applaudiq.com/embed.js"></script>
+    <script src="http://localhost:3017/embed.js"></script>
   </head>
   <body>
     <div class="aiq-app">
@@ -39,20 +39,12 @@
 
       renderNav('auto.html');
 
-      // Auto-login: your SERVER mints a one-time token first, then we open the embed.
-      getEmbedToken()
-        .then((token) => openEmbed({ mode: 'auto', token }))
-        .catch(() => {
-          // No mint endpoint wired — show the same guidance the React example does.
-          document.getElementById('mode').innerHTML =
-            '<div class="aiq-callout">' +
-            '<h3>Auto-login needs a server</h3>' +
-            '<p>Wire <code>getEmbedToken()</code> in <code>src/mint.js</code> to your' +
-            ' <code>/api/mint</code> endpoint — it exchanges your <code>aiq_embed_…</code> secret for a' +
-            ' one-time token. See <strong>MINTING.md</strong>. Or try <strong>Manual login</strong> —' +
-            ' it needs no server.</p>' +
-            '</div>';
-        });
+      // Auto-login: your SERVER mints a one-time token (it holds the aiq_embed_ secret).
+      // Hand the SDK the fetcher — that's all the client does. If the mint fails (e.g. the
+      // employee isn't set up), the embedded Applaud IQ portal shows the error itself; the
+      // client renders no error UI. This page is STATIC, so getEmbedToken() must call a
+      // backend mint endpoint you host — see src/mint.js and the nextjs example.
+      openEmbed({ mode: 'auto', getToken: getEmbedToken });
     </script>
   </body>
 </html>

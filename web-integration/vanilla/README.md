@@ -13,7 +13,11 @@ A small site with a persistent top nav and **three pages**:
 
 Each mode page renders the recognition feed **inside your page** (inline, full-height).
 
-> **Login modes — this example supports both.** New here? Compare [auto vs manual](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/login-modes.md), then follow the full [Auto-login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/auto-login.md) or [Manual login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/manual-login.md) guide for the complete step-by-step.
+> **Login modes — this example supports both. Try [manual](#2-manual-login-no-server) first** — no server,
+> just your publishable key — then add [auto-login](#3-auto-login-needs-a-backend-you-host). New here?
+> Compare [auto vs manual](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/login-modes.md),
+> then follow the full [Auto-login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/auto-login.md)
+> or [Manual login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/manual-login.md) guide for the complete step-by-step.
 
 ## How it works in this example
 
@@ -73,21 +77,23 @@ ApplaudIQ
 **What you'll see:** Applaud IQ's own email / SSO login *inside* the embed; after signing in, the
 recognition feed. No mint endpoint, no `aiq_embed_…` secret.
 
-## 3. Auto-login (wire the mint server)
+## 3. Auto-login (needs a backend you host)
 
 Auto-login signs the employee in **silently** with a server-minted token (the `aiq_embed_…` secret never
-touches the browser). This example ships a `getEmbedToken()` **stub** in `src/mint.js`. To enable it:
+touches the browser). This example is **static** (`npx serve`), so there's **no dev server to inject the
+secret** — `getEmbedToken()` in `src/mint.js` must call a **backend mint endpoint you host**:
 
-1. **Start the dev mint server** with your secret → see
-   [Dev mint server (auto-login)](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/web-integration/README.md#dev-mint-server-auto-login).
-2. Point `getEmbedToken()` at it — there's no dev-server proxy here, so call the mint server directly
-   (CORS is enabled):
-   ```js
-   const res = await fetch('http://localhost:8787/mint', { method: 'POST' });
-   return (await res.json()).embedToken;
-   ```
+1. **Host a mint endpoint** that holds the secret, calls `POST /api/v1/embed/sessions`, and returns **only**
+   the one-time `embedToken`. The canonical route ships in the
+   [nextjs example](https://github.com/therewardstore/applaudiq-sdk-example/tree/master/web-integration/nextjs) (`app/api/mint/route.ts`); deploy your own copy.
+2. Point `getEmbedToken()` in `src/mint.js` at it (it already fetches `/api/mint` — change the URL to your
+   endpoint).
 
-Until wired, `auto.html` shows the **"Auto-login needs a server"** callout. The secret lives only on the mint server.
+The secret lives only on your backend, never in these static files. It's the **same**
+`POST /api/v1/embed/sessions` mint request the other examples make — the Vite/Angular examples fake it with
+a dev proxy for local testing, but a static site has none, so **your backend mints** it (in local testing
+and in production alike). See
+[MINTING.md](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/MINTING.md) for the mint contract and a Node (Express) endpoint.
 
 ## 4. Run
 

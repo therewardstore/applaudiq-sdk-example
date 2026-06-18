@@ -25,7 +25,11 @@ This example surfaces all three states an employee can land in:
 
 → Full step-by-step + diagram: **[root README → How it works](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/README.md#how-it-works-the-flow)**.
 
-> **Login modes — this example supports both.** New here? Compare [auto vs manual](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/login-modes.md), then follow the full [Auto-login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/auto-login.md) or [Manual login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/manual-login.md) guide for the complete step-by-step.
+> **Login modes — this example supports both. Try [manual](#2-manual-login-no-server) first** — no server,
+> just your publishable key — then add [auto-login](#3-auto-login-no-separate-server). New here? Compare
+> [auto vs manual](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/login-modes.md),
+> then follow the full [Auto-login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/auto-login.md)
+> or [Manual login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/manual-login.md) guide for the complete step-by-step.
 
 ## How it works in this example
 
@@ -35,11 +39,9 @@ This example surfaces all three states an employee can land in:
 3. **Open** — `ApplaudIQ.init({ key, baseUrl }).open({ … })` lives in `ApplaudIQService`
    (`src/app/applaudiq.service.ts`); the shared `embed-view.component.ts` calls it to mount the iframe and cleans up on destroy.
 4. **Config** — the publishable key + portal URL live in `src/app/config.ts` (one place, imported everywhere).
-5. **Mint (auto only)** — `auto-login.component.ts` injects `EmbedTokenService` (`src/app/embed-token.service.ts`),
-   whose `getEmbedToken()` returns the server-minted token; the component switches on the resulting state.
+5. **Mint (auto only)** — `auto-login.component.ts` defines `getEmbedToken()`, which fetches `/api/mint`;
+   the dev proxy (`proxy.conf.js`) forwards that to the gateway and injects your secret server-side.
 6. **Callbacks** — `onReady` / `onAuthPending` / `onError` update the status pill in `EmbedViewComponent`.
-
-→ Full step-by-step + diagram: **[root README → How it works](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/README.md#how-it-works-the-flow)**.
 
 ## Prerequisites
 
@@ -69,25 +71,32 @@ ApplaudIQ
 
 **What you'll see:** Applaud IQ's own email / SSO login *inside* the embed; after signing in, the recognition feed. No mint endpoint, no `aiq_embed_…` secret.
 
-## 3. Auto-login (wire the mint server)
+## 3. Auto-login (no separate server)
 
-Auto-login signs the employee in **silently** with a server-minted token (the `aiq_embed_…` secret never
-touches the browser). This example ships a `getEmbedToken()` **stub** in `src/app/embed-token.service.ts`.
-To enable it:
+Auto-login signs the employee in **silently** with a server-minted token — and the `aiq_embed_…` secret
+must never touch the browser. **No separate mint server to run:** the Angular **dev server's own proxy**
+(`proxy.conf.js`, wired via `angular.json`'s `serve.proxyConfig` and the `npm start` script) forwards
+`/api/mint` → the gateway's `POST /api/v1/embed/sessions` and injects your secret **server-side**.
 
-1. **Start the dev mint server** with your secret → see
-   [Dev mint server (auto-login)](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/web-integration/README.md#dev-mint-server-auto-login).
-2. Replace the `throw` in the stub with a call to your mint endpoint:
-   ```ts
-   const res = await fetch('/api/mint', { method: 'POST' });
-   return (await res.json()).embedToken;
-   ```
-3. Make `/api/mint` reach the mint server: add a `proxy.conf.json`
-   (`{ "/api/mint": { "target": "http://localhost:8787", "pathRewrite": { "^/api/mint": "/mint" } } }`)
-   and run `ng serve --proxy-config proxy.conf.json` — or call `http://localhost:8787/mint` directly
-   (CORS is enabled).
+Both values are **env-only** (no default baked into the code). The Angular CLI does **not** auto-load `.env`
+files, so pass them on the dev command (the values are documented in `.env.example`; copy it to a gitignored
+`.env.local` just to keep them handy):
 
-Until wired, `/auto` shows the **"Auto-login needs a server"** callout. The secret lives only on the mint server.
+```bash
+APPLAUDIQ_SECRET=aiq_embed_xxxxx \
+APPLAUDIQ_API_BASE=http://localhost:8000 \
+npm start
+```
+
+Then open the **`/auto`** route → it mints a one-time token and the embed signs in **silently**. With **no
+secret set**, the mint returns `401`; the embedded portal shows the error itself.
+
+> **Local vs production — the dev proxy injects your secret for local testing only.** In **production your
+> backend mints** the token (see the nextjs example's
+> [`app/api/mint/route.ts`](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/web-integration/nextjs/app/api/mint/route.ts)).
+> It's the **same** `POST /api/v1/embed/sessions` request — only the place that holds the secret moves from
+> the dev proxy to your real backend (not two code paths). The secret lives only on the proxy/backend, never
+> in the browser bundle.
 
 ## 4. Run
 
@@ -115,8 +124,8 @@ from the top nav. The status pill on each mode page shows the result.
 - `src/app/app.component.ts` — app shell: sticky top nav + `<router-outlet>`.
 - `src/app/home.component.ts` — landing page with the two mode cards.
 - `src/app/manual-login.component.ts` / `src/app/auto-login.component.ts` — the two mode pages (Auto mints first).
-- `src/app/embed-token.service.ts` — mints the auto-login token (`getEmbedToken()` + loading/ready/needs-server state).
-- `src/app/embed-loading.component.ts` / `src/app/needs-server-notice.component.ts` — the auto-login "minting…" and "needs a server" states.
+- `proxy.conf.js` — the dev proxy that mints `/api/mint` → the gateway and injects `APPLAUDIQ_SECRET`.
+- `.env.example` — the secret/API-base values for auto-login (the CLI doesn't auto-load `.env`; pass them on `npm start`).
 - `src/app/embed-view.component.ts` — shared sub-header + status pill + HR-pending banner + the `#applaudiq-recognition` container.
 - `src/app/applaudiq.service.ts` — the `init().open()` call + cleanup.
 - `src/applaudiq.d.ts` — TypeScript types for the global SDK (copy into your app if you use TS).

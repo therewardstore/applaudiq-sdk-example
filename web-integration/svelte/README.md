@@ -14,7 +14,11 @@ A small app with a persistent top nav and **three pages**:
 
 Each mode page renders the recognition feed **inside your app** (inline, full-page).
 
-> **Login modes — this example supports both.** New here? Compare [auto vs manual](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/login-modes.md), then follow the full [Auto-login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/auto-login.md) or [Manual login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/manual-login.md) guide for the complete step-by-step.
+> **Login modes — this example supports both. Try [manual](#2-manual-login-no-server) first** — no server,
+> just your publishable key — then add [auto-login](#3-auto-login-no-separate-server). New here? Compare
+> [auto vs manual](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/login-modes.md),
+> then follow the full [Auto-login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/auto-login.md)
+> or [Manual login](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/docs/guides/manual-login.md) guide for the complete step-by-step.
 
 ## How it works in this example
 
@@ -24,8 +28,8 @@ Each mode page renders the recognition feed **inside your app** (inline, full-pa
 3. **Open** — `ApplaudIQ.init({ key, baseUrl }).open({ … })` lives in `openEmbed()` (`src/lib/openEmbed.ts`);
    the shared `components/EmbedView.svelte` calls it to mount the iframe and tears down on `onDestroy`.
 4. **Config** — the publishable key + portal URL live in `src/lib/config.ts` (one place, imported everywhere).
-5. **Mint (auto only)** — the `embedToken()` store (`src/lib/useEmbedToken.ts`) calls `getEmbedToken()` and
-   exposes a `loading | ready | needs-server` state; `routes/AutoLogin.svelte` just switches on it.
+5. **Mint (auto only)** — `routes/AutoLogin.svelte` defines `getEmbedToken()`, which fetches same-origin
+   `/api/mint`; the dev server proxies that to the gateway and injects your secret (see `vite.config.ts`).
 6. **Callbacks** — `onReady` / `onAuthPending` / `onError` update the status pill in `EmbedView`.
 
 ### The three user flows
@@ -67,21 +71,29 @@ ApplaudIQ
 
 **What you'll see:** Applaud IQ's own email / SSO login *inside* the embed; after signing in, the recognition feed. No mint endpoint, no `aiq_embed_…` secret.
 
-## 3. Auto-login (run the dev mint server)
+## 3. Auto-login (no separate server)
 
-Auto-login signs the employee in **silently** with a server-minted token — so it needs a mint server (the
-`aiq_embed_…` secret never touches the browser). **This example is already wired:** `getEmbedToken()` in
-`src/lib/useEmbedToken.ts` calls `/api/mint`, which `vite.config.ts` proxies to the shared dev mint server.
+Auto-login signs the employee in **silently** with a server-minted token — and the `aiq_embed_…` secret
+must never touch the browser. **No separate mint server to run:** the Vite **dev server's own proxy** mints.
+`getEmbedToken()` in `src/routes/AutoLogin.svelte` calls same-origin `/api/mint`; `vite.config.ts` proxies
+that to the gateway's `POST /api/v1/embed/sessions` and injects your secret **server-side**.
 
-1. **Start the dev mint server** with your secret → see
-   [Dev mint server (auto-login)](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/web-integration/README.md#dev-mint-server-auto-login)
-   (it holds the secret and mints the one-time token from it).
+1. **Set your secret** — copy `.env.example` to **`.env.local`** (gitignored) and fill in (both are
+   **env-only** — there's no default baked into the code):
+   ```bash
+   APPLAUDIQ_SECRET=aiq_embed_xxxxx          # HR portal → Settings → Embed SDK Keys (shown once)
+   APPLAUDIQ_API_BASE=http://localhost:8000  # 👉 your gateway origin (POST /api/v1/embed/sessions)
+   ```
 2. `npm run dev`, then open the **`/auto`** route → it mints a one-time token and the embed signs in
    **silently** (no visible login).
-3. With **no mint server running** (or no secret set), `/auto` shows the friendly **"Auto-login needs a
-   server"** callout — that's expected.
+3. With **no secret set**, the mint returns `401`; the embedded portal shows the error itself.
 
-The secret lives only on the mint server, never in this app.
+> **Local vs production — the dev proxy injects your secret for local testing only.** In **production your
+> backend mints** the token (see the nextjs example's
+> [`app/api/mint/route.ts`](https://github.com/therewardstore/applaudiq-sdk-example/blob/master/web-integration/nextjs/app/api/mint/route.ts)).
+> It's the **same** `POST /api/v1/embed/sessions` request — only the place that holds the secret moves from
+> the dev proxy to your real backend (not two code paths). The secret stays server-side (read only by
+> `vite.config.ts`), never in the browser bundle.
 
 ## 4. Run
 
@@ -106,13 +118,12 @@ from the top nav. The status pill on each mode page shows the result.
 
 - `src/lib/config.ts` — publishable key + portal URL (one place, imported everywhere).
 - `src/lib/openEmbed.ts` — the `init().open()` helper (`openEmbed`).
-- `src/lib/useEmbedToken.ts` — the `embedToken()` store: mints the token, exposes `loading | ready | needs-server`.
 - `src/App.svelte` — the `<Router>` with `/`, `/auto`, `/manual`.
 - `src/lib/Nav.svelte` — sticky top nav with active highlighting.
 - `src/routes/Home.svelte` — landing page with the two mode cards.
-- `src/routes/ManualLogin.svelte` / `src/routes/AutoLogin.svelte` — the two mode pages (Auto mints first).
+- `src/routes/ManualLogin.svelte` / `src/routes/AutoLogin.svelte` — the two mode pages (`AutoLogin.svelte` defines `getEmbedToken()` and mints first).
 - `src/components/EmbedView.svelte` — shared sub-header + status pill + HR-pending banner + the `#applaudiq-recognition` container.
-- `src/components/EmbedLoading.svelte` / `src/components/NeedsServerNotice.svelte` — the auto-login loading + needs-server states.
+- `.env.example` — copy to `.env.local` and set `APPLAUDIQ_SECRET` for auto-login (read server-side by `vite.config.ts`).
 - `src/applaudiq.d.ts` — TypeScript types for the global SDK (copy into your app if you use TS).
 
 ## Troubleshooting

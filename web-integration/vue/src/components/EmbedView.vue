@@ -14,6 +14,7 @@ const props = defineProps<{
   what: string;
   mode: 'auto' | 'manual';
   token?: string;
+  getToken?: () => Promise<string>;
 }>();
 
 const status = ref<Status>({ text: 'opening…' });
@@ -21,6 +22,7 @@ const status = ref<Status>({ text: 'opening…' });
 const options = computed<ApplaudIQOpenOptions>(() => ({
   mode: props.mode,
   token: props.token,
+  getToken: props.getToken,
   onReady: () => (status.value = { text: 'signed in', kind: 'ready' }),
   onAuthPending: () => (status.value = { text: 'waiting for HR approval', kind: 'pending' }),
   onError: (e) => (status.value = { text: e.message, kind: 'error' }),

@@ -21,7 +21,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": { "buildTarget": "applaudiq-example-angular:build" }
+          "options": {
+            "buildTarget": "applaudiq-example-angular:build",
+            "proxyConfig": "proxy.conf.js"
+          }
         }
       }
     }

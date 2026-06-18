@@ -51,7 +51,9 @@ login, switch to **[Auto-login](/guides/auto-login)** — same key, just add a s
 
 ## Troubleshooting
 
-- **Embed won't load / blank** — your origin isn't in the key's allowed origins. Add it (incl. dev).
+- **Embed won't load / blank / "refused to connect"** — the portal loads in an `<iframe>` governed by a
+  `frame-ancestors` CSP scoped to the key's **allowed origins**. A blank frame almost always means your
+  origin isn't on that list — add it (incl. dev).
 - **Wrong environment** — a `pk_test_…` key shows a *"Test mode"* pill; `pk_live_…` does not. Make sure
   you're using the key you intend.
 - **`onError` fires** — usually a bad publishable key or `baseUrl`. Double-check both against the admin

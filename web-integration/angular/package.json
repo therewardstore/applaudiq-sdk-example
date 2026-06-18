@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "author": "Arulraj V <abofficial1997@gmail.com>",
   "scripts": {
-    "start": "ng serve --port 5176",
+    "start": "ng serve --port 5176 --proxy-config proxy.conf.js",
     "build": "ng build"
   },
   "dependencies": {

@@ -1,25 +1,27 @@
 'use client';
 
-import { EmbedLoading } from '../components/EmbedLoading';
 import { EmbedView } from '../components/EmbedView';
-import { NeedsServerNotice } from '../components/NeedsServerNotice';
-import { useEmbedToken } from '../lib/useEmbedToken';
 
-/** Auto-login route — mints a token first (see useEmbedToken), then renders the embed signed in. */
+// Auto-login: your SERVER mints a one-time token (it holds the aiq_embed_ secret).
+// Here that server is the Next.js route at app/api/mint/route.ts. Hand the SDK a
+// fetcher — that's all the client does. If the mint fails (e.g. the employee isn't
+// set up), the embedded Applaud IQ portal shows the error itself; the client renders
+// no error UI.
+async function getEmbedToken(): Promise<string> {
+  const res = await fetch('/api/mint', { method: 'POST' });
+  if (!res.ok) throw new Error('mint failed (' + res.status + ')');
+  const { embedToken } = (await res.json()) as { embedToken: string };
+  return embedToken;
+}
+
+/** Auto-login route — the SDK mints via getToken, then renders the embed signed in. */
 export default function AutoLogin() {
-  const token = useEmbedToken();
-
-  if (token.status === 'needs-server') return <NeedsServerNotice />;
-  if (token.status === 'loading') {
-    return <EmbedLoading title="Auto-login" what="Minting a one-time token…" />;
-  }
-
   return (
     <EmbedView
       title="Auto-login"
       what="Signed in silently with a server-minted token."
       mode="auto"
-      token={token.token}
+      getToken={getEmbedToken}
     />
   );
 }

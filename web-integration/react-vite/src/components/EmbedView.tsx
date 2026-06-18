@@ -10,12 +10,25 @@ type Status = { text: string; kind?: 'ready' | 'pending' | 'error' };
  * Renders the embed for a single login mode: a sub-header (title + status pill)
  * and the inline container the SDK mounts the portal into.
  */
-export function EmbedView({ title, what, mode, token }: { title: string; what: string; mode: 'auto' | 'manual'; token?: string }) {
+export function EmbedView({
+  title,
+  what,
+  mode,
+  token,
+  getToken,
+}: {
+  title: string;
+  what: string;
+  mode: 'auto' | 'manual';
+  token?: string;
+  getToken?: () => Promise<string>;
+}) {
   const [status, setStatus] = useState<Status>({ text: 'opening…' });
 
   useApplaudIQ(CONTAINER, {
     mode,
     token,
+    getToken,
     onReady: () => setStatus({ text: 'signed in', kind: 'ready' }),
     onAuthPending: () => setStatus({ text: 'waiting for HR approval', kind: 'pending' }),
     onError: (e) => setStatus({ text: e.message, kind: 'error' }),
