@@ -91,7 +91,7 @@ cp .env.example .env.local
 # then edit .env.local: APPLAUDIQ_SECRET=aiq_embed_…   APPLAUDIQ_API_BASE=https://api.<your-domain>
 ```
 
-In **`app/api/mint/route.ts`**, replace the placeholder employee (`employee@example.com`) with **your
+In **`app/api/mint/route.ts`**, replace the placeholder employee (`arulraj@example.com`) with **your
 authenticated user** (never trust a client-supplied identity). **What you'll see:** the recognition feed,
 signed in **silently** — no visible login.
 

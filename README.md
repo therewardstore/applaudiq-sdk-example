@@ -179,7 +179,8 @@ applaudiq-sdk-example/
   MINTING.md               ← server-side token mint — universal (web + native)
   web-integration/         ← the web SDK examples (this category)
     html/ vanilla/ react-vite/ vue/ angular/ svelte/ nextjs/
-  native-integration/      ← Android · iOS · React Native · Flutter (coming next)
+  native-integration/      ← native mobile SDK examples
+    ios/                   ← iOS (SwiftUI) — available; Android · React Native · Flutter coming next
 ```
 
 The server **mint/exchange** flow is the same for every platform, so `MINTING.md` lives at the root.
@@ -201,6 +202,18 @@ first** — it needs only your publishable key (no server).
 
 Every example does the same three things: load the SDK, render a container, call
 `ApplaudIQ.init({ key, baseUrl }).open({ mode, token?, render:'inline', container, …callbacks })`.
+
+## Examples (native-integration)
+
+Native mobile apps embed the portal via a **per-platform published SDK** (not the web `<script>`) — see the
+[therewardstore org](https://github.com/therewardstore) for the family.
+
+| Platform | Folder | SDK package | Distribution |
+|---|---|---|---|
+| **iOS** (SwiftUI) | [`native-integration/ios/`](./native-integration/ios/) | [`ApplaudIQEmbed`](https://github.com/therewardstore/applaudiq-embed-ios) | [CocoaPods](./native-integration/ios/cocoapods/) · [SwiftPM](./native-integration/ios/swiftpm/) · [Manual](./native-integration/ios/manual/) — a working example each |
+| Android · React Native · Flutter | _coming next_ | `applaudiq-embed-*` | Maven · npm · pub.dev |
+
+See [`native-integration/`](./native-integration/) for the category overview.
 
 ## Notes & gotchas
 

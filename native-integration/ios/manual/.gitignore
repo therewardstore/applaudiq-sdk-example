@@ -1,0 +1,8 @@
+# Xcode build output / user state
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+
+# Never commit a real embed secret (see Shared/Config.swift)
+*.local.swift

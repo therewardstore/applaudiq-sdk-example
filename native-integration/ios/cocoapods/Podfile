@@ -1,0 +1,15 @@
+# CocoaPods is the only dependency step for this variant.
+#   1. pod install
+#   2. open ApplaudIQiOSExample.xcworkspace   (NOT the .xcodeproj)
+#   3. pick a simulator and Run.
+#
+# ApplaudIQEmbed is published on CocoaPods trunk (https://cocoapods.org/pods/ApplaudIQEmbed).
+
+platform :ios, '14.0'
+
+target 'ApplaudIQiOSExample' do
+  use_frameworks!
+
+  # The published Applaud IQ embed SDK. `~> 1.0` takes the latest 1.x.
+  pod 'ApplaudIQEmbed', '~> 1.0'
+end

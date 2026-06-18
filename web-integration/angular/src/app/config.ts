@@ -7,7 +7,7 @@ export const BASE_URL = 'http://localhost:3017';
 
 // DEMO ONLY — the employee the auto-login demo signs in as. In production your BACKEND
 // derives the identity from its OWN session; it must never come from the browser.
-export const DEMO_EMAIL = 'employee@example.com';
+export const DEMO_EMAIL = 'arulraj@example.com';
 
 // True while the key is still the copy-paste placeholder — used to show a setup hint.
 export const keyIsPlaceholder = PUBLISHABLE_KEY.includes('xxxx');

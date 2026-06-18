@@ -16,7 +16,7 @@ Content-Type: application/json
 
 {
   "employee": {
-    "email": "employee@example.com",
+    "email": "arulraj@example.com",
     "externalId": "EMP-4821",   // optional — your own stable id
     "firstName": "Arulraj",          // optional (used when auto-provisioning)
     "lastName": "V"           // optional
@@ -100,7 +100,7 @@ app.listen(4000);
 curl -X POST "$APPLAUDIQ_API_BASE/api/v1/embed/sessions" \
   -H "Authorization: Bearer $APPLAUDIQ_SECRET" \
   -H "Content-Type: application/json" \
-  -d '{"employee":{"email":"employee@example.com"},"autoProvision":true}'
+  -d '{"employee":{"email":"arulraj@example.com"},"autoProvision":true}'
 ```
 
 ## In the examples
@@ -119,6 +119,10 @@ everywhere — only the place that holds the secret differs** (one code path, no
   production pattern** — host an equivalent on your own backend.
 - **vanilla / html** — static, with no dev proxy, so their `getEmbedToken()` must call a backend mint
   endpoint **you** host (the Next.js route is the model).
+- **iOS (native)** — `Shared/MintClient.swift` has both paths: production calls **your** hosted mint endpoint
+  (`MINT_ENDPOINT`), and for a local try it can mint **in-app** when `TEST_EMBED_SECRET` is set (via the
+  Xcode scheme env var `APPLAUDIQ_SECRET`) — the same `POST /api/v1/embed/sessions` request, **test only**,
+  since a secret in an app binary can be extracted. Production mints on the backend.
 
 > **Local vs production.** The dev proxy injects your secret for **local testing only**. In **production
 > your backend mints** the token (see the Next.js `app/api/mint/route.ts`). It's the **same request** — only

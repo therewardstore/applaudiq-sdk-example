@@ -1,0 +1,11 @@
+# Xcode build output / user state
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+
+# SwiftPM resolves this on open — no need to commit it
+*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+
+# Never commit a real embed secret (see Shared/Config.swift)
+*.local.swift

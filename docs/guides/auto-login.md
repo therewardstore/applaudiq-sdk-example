@@ -35,7 +35,7 @@ POST <APPLAUDIQ_API_BASE>/api/v1/embed/sessions
 Authorization: Bearer aiq_embed_…        ← your SECRET, server-side only
 Content-Type: application/json
 
-{ "employee": { "email": "employee@example.com" }, "autoProvision": true }
+{ "employee": { "email": "arulraj@example.com" }, "autoProvision": true }
 ```
 
 The response carries the token (single-use, ~60s) and whether the employee is awaiting HR approval:
