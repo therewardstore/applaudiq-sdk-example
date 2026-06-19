@@ -3,12 +3,18 @@ import Foundation
 // Configuration for the example. The publishable key + base URL are needed in BOTH login modes.
 //
 // 👉 REPLACE with your publishable key — HR portal → Settings → Embed SDK Keys
-//    (pk_live_… for production, pk_test_… shows a "Test mode" pill). Safe in the app.
-let PUBLISHABLE_KEY = "pk_test_xxxxxxxxxxxxxxxxxxxxxxxx"
+//    (pk_live_…). Safe to ship in the app; required in both login modes.
+let PUBLISHABLE_KEY = "pk_live_xxxxxxxxxxxxxxxxxxxxxxxx"
 
 // 👉 REPLACE with your portal origin — shown in Admin → Clients → your org → Embed SDK.
 //    Production default below. For a LOCAL portal over http, see the ATS note in the README.
 let BASE_URL = URL(string: "https://recognize.applaudiq.com")!
+
+// THIS app's SSO callback deep link (scheme://host). SSO opens in ASWebAuthenticationSession and the
+// backend hands the one-time code back to THIS scheme (the SDK sends it as `native_redirect`), so each
+// app uses its own scheme — not the brand-wide `applaudiq://`. Must match the scheme registered in
+// Info.plist (CFBundleURLSchemes). The default is applaudiq://sso-callback if you omit it.
+let SSO_CALLBACK = "aiqexample://sso-callback"
 
 // 👉 REPLACE (auto-login only) with YOUR backend's mint endpoint — see MintClient.swift and
 //    ../../MINTING.md. Manual login needs none of this. The aiq_embed_ SECRET must never live

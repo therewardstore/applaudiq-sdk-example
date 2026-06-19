@@ -12,7 +12,7 @@ cd native-integration/ios/swiftpm
 open ApplaudIQiOSExample.xcodeproj
 ```
 
-Xcode automatically downloads the SDK package (`ApplaudIQEmbed`, `from: 1.0.4`) — wait for
+Xcode automatically downloads the SDK package (`ApplaudIQEmbed`, `from: 1.0.5`) — wait for
 *"Package Graph Resolved"* in the toolbar the first time.
 
 **2. Set your key** — in [`../Shared/Config.swift`](../Shared/Config.swift), replace `PUBLISHABLE_KEY` (your

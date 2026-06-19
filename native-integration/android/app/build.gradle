@@ -1,0 +1,41 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.applaudiq.example'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.applaudiq.example'
+        minSdk 23
+        targetSdk 35
+        versionCode 1
+        versionName '1.0.0'
+        // Register the SDK's SSO callback under THIS app's own scheme (not the brand-wide
+        // `applaudiq://`, which the Applaud IQ "recognize" app also claims) so the SSO callback never
+        // hits an Android "Open with" chooser. The SDK reads these, sends them as `native_redirect`,
+        // and the backend hands the one-time code to exactly this app.
+        manifestPlaceholders = [aiqSsoScheme: 'aiqexample', aiqSsoHost: 'sso-callback']
+    }
+    buildFeatures { buildConfig true }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions { jvmTarget = '17' }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.activity:activity-ktx:1.9.0'
+
+    // ── ApplaudIQ Embed SDK ──────────────────────────────────────────────────────────────────
+    // LOCAL PATH (default): resolved from the composite build declared in settings.gradle's
+    // includeBuild('../../../applaudiq-embed-android') — works before the SDK is published.
+    implementation 'com.applaudiq:embed:1.0.0'
+    // PUBLISHED instead: remove the includeBuild line in settings.gradle, add the jitpack repo, and use:
+    //   implementation 'com.github.therewardstore:applaudiq-embed-android:1.0.0'   // (JitPack), OR
+    //   implementation 'com.applaudiq:embed:1.0.0'                                  // (Maven Central)
+}

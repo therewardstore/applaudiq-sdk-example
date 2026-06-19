@@ -41,8 +41,11 @@ App code lives in [`Shared/`](./Shared/):
    to the status line.
 3. **Buttons** — [`Shared/ContentView.swift`](./Shared/ContentView.swift) presents the embed full-screen for
    Manual (no token) or Auto (after `MintClient` produces a token).
-4. **SSO** — opens in the system browser via `ASWebAuthenticationSession`, returns through the `applaudiq://`
-   scheme (registered in [`Shared/Info.plist`](./Shared/Info.plist)).
+4. **SSO** — opens in the system browser via `ASWebAuthenticationSession` and returns through **this app's own**
+   callback scheme: `SSO_CALLBACK` in [`Shared/Config.swift`](./Shared/Config.swift) (`aiqexample://sso-callback`,
+   registered in [`Shared/Info.plist`](./Shared/Info.plist) `CFBundleURLSchemes`). The SDK sends it to the backend as
+   `native_redirect`, so this example doesn't clash with the brand `applaudiq://` app. An SSO failure (`?error=`)
+   surfaces via `onError` and reloads the login.
 
 ## 1. Configure
 
@@ -103,6 +106,9 @@ ApplaudIQEmbed.makeViewController(config: .init(key: PUBLISHABLE_KEY, baseURL: B
 
 `onReady` (signed in & shown) · `onAuthPending` (signed in, awaiting HR approval — a brand-new employee shows a
 "waiting for HR approval" status) · `onError(message)` (bad/expired key or token) · `onClose` (dismissed).
+
+> **`backNavigation`** (in `Config`, default `true`) — the WKWebView's left-edge back-swipe steps back through the
+> embed's in-app history. Pass `backNavigation: false` to keep the platform default (swipe disabled).
 
 ## Verify
 

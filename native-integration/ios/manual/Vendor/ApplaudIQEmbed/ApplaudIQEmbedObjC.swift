@@ -1,7 +1,7 @@
-// Vendored from applaudiq-embed-ios v1.0.4 — DO NOT EDIT HERE.
+// Vendored from applaudiq-embed-ios v1.0.5 — DO NOT EDIT HERE.
 // Manual integration demo: the SDK source compiled directly into the app (no package
 // manager). Prefer SwiftPM or CocoaPods (../README.md) unless you must vendor. Re-sync on a
-//   version bump:  git -C applaudiq-embed-ios show 1.0.4:Sources/ApplaudIQEmbed/ApplaudIQEmbedObjC.swift
+//   version bump:  git -C applaudiq-embed-ios show 1.0.5:Sources/ApplaudIQEmbed/ApplaudIQEmbedObjC.swift
 
 import UIKit
 
@@ -56,8 +56,20 @@ public final class AIQEmbed: NSObject {
         baseURL: URL?,
         options: AIQEmbedOptions
     ) -> UIViewController {
-        let config = baseURL.map { ApplaudIQEmbed.Config(key: key, baseURL: $0) }
-            ?? ApplaudIQEmbed.Config(key: key)
+        makeViewController(key: key, baseURL: baseURL, ssoCallback: "applaudiq://sso-callback", options: options)
+    }
+
+    /// As above, but with a per-app SSO callback deep link (`scheme://host`). SSO hands the one-time code
+    /// back to this scheme (sent as `native_redirect`); also register it in your Info.plist
+    /// `CFBundleURLSchemes`. Mirrors `ApplaudIQEmbed.Config(key:baseURL:ssoCallback:)`.
+    @objc public static func makeViewController(
+        key: String,
+        baseURL: URL?,
+        ssoCallback: String,
+        options: AIQEmbedOptions
+    ) -> UIViewController {
+        let config = baseURL.map { ApplaudIQEmbed.Config(key: key, baseURL: $0, ssoCallback: ssoCallback) }
+            ?? ApplaudIQEmbed.Config(key: key, ssoCallback: ssoCallback)
 
         var opts = ApplaudIQEmbed.Options(
             mode: options.mode == .manual ? .manual : .auto,

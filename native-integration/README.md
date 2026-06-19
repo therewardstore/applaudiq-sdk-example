@@ -14,7 +14,7 @@ package** in its own repo (SwiftPM/CocoaPods for iOS, Maven for Android, etc.) �
 | Platform | Folder | SDK package | Distribution |
 |---|---|---|---|
 | **iOS** (SwiftUI) | [`ios/`](./ios/) | [`ApplaudIQEmbed`](https://github.com/therewardstore/applaudiq-embed-ios) | [CocoaPods](./ios/cocoapods/) · [SwiftPM](./ios/swiftpm/) · [Manual](./ios/manual/) — a working example each |
-| Android | _coming next_ | `applaudiq-embed-android` | Maven |
+| **Android** (Kotlin) | [`android/`](./android/) | [`applaudiq-embed-android`](https://github.com/therewardstore/applaudiq-embed-android) | Maven / JitPack · or local-path (Gradle composite build) |
 | React Native | _coming next_ | `applaudiq-embed-react-native` | npm |
 | Flutter | _coming next_ | `applaudiq-embed-flutter` | pub.dev |
 

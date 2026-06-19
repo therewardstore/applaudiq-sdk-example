@@ -19,7 +19,9 @@ struct EmbedView: UIViewControllerRepresentable {
         options.onClose = { onClose() }
 
         return ApplaudIQEmbed.makeViewController(
-            config: .init(key: PUBLISHABLE_KEY, baseURL: BASE_URL),
+            // SSO_CALLBACK is THIS app's own scheme (registered in Info.plist CFBundleURLSchemes); the SDK
+            // sends it as `native_redirect` so the SSO code comes back to this app, not the brand `applaudiq://`.
+            config: .init(key: PUBLISHABLE_KEY, baseURL: BASE_URL, ssoCallback: SSO_CALLBACK),
             options: options
         )
     }

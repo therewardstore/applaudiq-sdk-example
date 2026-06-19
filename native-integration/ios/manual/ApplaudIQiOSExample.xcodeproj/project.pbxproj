@@ -17,6 +17,7 @@
 		D8EAD23C96BEAE13B5B9B35D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD481E9EAD3455679FF5FB2 /* ContentView.swift */; };
 		EE90CEF88F2C29F28DAC907A /* ApplaudIQEmbed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0DEB887D0D08D60512FFF32 /* ApplaudIQEmbed.framework */; };
 		EFF7FE1B7558F16B5076210F /* ApplaudIQEmbedObjC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7660614FD4DA2CD64A862BE1 /* ApplaudIQEmbedObjC.swift */; };
+		E11BEDEC0DE1117A12345602 /* EmbedInternals.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11BEDEC0DE1117A12345601 /* EmbedInternals.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		6CD481E9EAD3455679FF5FB2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		73CB92C8EC1EA293F0D434EB /* EmbedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedView.swift; sourceTree = "<group>"; };
 		7660614FD4DA2CD64A862BE1 /* ApplaudIQEmbedObjC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplaudIQEmbedObjC.swift; sourceTree = "<group>"; };
+		E11BEDEC0DE1117A12345601 /* EmbedInternals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbedInternals.swift; sourceTree = "<group>"; };
 		83D983B27861B066EBF52BDC /* MintClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MintClient.swift; sourceTree = "<group>"; };
 		98A68B40C74FF129E32BDAE7 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C0DEB887D0D08D60512FFF32 /* ApplaudIQEmbed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApplaudIQEmbed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,6 +123,7 @@
 			children = (
 				C0F35AB2EBF57B52B9668DA7 /* ApplaudIQEmbed.swift */,
 				7660614FD4DA2CD64A862BE1 /* ApplaudIQEmbedObjC.swift */,
+				E11BEDEC0DE1117A12345601 /* EmbedInternals.swift */,
 			);
 			path = ApplaudIQEmbed;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 			files = (
 				A89478701DE4E58BBE409440 /* ApplaudIQEmbed.swift in Sources */,
 				EFF7FE1B7558F16B5076210F /* ApplaudIQEmbedObjC.swift in Sources */,
+				E11BEDEC0DE1117A12345602 /* EmbedInternals.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

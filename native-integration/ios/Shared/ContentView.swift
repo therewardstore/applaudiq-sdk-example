@@ -53,6 +53,10 @@ struct ContentView: View {
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
+
+            Text("By Arulraj V")
+                .font(.caption2)
+                .foregroundColor(.secondary)
         }
         .padding()
         .fullScreenCover(isPresented: $presented) {

@@ -1,0 +1,3 @@
+<resources>
+    <style name="Theme.ApplaudIQExample" parent="Theme.AppCompat.DayNight.NoActionBar" />
+</resources>
