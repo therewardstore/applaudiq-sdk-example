@@ -1,7 +1,7 @@
-// Vendored from applaudiq-embed-ios v1.0.3 — DO NOT EDIT HERE.
+// Vendored from applaudiq-embed-ios v1.0.4 — DO NOT EDIT HERE.
 // Manual integration demo: the SDK source compiled directly into the app (no package
 // manager). Prefer SwiftPM or CocoaPods (../README.md) unless you must vendor. Re-sync on a
-//   version bump:  git -C applaudiq-embed-ios show 1.0.3:Sources/ApplaudIQEmbed/ApplaudIQEmbedObjC.swift
+//   version bump:  git -C applaudiq-embed-ios show 1.0.4:Sources/ApplaudIQEmbed/ApplaudIQEmbedObjC.swift
 
 import UIKit
 
@@ -32,6 +32,9 @@ public final class AIQEmbedOptions: NSObject {
     @objc public var onAuthPending: (() -> Void)?
     @objc public var onError: ((String) -> Void)?
     @objc public var onClose: (() -> Void)?
+    /// Fires when the user signs out from inside an auto (host-managed) embed,
+    /// so the partner app can tear the embed down. See `Options.onSignOut`.
+    @objc public var onSignOut: (() -> Void)?
 
     @objc public init(mode: AIQEmbedMode, token: String?) {
         self.mode = mode
@@ -64,6 +67,7 @@ public final class AIQEmbed: NSObject {
         opts.onAuthPending = options.onAuthPending
         opts.onError = options.onError
         opts.onClose = options.onClose
+        opts.onSignOut = options.onSignOut
 
         return ApplaudIQEmbed.makeViewController(config: config, options: opts)
     }
