@@ -50,6 +50,8 @@ This example depends on the **published Maven Central artifact** — `mavenCentr
 implementation 'com.applaudiq:embed:1.0.0'   // published on Maven Central (com.applaudiq:embed)
 ```
 
+Artifact: <https://central.sonatype.com/artifact/com.applaudiq/embed>
+
 ## CLI
 
 ```bash
