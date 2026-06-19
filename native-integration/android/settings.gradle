@@ -10,16 +10,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        // For the published SDK (when you switch the app/build.gradle dependency to Maven/JitPack):
-        // maven { url 'https://jitpack.io' }
     }
 }
 
 rootProject.name = 'ApplaudIQAndroidExample'
 include ':app'
 
-// LOCAL-PATH consumption (works before the SDK is published): a Gradle composite build pulls in the
-// SDK source next door, and the `com.applaudiq:embed` dependency in app/build.gradle is auto-substituted
-// by this included build. To consume the PUBLISHED artifact instead, remove this line and switch the
-// dependency in app/build.gradle to the Maven/JitPack coordinate.
-includeBuild('../../../applaudiq-embed-android')
+// The SDK is consumed as the published Maven Central artifact `com.applaudiq:embed` (see app/build.gradle),
+// resolved from mavenCentral() above — no extra setup.

@@ -43,21 +43,11 @@ and Java**:
 
 ## How it consumes the SDK
 
-This example uses a **Gradle composite build** so it builds against the **local SDK source** next door — no
-publish required. See `settings.gradle`:
+This example depends on the **published Maven Central artifact** — `mavenCentral()` is already in
+`settings.gradle`, so the dependency in `app/build.gradle` resolves with no extra setup:
 
 ```groovy
-includeBuild('../../../applaudiq-embed-android')   // resolves com.applaudiq:embed from local source
-```
-
-To consume the **published** SDK instead (Maven Central / JitPack), remove that `includeBuild` line and switch
-the dependency in `app/build.gradle`:
-
-```groovy
-// Maven Central:
-implementation 'com.applaudiq:embed:1.0.0'
-// or JitPack (add `maven { url 'https://jitpack.io' }` in settings.gradle):
-implementation 'com.github.therewardstore:applaudiq-embed-android:1.0.0'
+implementation 'com.applaudiq:embed:1.0.0'   // published on Maven Central (com.applaudiq:embed)
 ```
 
 ## CLI
