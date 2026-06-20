@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Applaud IQ Expo Example",
+    "slug": "applaudiq-embed-expo-example",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": false,
+
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#5b4ff0"
+    },
+
+    "//": "👇 The SSO callback scheme. This single line registers `aiqrnexpo://` on BOTH iOS and Android",
+    "//2": "(Expo configures Info.plist + AndroidManifest on prebuild). It must match Config.SSO_CALLBACK.",
+    "scheme": "aiqrnexpo",
+
+    "ios": {
+      "bundleIdentifier": "com.applaudiq.example.expo",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.applaudiq.example.expo",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#5b4ff0"
+      }
+    }
+  }
+}

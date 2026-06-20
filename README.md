@@ -180,7 +180,10 @@ applaudiq-sdk-example/
   web-integration/         ← the web SDK examples (this category)
     html/ vanilla/ react-vite/ vue/ angular/ svelte/ nextjs/
   native-integration/      ← native mobile SDK examples
-    ios/                   ← iOS (SwiftUI) — available; Android · React Native · Flutter coming next
+    ios/                   ← iOS (SwiftUI)
+    android/               ← Android (Kotlin + Java)
+    react-native-cli/      ← React Native (bare CLI)
+    react-native-expo/     ← React Native (Expo)   — Flutter coming next
 ```
 
 The server **mint/exchange** flow is the same for every platform, so `MINTING.md` lives at the root.
@@ -211,7 +214,9 @@ Native mobile apps embed the portal via a **per-platform published SDK** (not th
 | Platform | Folder | SDK package | Distribution |
 |---|---|---|---|
 | **iOS** (SwiftUI) | [`native-integration/ios/`](./native-integration/ios/) | [`ApplaudIQEmbed`](https://github.com/therewardstore/applaudiq-embed-ios) | [CocoaPods](./native-integration/ios/cocoapods/) · [SwiftPM](./native-integration/ios/swiftpm/) · [Manual](./native-integration/ios/manual/) — a working example each |
-| Android · React Native · Flutter | _coming next_ | `applaudiq-embed-*` | Maven · npm · pub.dev |
+| **Android** (Kotlin + Java) | [`native-integration/android/`](./native-integration/android/) | [`applaudiq-embed-android`](https://github.com/therewardstore/applaudiq-embed-android) | [Maven Central](https://central.sonatype.com/artifact/com.applaudiq/embed) |
+| **React Native** | [`react-native-cli/`](./native-integration/react-native-cli/) · [`react-native-expo/`](./native-integration/react-native-expo/) | [`@applaudiq/embed-react-native`](https://www.npmjs.com/package/@applaudiq/embed-react-native) ([source](https://github.com/therewardstore/applaudiq-embed-react-native)) | [npm](https://www.npmjs.com/package/@applaudiq/embed-react-native) — bare RN **and** Expo |
+| Flutter | _coming next_ | `applaudiq-embed-flutter` | pub.dev |
 
 See [`native-integration/`](./native-integration/) for the category overview.
 

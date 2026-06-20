@@ -1,0 +1,24 @@
+{
+  "name": "applaudiq-embed-rn-cli-example",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Arulraj V <abofficial1997@gmail.com>",
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start"
+  },
+  "dependencies": {
+    "@applaudiq/embed-react-native": "^1.0.0",
+    "react": "18.2.0",
+    "react-native": "0.74.5",
+    "react-native-webview": "13.8.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@react-native/babel-preset": "0.74.5",
+    "@react-native/metro-config": "0.74.5",
+    "@types/react": "^18.2.0",
+    "typescript": "5.0.4"
+  }
+}

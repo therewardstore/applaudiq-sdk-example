@@ -15,7 +15,7 @@ package** in its own repo (SwiftPM/CocoaPods for iOS, Maven for Android, etc.) �
 |---|---|---|---|
 | **iOS** (SwiftUI) | [`ios/`](./ios/) | [`ApplaudIQEmbed`](https://github.com/therewardstore/applaudiq-embed-ios) | [CocoaPods](./ios/cocoapods/) · [SwiftPM](./ios/swiftpm/) · [Manual](./ios/manual/) — a working example each |
 | **Android** (Kotlin) | [`android/`](./android/) | [`applaudiq-embed-android`](https://github.com/therewardstore/applaudiq-embed-android) | [Maven Central](https://central.sonatype.com/artifact/com.applaudiq/embed) (`com.applaudiq:embed`) |
-| React Native | _coming next_ | `applaudiq-embed-react-native` | npm |
+| **React Native** | [`react-native-cli/`](./react-native-cli/) · [`react-native-expo/`](./react-native-expo/) | [`@applaudiq/embed-react-native`](https://www.npmjs.com/package/@applaudiq/embed-react-native) ([source](https://github.com/therewardstore/applaudiq-embed-react-native)) | [npm](https://www.npmjs.com/package/@applaudiq/embed-react-native) — a bare-RN **and** an Expo example |
 | Flutter | _coming next_ | `applaudiq-embed-flutter` | pub.dev |
 
 > **Capacitor / Cordova / Ionic** reuse the **web** SDK inside their web view — see
