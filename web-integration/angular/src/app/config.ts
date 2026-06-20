@@ -3,7 +3,7 @@
 export const PUBLISHABLE_KEY = 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxx';
 // 👉 REPLACE with your portal origin — shown in Admin → Clients → your org → Embed SDK tab.
 // The SDK <script> in index.html is <BASE_URL>/embed.js.
-export const BASE_URL = 'http://localhost:3017';
+export const BASE_URL = 'https://recognize.applaudiq.com';
 
 // DEMO ONLY — the employee the auto-login demo signs in as. In production your BACKEND
 // derives the identity from its OWN session; it must never come from the browser.

@@ -3,7 +3,7 @@
 export const PUBLISHABLE_KEY = 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxx';
 // 👉 REPLACE with your portal origin — shown in Admin → Clients → your org → Embed SDK tab.
 // The SDK <script> loaded in the layout is <BASE_URL>/embed.js.
-export const BASE_URL = 'http://localhost:3017';
+export const BASE_URL = 'https://recognize.applaudiq.com';
 
 // The portal serves the SDK at <portal>/embed.js (same origin) — derived, no separate var.
 export const SDK_URL = `${BASE_URL}/embed.js`;
