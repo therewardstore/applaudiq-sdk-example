@@ -33,5 +33,5 @@ dependencies {
 
     // ── ApplaudIQ Embed SDK ──────────────────────────────────────────────────────────────────
     // The published artifact on Maven Central (resolved via mavenCentral() in settings.gradle).
-    implementation 'com.applaudiq:embed:1.0.0'
+    implementation 'com.applaudiq:embed:1.1.0'
 }

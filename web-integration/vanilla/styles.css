@@ -109,3 +109,48 @@ a { color: inherit; }
   border-radius: 10px; color: var(--muted); font-size: 13px; background: var(--card);
 }
 .aiq-note code { background: var(--bg); padding: 1px 5px; border-radius: 4px; }
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Applaud IQ brand theme — appended overrides (the SDK theme).
+   Recolors the shared UI to the brand violet→indigo and turns the hero into a
+   gradient band + gives the cards a gradient icon tile. Pure cascade overrides.
+   ─────────────────────────────────────────────────────────────────────────── */
+:root {
+  --accent: #7a3aed;
+  --accent-2: #5146e5;
+  --accent-weak: #f1ecfe;
+  --bg: #f6f5ff;
+  --card: #ffffff;
+  --border: #e8e6f6;
+  --text: #1b1630;
+  --muted: #6b6786;
+  --ok-bg: #e4f5ec;   --ok-fg: #1e7d4e;
+  --warn-bg: #fbf1dc;  --warn-fg: #9a6200;
+  --err-bg: #fbe7ea;   --err-fg: #c0293f;
+  --gradient: linear-gradient(135deg, #7a3aed 0%, #5146e5 100%);
+}
+
+/* Gradient brand hero band (bleeds to the edges of the .aiq-home padding) */
+.aiq-home .aiq-hero {
+  background: var(--gradient);
+  margin: -56px -24px 32px;
+  padding: 56px 24px 30px;
+  border-radius: 0 0 28px 28px;
+  box-shadow: 0 10px 30px rgba(81, 70, 229, 0.18);
+}
+.aiq-home .aiq-hero h1 { color: #fff; }
+.aiq-home .aiq-hero p { color: rgba(255, 255, 255, 0.85); margin-bottom: 0; }
+
+/* Gradient icon tile on the mode cards */
+.aiq-card .icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 46px; height: 46px; border-radius: 13px;
+  background: var(--gradient); font-size: 22px;
+}
+.aiq-card .cta { background: var(--gradient); }
+.aiq-card:hover { box-shadow: 0 12px 30px rgba(122, 58, 237, 0.16); }
+
+/* Brand accents */
+.aiq-brand .dot { color: var(--accent); }
+.aiq-links a.active { color: var(--accent); background: var(--accent-weak); }
+.aiq-subhead { background: var(--card); }

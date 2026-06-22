@@ -84,7 +84,7 @@ Not sure which? Use the **Which example?** aid below.
 - **Next.js** — the **canonical backend-mint reference** (ships a real server mint route).
 
 **Web** integrations live in [`web-integration/`](https://github.com/therewardstore/applaudiq-sdk-example/tree/master/web-integration);
-**native** SDKs (Android, iOS, React Native, Flutter) are coming next under `native-integration/`. The
+**native** SDKs (Android, iOS, React Native, Flutter) are available under `native-integration/`. The
 server-side token mint is the **same for every platform** — see [Minting](/MINTING).
 
 > **One URL to set:** your **portal origin** (`baseUrl`). The SDK script is served by the portal at

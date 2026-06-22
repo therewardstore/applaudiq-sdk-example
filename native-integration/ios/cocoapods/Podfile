@@ -11,5 +11,5 @@ target 'ApplaudIQiOSExample' do
   use_frameworks!
 
   # The published Applaud IQ embed SDK. `~> 1.0` takes the latest 1.x.
-  pod 'ApplaudIQEmbed', '~> 1.0'
+  pod 'ApplaudIQEmbed', '~> 1.1'
 end

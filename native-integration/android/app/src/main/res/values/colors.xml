@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Applaud IQ brand palette — sampled from the brand logo (the SDK theme). -->
+<resources>
+    <color name="brand_violet">#7A3AED</color>
+    <color name="brand_indigo">#5146E5</color>
+    <color name="brand_surface">#F6F5FF</color>
+    <color name="brand_ink">#1B1630</color>
+    <color name="brand_muted">#6B6786</color>
+    <color name="brand_card_border">#E8E6F6</color>
+    <color name="brand_white">#FFFFFF</color>
+</resources>

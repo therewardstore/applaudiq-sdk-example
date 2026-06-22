@@ -1,84 +1,75 @@
 package com.applaudiq.example;
 
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
 
 import com.applaudiq.embed.AIQEmbed;
 
 /**
  * The same example, in JAVA — using the {@link AIQEmbed} facade and {@link AIQEmbed.Listener}
  * (the Kotlin {@code ApplaudIQEmbed.Config} lambdas are awkward from Java, so the facade exposes a
- * SAM-style listener with default no-op methods). Both login modes + SSO, identical to MainActivity.kt.
+ * SAM-style listener with default no-op methods). Same branded home + both login modes as MainActivity.kt.
  */
 public class MainActivityJava extends AppCompatActivity {
 
-    private TextView status;
+    private LinearLayout statusPill;
+    private ImageView statusIcon;
+    private TextView statusText;
+    private ProgressBar autoSpinner;
+    private ImageView autoChevron;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        EdgeToEdge.enable(this);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
+                .setAppearanceLightStatusBars(false);
 
-        LinearLayout root = new LinearLayout(this);
-        root.setOrientation(LinearLayout.VERTICAL);
-        root.setGravity(Gravity.CENTER);
-        root.setPadding(48, 48, 48, 48);
+        ExampleUi.applyInsets(findViewById(R.id.hero), findViewById(R.id.scroll_content));
 
-        TextView title = new TextView(this);
-        title.setText("Applaud IQ — Android example (Java)");
-        title.setTextSize(18f);
-        title.setGravity(Gravity.CENTER);
-        title.setPadding(0, 0, 0, 40);
-        root.addView(title);
+        // This is the Java variant — relabel the subtitle and hide the "open Java example" link.
+        ((TextView) findViewById(R.id.subtitle)).setText("Android example (Java)");
+        findViewById(R.id.java_link).setVisibility(View.GONE);
 
-        Button manual = new Button(this);
-        manual.setText("Manual login");
-        manual.setOnClickListener(v -> openManual());
-        root.addView(manual);
+        statusPill = findViewById(R.id.status_pill);
+        statusIcon = findViewById(R.id.status_icon);
+        statusText = findViewById(R.id.status_text);
+        autoSpinner = findViewById(R.id.auto_spinner);
+        autoChevron = findViewById(R.id.auto_chevron);
+        setStatus(ExampleUi.IDLE, "Choose a login mode to open the embed.");
 
-        Button auto = new Button(this);
-        auto.setText("Auto-login");
-        auto.setOnClickListener(v -> openAuto());
-        root.addView(auto);
+        findViewById(R.id.card_manual).setOnClickListener(v -> openManual());
+        findViewById(R.id.card_auto).setOnClickListener(v -> openAuto());
+    }
 
-        status = new TextView(this);
-        status.setText("Choose a login mode to open the embed.");
-        status.setGravity(Gravity.CENTER);
-        status.setPadding(0, 40, 0, 0);
-        root.addView(status);
-
-        // Author credit.
-        TextView credit = new TextView(this);
-        credit.setText("By Arulraj V");
-        credit.setTextSize(12f);
-        credit.setGravity(Gravity.CENTER);
-        credit.setPadding(0, 24, 0, 0);
-        root.addView(credit);
-
-        setContentView(root, new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+    private void setStatus(int color, String message) {
+        ExampleUi.setStatus(statusPill, statusIcon, statusText, color, message);
     }
 
     private void openManual() {
-        status.setText("Opening manual login…");
-        // Manual login needs only the publishable key.
+        setStatus(ExampleUi.IDLE, "Opening manual login…");
         AIQEmbed.open(this, Config.PUBLISHABLE_KEY, Config.BASE_URL, AIQEmbed.Mode.MANUAL, null,
                 new AIQEmbed.Listener() {
-                    @Override public void onReady() { toast("Signed in"); }
-                    @Override public void onError(String message) { toast("Error: " + message); }
-                    @Override public void onClose() { toast("Closed"); }
+                    @Override public void onReady() { setStatus(ExampleUi.SUCCESS, "Signed in"); }
+                    @Override public void onError(String message) { setStatus(ExampleUi.ERROR, "Error: " + message); }
+                    @Override public void onClose() { }
                 });
     }
 
     private void openAuto() {
-        status.setText("Minting a one-time token…");
+        setStatus(ExampleUi.LOADING, "Minting a one-time token…");
+        autoSpinner.setVisibility(View.VISIBLE);
+        autoChevron.setVisibility(View.GONE);
         // Mint off the main thread (MintClient is the Kotlin object, reachable via INSTANCE from Java).
         new Thread(() -> {
             String token;
@@ -89,22 +80,21 @@ public class MainActivityJava extends AppCompatActivity {
             }
             final String embedToken = token;
             runOnUiThread(() -> {
-                status.setText(embedToken == null
-                        ? "Opening — the portal will show any sign-in error…"
-                        : "Token minted — opening…");
+                autoSpinner.setVisibility(View.GONE);
+                autoChevron.setVisibility(View.VISIBLE);
+                setStatus(embedToken == null ? ExampleUi.IDLE : ExampleUi.LOADING,
+                        embedToken == null
+                                ? "Opening — the portal will show any sign-in error…"
+                                : "Token minted — opening…");
                 AIQEmbed.open(this, Config.PUBLISHABLE_KEY, Config.BASE_URL, AIQEmbed.Mode.AUTO, embedToken,
                         new AIQEmbed.Listener() {
-                            @Override public void onReady() { toast("Signed in"); }
-                            @Override public void onAuthPending() { toast("Pending HR approval"); }
-                            @Override public void onError(String message) { toast("Error: " + message); }
-                            @Override public void onClose() { toast("Closed"); }
-                            @Override public void onSignOut() { toast("Signed out — tear down your session"); }
+                            @Override public void onReady() { setStatus(ExampleUi.SUCCESS, "Signed in"); }
+                            @Override public void onAuthPending() { setStatus(ExampleUi.PENDING, "Pending HR approval"); }
+                            @Override public void onError(String message) { setStatus(ExampleUi.ERROR, "Error: " + message); }
+                            @Override public void onClose() { }
+                            @Override public void onSignOut() { }
                         });
             });
         }).start();
-    }
-
-    private void toast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,82 +1,32 @@
-import React, { useState } from 'react';
-import { Pressable, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
-import { ApplaudIQEmbed } from '@applaudiq/embed-react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { Config } from './config';
-import { getEmbedToken } from './MintClient';
+import HomeScreen from './screens/HomeScreen';
+import EmbedScreen from './screens/EmbedScreen';
+import { StatusProvider } from './statusStore';
 
-// Android draws edge-to-edge (enforced on Android 15+), so reserve the status-bar height ourselves
-// to keep app content from rendering UNDER the status bar. (iOS handles the inset via SafeAreaView.)
-const STATUS_BAR_HEIGHT = StatusBar.currentHeight ?? 0;
+/** Real stack navigation: Home → Embed (push, with a back button + swipe-back). */
+export type RootStackParamList = {
+  Home: undefined;
+  Embed: { mode: 'auto' | 'manual'; token?: string };
+};
 
-type Screen = 'home' | 'manual' | 'auto';
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
-  const [screen, setScreen] = useState<Screen>('home');
-  const [token, setToken] = useState<string | undefined>();
-  const [status, setStatus] = useState('Choose a login mode to open the embed.');
-
-  const openAuto = async () => {
-    try {
-      setStatus('Minting token…');
-      setToken(await getEmbedToken());
-      setScreen('auto');
-    } catch (e) {
-      setStatus('Mint failed: ' + String(e));
-    }
-  };
-
-  if (screen !== 'home') {
-    return (
-      <View style={styles.embed}>
-        {/* Light icons; the embed sits BELOW the status bar (paddingTop) so the portal never overlaps it. */}
-        <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
-        <ApplaudIQEmbed
-          config={{
-            key: Config.PUBLISHABLE_KEY,
-            baseUrl: Config.BASE_URL,
-            ssoCallback: Config.SSO_CALLBACK,
-          }}
-          token={screen === 'auto' ? token : undefined}
-          mode={screen === 'auto' ? 'auto' : 'manual'}
-          onReady={() => setStatus('Signed in')}
-          onAuthPending={() => setStatus('Pending HR approval')}
-          onError={(m) => setStatus('Error: ' + m)}
-          onClose={() => setScreen('home')}
-          onSignOut={() => setScreen('home')}
-        />
-      </View>
-    );
-  }
-
   return (
-    <SafeAreaView style={styles.root}>
-      {/* Dark icons on the light home screen. */}
-      <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
-      <Text style={styles.title}>Applaud IQ — RN CLI embed example</Text>
-      <Pressable style={styles.btn} onPress={() => setScreen('manual')}>
-        <Text style={styles.btnText}>Manual login</Text>
-      </Pressable>
-      <Pressable style={styles.btn} onPress={openAuto}>
-        <Text style={styles.btnText}>Auto-login</Text>
-      </Pressable>
-      <Text style={styles.status}>{status}</Text>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <StatusProvider>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+            {/* Full-screen embed (no header) — native-stack keeps the iOS swipe-back + Android hardware back. */}
+            <Stack.Screen name="Embed" component={EmbedScreen} options={{ headerShown: false }} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </StatusProvider>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  embed: { flex: 1, paddingTop: STATUS_BAR_HEIGHT, backgroundColor: '#5b4ff0' },
-  root: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 24,
-    paddingTop: STATUS_BAR_HEIGHT + 24,
-    gap: 12,
-    backgroundColor: '#ffffff',
-  },
-  title: { fontSize: 20, fontWeight: '600', textAlign: 'center', marginBottom: 12 },
-  btn: { backgroundColor: '#6d5efc', borderRadius: 10, paddingVertical: 14, alignItems: 'center' },
-  btnText: { color: '#fff', fontSize: 16, fontWeight: '600' },
-  status: { textAlign: 'center', color: '#666', marginTop: 12 },
-});

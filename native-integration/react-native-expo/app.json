@@ -20,7 +20,10 @@
 
     "ios": {
       "bundleIdentifier": "com.applaudiq.example.expo",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSAppTransportSecurity": { "NSAllowsLocalNetworking": true }
+      }
     },
     "android": {
       "package": "com.applaudiq.example.expo",

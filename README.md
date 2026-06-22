@@ -183,7 +183,8 @@ applaudiq-sdk-example/
     ios/                   ← iOS (SwiftUI)
     android/               ← Android (Kotlin + Java)
     react-native-cli/      ← React Native (bare CLI)
-    react-native-expo/     ← React Native (Expo)   — Flutter coming next
+    react-native-expo/     ← React Native (Expo)
+    flutter/               ← Flutter (Android + iOS)
 ```
 
 The server **mint/exchange** flow is the same for every platform, so `MINTING.md` lives at the root.
@@ -216,7 +217,7 @@ Native mobile apps embed the portal via a **per-platform published SDK** (not th
 | **iOS** (SwiftUI) | [`native-integration/ios/`](./native-integration/ios/) | [`ApplaudIQEmbed`](https://github.com/therewardstore/applaudiq-embed-ios) | [CocoaPods](./native-integration/ios/cocoapods/) · [SwiftPM](./native-integration/ios/swiftpm/) · [Manual](./native-integration/ios/manual/) — a working example each |
 | **Android** (Kotlin + Java) | [`native-integration/android/`](./native-integration/android/) | [`applaudiq-embed-android`](https://github.com/therewardstore/applaudiq-embed-android) | [Maven Central](https://central.sonatype.com/artifact/com.applaudiq/embed) |
 | **React Native** | [`react-native-cli/`](./native-integration/react-native-cli/) · [`react-native-expo/`](./native-integration/react-native-expo/) | [`@applaudiq/embed-react-native`](https://www.npmjs.com/package/@applaudiq/embed-react-native) ([source](https://github.com/therewardstore/applaudiq-embed-react-native)) | [npm](https://www.npmjs.com/package/@applaudiq/embed-react-native) — bare RN **and** Expo |
-| Flutter | _coming next_ | `applaudiq-embed-flutter` | pub.dev |
+| **Flutter** | [`native-integration/flutter/`](./native-integration/flutter/) | [`applaudiq_embed`](https://pub.dev/packages/applaudiq_embed) ([source](https://github.com/therewardstore/applaudiq-embed-flutter)) | [pub.dev](https://pub.dev/packages/applaudiq_embed) — one app, Android **and** iOS |
 
 See [`native-integration/`](./native-integration/) for the category overview.
 

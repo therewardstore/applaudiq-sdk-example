@@ -3,19 +3,19 @@ import SwiftUI
 import UIKit
 
 /// Wraps the SDK's `UIViewController` (a WKWebView hosting <baseUrl>/embed) so it can be
-/// presented from SwiftUI. The publishable key is passed in BOTH modes; `token` is set only
-/// for auto-login. The SDK's lifecycle callbacks are forwarded to a bound status string.
+/// pushed from SwiftUI. The publishable key is passed in BOTH modes; `token` is set only
+/// for auto-login. The SDK's lifecycle callbacks are forwarded to the host as (status, message).
 struct EmbedView: UIViewControllerRepresentable {
     let mode: ApplaudIQEmbed.Mode
     let token: String?
-    @Binding var status: String
+    let onStatus: (EmbedStatus, String) -> Void
     let onClose: () -> Void
 
     func makeUIViewController(context: Context) -> UIViewController {
         var options = ApplaudIQEmbed.Options(mode: mode, token: token)
-        options.onReady = { status = "Signed in — recognition feed loaded." }
-        options.onAuthPending = { status = "Signed in — waiting for HR approval." }
-        options.onError = { message in status = "Error: \(message)" }
+        options.onReady = { onStatus(.success, "Signed in") }
+        options.onAuthPending = { onStatus(.pending, "Pending HR approval") }
+        options.onError = { message in onStatus(.error, "Error: \(message)") }
         options.onClose = { onClose() }
 
         return ApplaudIQEmbed.makeViewController(

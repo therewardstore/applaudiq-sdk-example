@@ -2,13 +2,14 @@ package com.applaudiq.example
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
-import android.view.ViewGroup
-import android.widget.Button
+import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import com.applaudiq.embed.ApplaudIQEmbed
 import kotlin.concurrent.thread
 
@@ -18,89 +19,73 @@ import kotlin.concurrent.thread
  *  • Manual login — no server, no secret, no token: just the publishable key. Simplest path.
  *  • Auto-login   — your backend mints a one-time token (MintClient), then silent sign-in.
  *
- * The same example written in Java lives in [MainActivityJava] (use the "Open Java example" button).
+ * Tapping a card calls `ApplaudIQEmbed.open(...)`, which launches the SDK's own full-screen Activity
+ * (real navigation + back stack). The same example written in Java lives in [MainActivityJava].
  */
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var status: TextView
+    private lateinit var statusPill: LinearLayout
+    private lateinit var statusIcon: ImageView
+    private lateinit var statusText: TextView
+    private lateinit var autoSpinner: ProgressBar
+    private lateinit var autoChevron: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        // White status-bar icons on the dark gradient hero.
+        WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = false
 
-        val root = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            gravity = Gravity.CENTER
-            setPadding(48, 48, 48, 48)
+        ExampleUi.applyInsets(findViewById(R.id.hero), findViewById(R.id.scroll_content))
+
+        statusPill = findViewById(R.id.status_pill)
+        statusIcon = findViewById(R.id.status_icon)
+        statusText = findViewById(R.id.status_text)
+        autoSpinner = findViewById(R.id.auto_spinner)
+        autoChevron = findViewById(R.id.auto_chevron)
+        setStatus(ExampleUi.IDLE, "Choose a login mode to open the embed.")
+
+        findViewById<View>(R.id.card_manual).setOnClickListener { openManual() }
+        findViewById<View>(R.id.card_auto).setOnClickListener { openAuto() }
+        findViewById<View>(R.id.java_link).setOnClickListener {
+            startActivity(Intent(this, MainActivityJava::class.java))
         }
-
-        root.addView(TextView(this).apply {
-            text = "Applaud IQ — Android embed example"
-            textSize = 18f
-            gravity = Gravity.CENTER
-            setPadding(0, 0, 0, 40)
-        })
-
-        // Manual login needs only the publishable key.
-        root.addView(Button(this).apply {
-            text = "Manual login"
-            setOnClickListener { openManual() }
-        })
-
-        // Auto-login mints a one-time token first (MintClient), then opens silently.
-        root.addView(Button(this).apply {
-            text = "Auto-login"
-            setOnClickListener { openAuto() }
-        })
-
-        // The same example, written in Java (uses the AIQEmbed facade + Listener).
-        root.addView(Button(this).apply {
-            text = "Open Java example"
-            setOnClickListener { startActivity(Intent(this@MainActivity, MainActivityJava::class.java)) }
-        })
-
-        status = TextView(this).apply {
-            text = "Choose a login mode to open the embed."
-            gravity = Gravity.CENTER
-            setPadding(0, 40, 0, 0)
-        }
-        root.addView(status)
-
-        // Author credit.
-        root.addView(TextView(this).apply {
-            text = "By Arulraj V"
-            textSize = 12f
-            gravity = Gravity.CENTER
-            setPadding(0, 24, 0, 0)
-        })
-
-        setContentView(root, LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,
-        ))
     }
 
+    private fun setStatus(color: Int, message: String) =
+        ExampleUi.setStatus(statusPill, statusIcon, statusText, color, message)
+
     private fun openManual() {
-        status.text = "Opening manual login…"
+        setStatus(ExampleUi.IDLE, "Opening manual login…")
         ApplaudIQEmbed.open(
             this,
             ApplaudIQEmbed.Config(
                 key = Config.PUBLISHABLE_KEY,
                 baseUrl = Config.BASE_URL,
                 mode = ApplaudIQEmbed.Mode.MANUAL,
-                onReady = { toast("Signed in") },
-                onError = { msg -> toast("Error: $msg") },
-                onClose = { toast("Closed") },
+                onReady = { setStatus(ExampleUi.SUCCESS, "Signed in") },
+                onError = { msg -> setStatus(ExampleUi.ERROR, "Error: $msg") },
+                onClose = { },
             ),
         )
     }
 
     private fun openAuto() {
-        status.text = "Minting a one-time token…"
+        setStatus(ExampleUi.LOADING, "Minting a one-time token…")
+        autoSpinner.visibility = View.VISIBLE
+        autoChevron.visibility = View.GONE
         // Mint off the main thread. On failure we still open in auto mode with a null token so the SDK
         // sends `init-error` and the PORTAL shows the error itself (centralized error UI, like the web SDK).
         thread {
             val token = try { MintClient.getEmbedToken() } catch (e: Exception) { null }
             runOnUiThread {
-                status.text = if (token == null) "Opening — the portal will show any sign-in error…" else "Token minted — opening…"
+                autoSpinner.visibility = View.GONE
+                autoChevron.visibility = View.VISIBLE
+                setStatus(
+                    if (token == null) ExampleUi.IDLE else ExampleUi.LOADING,
+                    if (token == null) "Opening — the portal will show any sign-in error…" else "Token minted — opening…",
+                )
                 ApplaudIQEmbed.open(
                     this,
                     ApplaudIQEmbed.Config(
@@ -108,16 +93,14 @@ class MainActivity : AppCompatActivity() {
                         token = token,
                         baseUrl = Config.BASE_URL,
                         mode = ApplaudIQEmbed.Mode.AUTO,
-                        onReady = { toast("Signed in") },
-                        onAuthPending = { toast("Pending HR approval") },
-                        onError = { msg -> toast("Error: $msg") },
-                        onClose = { toast("Closed") },
-                        onSignOut = { toast("Signed out — tear down your session") },
+                        onReady = { setStatus(ExampleUi.SUCCESS, "Signed in") },
+                        onAuthPending = { setStatus(ExampleUi.PENDING, "Pending HR approval") },
+                        onError = { msg -> setStatus(ExampleUi.ERROR, "Error: $msg") },
+                        onClose = { },
+                        onSignOut = { },
                     ),
                 )
             }
         }
     }
-
-    private fun toast(msg: String) = Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }
