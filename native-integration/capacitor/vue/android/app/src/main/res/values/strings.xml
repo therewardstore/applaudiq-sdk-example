@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Applaud IQ Cap Vue</string>
+    <string name="title_activity_main">Applaud IQ Cap Vue</string>
+    <string name="package_name">com.applaudiq.example.capvue</string>
+    <string name="custom_url_scheme">com.applaudiq.example.capvue</string>
+</resources>

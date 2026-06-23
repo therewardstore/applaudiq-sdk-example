@@ -35,6 +35,15 @@ Then **add auto-login** (silent sign-in) when you're ready: your backend mints a
 | Your framework | **React / Vue / Svelte / Angular** | Idiomatic per-framework wiring. |
 | The **backend-mint reference** | **Next.js** (`nextjs/`) | The **canonical** example — ships a real server mint route (`app/api/mint/route.ts`). |
 
+**Web examples** — all under [`web-integration/`](./web-integration/):
+[<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/html5/html5-original.svg" width="14" alt="HTML5"/> html](./web-integration/html/) ·
+[<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/javascript/javascript-original.svg" width="14" alt="JS"/> vanilla](./web-integration/vanilla/) ·
+[<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/react/react-original.svg" width="14" alt="React"/> react-vite](./web-integration/react-vite/) ·
+[<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/vuejs/vuejs-original.svg" width="14" alt="Vue"/> vue](./web-integration/vue/) ·
+[<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/svelte/svelte-original.svg" width="14" alt="Svelte"/> svelte](./web-integration/svelte/) ·
+[<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/angular/angular-original.svg" width="14" alt="Angular"/> angular](./web-integration/angular/) ·
+[<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/nextjs/nextjs-original.svg" width="14" alt="Next.js"/> nextjs](./web-integration/nextjs/)
+
 ## The three identifiers
 
 | Identifier | Where it lives | What it is |
@@ -214,10 +223,20 @@ Native mobile apps embed the portal via a **per-platform published SDK** (not th
 
 | Platform | Folder | SDK package | Distribution |
 |---|---|---|---|
-| **iOS** (SwiftUI) | [`native-integration/ios/`](./native-integration/ios/) | [`ApplaudIQEmbed`](https://github.com/therewardstore/applaudiq-embed-ios) | [CocoaPods](./native-integration/ios/cocoapods/) · [SwiftPM](./native-integration/ios/swiftpm/) · [Manual](./native-integration/ios/manual/) — a working example each |
-| **Android** (Kotlin + Java) | [`native-integration/android/`](./native-integration/android/) | [`applaudiq-embed-android`](https://github.com/therewardstore/applaudiq-embed-android) | [Maven Central](https://central.sonatype.com/artifact/com.applaudiq/embed) |
-| **React Native** | [`react-native-cli/`](./native-integration/react-native-cli/) · [`react-native-expo/`](./native-integration/react-native-expo/) | [`@applaudiq/embed-react-native`](https://www.npmjs.com/package/@applaudiq/embed-react-native) ([source](https://github.com/therewardstore/applaudiq-embed-react-native)) | [npm](https://www.npmjs.com/package/@applaudiq/embed-react-native) — bare RN **and** Expo |
-| **Flutter** | [`native-integration/flutter/`](./native-integration/flutter/) | [`applaudiq_embed`](https://pub.dev/packages/applaudiq_embed) ([source](https://github.com/therewardstore/applaudiq-embed-flutter)) | [pub.dev](https://pub.dev/packages/applaudiq_embed) — one app, Android **and** iOS |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/swift/swift-original.svg" width="16" alt="iOS"/> **iOS** (SwiftUI) | [`native-integration/ios/`](./native-integration/ios/) | [`ApplaudIQEmbed`](https://github.com/therewardstore/applaudiq-embed-ios) | [CocoaPods](./native-integration/ios/cocoapods/) · [SwiftPM](./native-integration/ios/swiftpm/) · [Manual](./native-integration/ios/manual/) — a working example each |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/kotlin/kotlin-original.svg" width="16" alt="Android"/> **Android** (Kotlin + Java) | [`native-integration/android/`](./native-integration/android/) | [`applaudiq-embed-android`](https://github.com/therewardstore/applaudiq-embed-android) | [Maven Central](https://central.sonatype.com/artifact/com.applaudiq/embed) |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/react/react-original.svg" width="16" alt="React Native"/> **React Native** | [`react-native-cli/`](./native-integration/react-native-cli/) · [`react-native-expo/`](./native-integration/react-native-expo/) | [`@applaudiq/embed-react-native`](https://www.npmjs.com/package/@applaudiq/embed-react-native) ([source](https://github.com/therewardstore/applaudiq-embed-react-native)) | [npm](https://www.npmjs.com/package/@applaudiq/embed-react-native) — bare RN **and** Expo |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/flutter/flutter-original.svg" width="16" alt="Flutter"/> **Flutter** | [`native-integration/flutter/`](./native-integration/flutter/) | [`applaudiq_embed`](https://pub.dev/packages/applaudiq_embed) ([source](https://github.com/therewardstore/applaudiq-embed-flutter)) | [pub.dev](https://pub.dev/packages/applaudiq_embed) — one app, Android **and** iOS |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/capacitor/capacitor-original.svg" width="16" alt="Capacitor"/> **Capacitor / Ionic** | [`native-integration/capacitor/`](./native-integration/capacitor/) | [`@applaudiq/embed-capacitor`](https://www.npmjs.com/package/@applaudiq/embed-capacitor) ([source](https://github.com/therewardstore/applaudiq-embed-capacitor)) | [npm](https://www.npmjs.com/package/@applaudiq/embed-capacitor) — **7 variants** (see below) |
+
+**Capacitor variants** — the same SDK across 7 frameworks under [`native-integration/capacitor/`](./native-integration/capacitor/):
+[<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/javascript/javascript-original.svg" width="14" alt="JS"/> vanilla](./native-integration/capacitor/vanilla/) ·
+[<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/react/react-original.svg" width="14" alt="React"/> react](./native-integration/capacitor/react/) ·
+[<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/angular/angular-original.svg" width="14" alt="Angular"/> angular](./native-integration/capacitor/angular/) ·
+[<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/vuejs/vuejs-original.svg" width="14" alt="Vue"/> vue](./native-integration/capacitor/vue/) ·
+[<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/ionic/ionic-original.svg" width="14" alt="Ionic"/> ionic-react](./native-integration/capacitor/ionic-react/) ·
+[<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/ionic/ionic-original.svg" width="14" alt="Ionic"/> ionic-angular](./native-integration/capacitor/ionic-angular/) ·
+[<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/ionic/ionic-original.svg" width="14" alt="Ionic"/> ionic-vue](./native-integration/capacitor/ionic-vue/)
 
 See [`native-integration/`](./native-integration/) for the category overview.
 

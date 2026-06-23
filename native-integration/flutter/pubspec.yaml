@@ -12,7 +12,7 @@ dependencies:
   cupertino_icons: ^1.0.8
 
   # Published on pub.dev. (For local SDK development, override with a path: dependency.)
-  applaudiq_embed: ^1.1.0
+  applaudiq_embed: ^1.1.1
 
   # For the auto-login test mint (calls your backend / the portal).
   http: ^1.2.0

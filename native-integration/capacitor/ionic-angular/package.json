@@ -1,0 +1,43 @@
+{
+  "name": "applaudiq-cap-ionic-angular",
+  "private": true,
+  "version": "1.0.0",
+  "author": "Arulraj V <abofficial1997@gmail.com>",
+  "description": "Applaud IQ embed — Capacitor + Ionic Angular (standalone) example.",
+  "scripts": {
+    "start": "ng serve",
+    "build": "ng build",
+    "cap:sync": "cap sync",
+    "local:web": "./run-local.sh web",
+    "local:ios": "./run-local.sh ios",
+    "local:android": "./run-local.sh android"
+  },
+  "dependencies": {
+    "@angular/animations": "^17.3.0",
+    "@angular/common": "^17.3.0",
+    "@angular/compiler": "^17.3.0",
+    "@angular/core": "^17.3.0",
+    "@angular/forms": "^17.3.0",
+    "@angular/platform-browser": "^17.3.0",
+    "@angular/platform-browser-dynamic": "^17.3.0",
+    "@angular/router": "^17.3.0",
+    "@applaudiq/embed-capacitor": "^1.1.1",
+    "@capacitor/android": "^6.2.1",
+    "@capacitor/app": "^6.0.0",
+    "@capacitor/browser": "^6.0.0",
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/ios": "^6.2.1",
+    "@ionic/angular": "^8.0.0",
+    "ionicons": "^7.4.0",
+    "rxjs": "^7.8.0",
+    "tslib": "^2.6.0",
+    "zone.js": "^0.14.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^17.3.0",
+    "@angular/cli": "^17.3.0",
+    "@angular/compiler-cli": "^17.3.0",
+    "@capacitor/cli": "^6.0.0",
+    "typescript": "~5.4.0"
+  }
+}

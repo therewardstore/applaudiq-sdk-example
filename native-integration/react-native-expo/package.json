@@ -10,7 +10,7 @@
     "start": "expo start --dev-client"
   },
   "dependencies": {
-    "@applaudiq/embed-react-native": "^1.1.0",
+    "@applaudiq/embed-react-native": "^1.1.1",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/native-stack": "^6.11.0",
     "expo": "~51.0.0",

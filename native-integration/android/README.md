@@ -47,7 +47,7 @@ This example depends on the **published Maven Central artifact** — `mavenCentr
 `settings.gradle`, so the dependency in `app/build.gradle` resolves with no extra setup:
 
 ```groovy
-implementation 'com.applaudiq:embed:1.1.0'   // published on Maven Central (com.applaudiq:embed)
+implementation 'com.applaudiq:embed:1.1.1'   // published on Maven Central (com.applaudiq:embed)
 ```
 
 Artifact: <https://central.sonatype.com/artifact/com.applaudiq/embed>

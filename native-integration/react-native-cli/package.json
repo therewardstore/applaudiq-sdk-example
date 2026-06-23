@@ -9,7 +9,7 @@
     "start": "react-native start"
   },
   "dependencies": {
-    "@applaudiq/embed-react-native": "^1.1.0",
+    "@applaudiq/embed-react-native": "^1.1.1",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/native-stack": "^6.11.0",
     "react": "18.2.0",

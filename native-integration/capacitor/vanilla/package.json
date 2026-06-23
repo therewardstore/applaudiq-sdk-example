@@ -1,0 +1,30 @@
+{
+  "name": "applaudiq-cap-vanilla",
+  "private": true,
+  "version": "1.0.0",
+  "author": "Arulraj V <abofficial1997@gmail.com>",
+  "type": "module",
+  "description": "Applaud IQ embed — plain Capacitor (vanilla TS + Vite) example.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "cap:sync": "cap sync",
+    "local:web": "./run-local.sh web",
+    "local:ios": "./run-local.sh ios",
+    "local:android": "./run-local.sh android"
+  },
+  "dependencies": {
+    "@applaudiq/embed-capacitor": "^1.1.1",
+    "@capacitor/android": "^6.2.1",
+    "@capacitor/app": "^6.0.0",
+    "@capacitor/browser": "^6.0.0",
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/ios": "^6.2.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.0.0",
+    "typescript": "^5.4.0",
+    "vite": "^5.2.0"
+  }
+}

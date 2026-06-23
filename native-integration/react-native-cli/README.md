@@ -74,7 +74,7 @@ exactly this app — no Android "Open with" chooser when two Applaud IQ apps are
 `package.json` installs the published SDK from npm:
 
 ```json
-"@applaudiq/embed-react-native": "^1.1.0"
+"@applaudiq/embed-react-native": "^1.1.1"
 ```
 
 `metro.config.js` is the plain React Native default — the SDK resolves from `node_modules` like any other dep.
