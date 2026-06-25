@@ -1,0 +1,24 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {
+      "*-Info.plist": {
+        "parents": {
+          "NSAppTransportSecurity": [
+            {
+              "xml": "<dict><key>NSAllowsLocalNetworking</key><true /><key>NSExceptionDomains</key><dict><key>localhost</key><dict><key>NSExceptionAllowsInsecureHTTPLoads</key><true /></dict></dict></dict>",
+              "count": 1,
+              "mode": "merge",
+              "id": "config.xml"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "installed_plugins": {},
+  "dependent_plugins": {}
+}

@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.applaudiq.example.cordovavanilla" version="1.0.0"
+        xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+  <name>Applaud IQ Cordova Vanilla</name>
+  <description>Applaud IQ embed — plain Cordova (vanilla TS + Vite) example.</description>
+  <author email="abofficial1997@gmail.com" href="https://applaudiq.com/">Arulraj V</author>
+
+  <content src="index.html" />
+
+  <!-- DEV-permissive whitelist so the WebView can host the portal iframe and open SSO. Tighten for production. -->
+  <access origin="*" />
+  <allow-intent href="http://*/*" />
+  <allow-intent href="https://*/*" />
+  <allow-navigation href="*" />
+
+  <preference name="DisallowOverscroll" value="true" />
+  <preference name="SplashMaintainAspectRatio" value="true" />
+
+  <!-- SSO opens in the SYSTEM browser and returns to this app's deep link. -->
+  <plugin name="cordova-plugin-inappbrowser" spec="^6.0.0" />
+  <!-- Registers aiqexample://… on both platforms (iOS CFBundleURLSchemes + Android intent-filter). -->
+  <plugin name="cordova-plugin-customurlscheme" spec="^5.0.2">
+    <variable name="URL_SCHEME" value="aiqexample" />
+  </plugin>
+
+  <platform name="ios">
+    <preference name="WKWebViewOnly" value="true" />
+    <!-- cordova-ios always serves over a SECURE custom scheme (app://localhost) — it cannot use http
+         like Android/Capacitor. So the embed portal must be HTTPS (no mixed content), and your app's
+         origin `app://localhost` must be in the embed key's Allowed Origins (HR → Embed SDK Keys).
+         For a LOCAL http portal, front it with an HTTPS proxy + trust its cert in the simulator. -->
+    <preference name="scheme" value="app" />
+    <preference name="hostname" value="localhost" />
+    <!-- DEV ONLY — allow the local http portal (http://localhost:3017) through App Transport Security.
+         Remove for production (the portal is HTTPS there). -->
+    <edit-config target="NSAppTransportSecurity" file="*-Info.plist" mode="merge">
+      <dict>
+        <key>NSAllowsLocalNetworking</key>
+        <true/>
+        <key>NSExceptionDomains</key>
+        <dict>
+          <key>localhost</key>
+          <dict>
+            <key>NSExceptionAllowsInsecureHTTPLoads</key>
+            <true/>
+          </dict>
+        </dict>
+      </dict>
+    </edit-config>
+  </platform>
+
+  <platform name="android">
+    <!-- DEV ONLY — serve the app shell over http://localhost so it is same-scheme with the local http
+         portal iframe (http://localhost:3017): avoids mixed-content blocking and keeps the embed session
+         cookie. Remove for production (the portal is HTTPS → default https scheme). -->
+    <preference name="scheme" value="http" />
+    <preference name="hostname" value="localhost" />
+    <!-- DEV ONLY — allow cleartext http to the local portal. Remove for production. -->
+    <edit-config file="app/src/main/AndroidManifest.xml" mode="merge"
+                 target="/manifest/application">
+      <application android:usesCleartextTraffic="true" />
+    </edit-config>
+  </platform>
+</widget>

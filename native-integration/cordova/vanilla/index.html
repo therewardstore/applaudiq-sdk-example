@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- Dev-permissive CSP so the WebView can load the portal iframe + system-browser SSO. Tighten for production. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src * 'self' data: gap: 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data:; connect-src *; frame-src *;"
+    />
+    <title>Applaud IQ — Cordova (vanilla)</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
