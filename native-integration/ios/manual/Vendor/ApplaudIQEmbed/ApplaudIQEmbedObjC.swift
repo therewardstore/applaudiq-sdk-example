@@ -1,7 +1,7 @@
-// Vendored from applaudiq-embed-ios v1.0.5 — DO NOT EDIT HERE.
+// Vendored from applaudiq-embed-ios v1.2.0 — DO NOT EDIT HERE.
 // Manual integration demo: the SDK source compiled directly into the app (no package
 // manager). Prefer SwiftPM or CocoaPods (../README.md) unless you must vendor. Re-sync on a
-//   version bump:  git -C applaudiq-embed-ios show 1.0.5:Sources/ApplaudIQEmbed/ApplaudIQEmbedObjC.swift
+//   version bump:  git -C applaudiq-embed-ios show 1.2.0:Sources/ApplaudIQEmbed/ApplaudIQEmbedObjC.swift
 
 import UIKit
 

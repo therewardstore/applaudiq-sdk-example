@@ -15,7 +15,7 @@
     "local:android": "./run-local.sh android"
   },
   "dependencies": {
-    "@applaudiq/embed-capacitor": "^1.1.1",
+    "@applaudiq/embed-capacitor": "^1.2.0",
     "@capacitor/android": "^6.2.1",
     "@capacitor/app": "^6.0.0",
     "@capacitor/browser": "^6.0.0",

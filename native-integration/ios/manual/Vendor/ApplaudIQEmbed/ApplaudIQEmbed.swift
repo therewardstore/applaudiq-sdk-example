@@ -1,7 +1,7 @@
-// Vendored from applaudiq-embed-ios v1.0.5 — DO NOT EDIT HERE.
+// Vendored from applaudiq-embed-ios v1.2.0 — DO NOT EDIT HERE.
 // Manual integration demo: the SDK source compiled directly into the app (no package
 // manager). Prefer SwiftPM or CocoaPods (../README.md) unless you must vendor. Re-sync on a
-//   version bump:  git -C applaudiq-embed-ios show 1.0.5:Sources/ApplaudIQEmbed/ApplaudIQEmbed.swift
+//   version bump:  git -C applaudiq-embed-ios show 1.2.0:Sources/ApplaudIQEmbed/ApplaudIQEmbed.swift
 
 import AuthenticationServices
 import UIKit
@@ -291,6 +291,14 @@ final class EmbedViewController: UIViewController, WKScriptMessageHandler, WKNav
             }()
             let email = payload?["email"] as? String
             startSSO(provider: provider, clientID: clientID, email: email)
+        case "applaudiq:open-external":
+            // Reward-store downloads / payment / OAuth: open the URL in the system browser.
+            if let urlStr = (body["payload"] as? [String: Any])?["url"] as? String,
+                let url = URL(string: urlStr),
+                url.scheme == "http" || url.scheme == "https"
+            {
+                UIApplication.shared.open(url)
+            }
         default: break
         }
     }
