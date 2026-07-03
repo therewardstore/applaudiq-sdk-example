@@ -23,6 +23,10 @@
   <plugin name="cordova-plugin-customurlscheme" spec="^5.0.2">
     <variable name="URL_SCHEME" value="aiqexample" />
   </plugin>
+  <!-- OPTIONAL — reward-store gift-card voucher download (applaudiq:save-file): the SDK writes the file
+       and opens the OS share sheet. Omit both if you don't need voucher downloads. -->
+  <plugin name="cordova-plugin-file" spec="^8.1.0" />
+  <plugin name="cordova-plugin-x-socialsharing" spec="^6.0.4" />
 
   <platform name="ios">
     <preference name="WKWebViewOnly" value="true" />

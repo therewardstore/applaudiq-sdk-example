@@ -109,6 +109,8 @@ If the mint fails, the **portal shows the error itself** (e.g. *"We couldn't sig
 - `onReady` fires once the session is established.
 - A **brand-new** employee signs in but sees *"waiting for HR approval"* and `onAuthPending` fires — they
   get access the moment HR approves them.
+- **Reward-store voucher downloads** work automatically — when an employee downloads a gift-card voucher,
+  the SDK saves the file (on web it downloads at the top level; native SDKs open the OS share sheet).
 
 ## Troubleshooting
 

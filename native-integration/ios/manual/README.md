@@ -28,9 +28,9 @@ Alternatively, drop `Vendor/ApplaudIQEmbed/*.swift` straight into your **app** t
 your module, so remove the `import ApplaudIQEmbed` lines. Or embed a prebuilt `ApplaudIQEmbed.xcframework`.
 Prefer **SwiftPM** or **CocoaPods** (the sibling variants) unless you specifically need a vendored copy.
 
-> 🔄 **Keep it in sync.** `Vendor/ApplaudIQEmbed/` is a **copy** of the SDK at **v1.2.0** — it won't update
+> 🔄 **Keep it in sync.** `Vendor/ApplaudIQEmbed/` is a **copy** of the SDK at **v1.3.0** — it won't update
 > itself. On a version bump, re-copy from the SDK repo:
-> `git -C applaudiq-embed-ios show 1.2.0:Sources/ApplaudIQEmbed/ApplaudIQEmbed.swift`.
+> `git -C applaudiq-embed-ios show 1.3.0:Sources/ApplaudIQEmbed/ApplaudIQEmbed.swift`.
 
 ## Usage, auto-login & minting
 

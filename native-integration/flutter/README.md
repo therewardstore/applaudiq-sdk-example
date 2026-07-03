@@ -18,7 +18,7 @@ flutter pub get                 # pulls the SDK (local path pre-publish) + http
 cd ios && pod install && cd ..  # iOS only
 ```
 
-> `pubspec.yaml` consumes the published package `applaudiq_embed: ^1.2.0` from
+> `pubspec.yaml` consumes the published package `applaudiq_embed: ^1.3.0` from
 > [pub.dev](https://pub.dev/packages/applaudiq_embed). For local SDK development, override it with a path
 > dependency (`applaudiq_embed: { path: <your local checkout of applaudiq-embed-flutter> }`).
 

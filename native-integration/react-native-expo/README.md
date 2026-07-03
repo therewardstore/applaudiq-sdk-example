@@ -42,7 +42,7 @@ apps are installed. (Pick a scheme unique to your app.)
 `package.json` installs the published SDK from npm:
 
 ```json
-"@applaudiq/embed-react-native": "^1.2.0"
+"@applaudiq/embed-react-native": "^1.3.0"
 ```
 
 `metro.config.js` is the plain Expo default — the SDK resolves from `node_modules` like any other dep.

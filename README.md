@@ -155,6 +155,7 @@ to use it** — the canonical glossary the per-framework examples refer back to.
 | `onSignOut` | The user **signed out** of an auto/SSO embed. The portal shows its **own signed‑out screen**. | `handle.close()` the embed, run your own logout, or relaunch with a fresh token. |
 | `onError(message)` | Sign‑in failed — bad / expired key or token, blocked origin, network. | Show an error + a retry. |
 | `onClose` | The embed was dismissed (modal / fullscreen closed). | Restore your own UI. |
+| `onSaveFile` *(React Native)* | The reward store hands off a **gift-card voucher download** (`applaudiq:save-file`, `{ base64, filename, mime }`). | Save/share the bytes — e.g. `react-native-share`. On Web/iOS/Android/Flutter the SDK saves it **automatically** (Capacitor/Cordova need the optional file/share plugins) — no callback there. |
 
 ### `environment` (set on the **key** in HR, not in `open()`)
 
