@@ -85,7 +85,7 @@ the gateway's `POST /api/v1/embed/sessions` and injects your secret **server-sid
    APPLAUDIQ_SECRET=aiq_embed_xxxxx          # HR portal → Settings → Embed SDK Keys (shown once)
    APPLAUDIQ_API_BASE=http://localhost:8000  # 👉 your gateway origin (POST /api/v1/embed/sessions)
    ```
-2. `npm run dev`, then open the **`/auto`** route → it mints a one-time token and the embed signs in
+2. `pnpm run dev`, then open the **`/auto`** route → it mints a one-time token and the embed signs in
    **silently** (no visible login).
 3. With **no secret set**, the mint returns `401`; the embedded portal shows the error itself.
 
@@ -99,15 +99,15 @@ the gateway's `POST /api/v1/embed/sessions` and injects your secret **server-sid
 ## 4. Run
 
 ```bash
-npm install
-npm run dev      # http://localhost:5173
+pnpm install
+pnpm run dev     # http://localhost:5173
 ```
 
 Open **http://localhost:5173** and navigate **Home (`/`) → Auto-login (`/auto`) → Manual login (`/manual`)**
 from the top nav. The status pill on each mode page shows the result.
 
 > Clean-path routes need an SPA fallback when statically hosted (every path serves `index.html`).
-> `npm run dev` handles this out of the box.
+> `pnpm run dev` handles this out of the box.
 
 ## Verify
 

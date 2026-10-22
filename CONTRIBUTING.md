@@ -11,8 +11,8 @@ integrations — keep them minimal, heavily commented, and consistent.
 
 ```bash
 cd web-integration/<framework>
-npm install
-npm run dev      # see the framework's README for the port
+pnpm install
+pnpm run dev     # see the framework's README for the port
 ```
 
 ## Security rules (please read)

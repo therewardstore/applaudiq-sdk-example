@@ -103,8 +103,8 @@ signed in **silently** — no visible login.
 ## 4. Run
 
 ```bash
-npm install
-npm run dev      # http://localhost:5174  (set up .env.local above for auto-login)
+pnpm install
+pnpm run dev     # http://localhost:5174  (set up .env.local above for auto-login)
 ```
 
 Open **http://localhost:5174** and navigate **Home (`/`) → Auto-login (`/auto`) → Manual login (`/manual`)**

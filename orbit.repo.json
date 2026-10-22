@@ -2,7 +2,7 @@
   "name": "applaudiq-sdk-example",
   "kind": "sdk",
   "pm": "pnpm",
-  "node": "20",
+  "node": "22.14.0",
   "port": 5170,
   "profile": "gates-only",
   "branches": {
@@ -27,6 +27,6 @@
   "scripts": [
     "dev"
   ],
-  "friday": "0.7.13",
+  "friday": "0.7.17",
   "modules": []
 }

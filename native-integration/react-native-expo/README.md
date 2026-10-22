@@ -33,8 +33,9 @@ apps are installed. (Pick a scheme unique to your app.)
 1. **Configure** `config.ts` — your `PUBLISHABLE_KEY` and `BASE_URL`. From an emulator the local portal is
    `http://10.0.2.2:3017` (Android) / `http://localhost:3017` (iOS sim). Auto-login: point `MINT_ENDPOINT` at your
    mint server, or set `TEST_EMBED_SECRET` for a quick local test (never ship a real secret).
-2. **Install** — `npm install` (installs `@applaudiq/embed-react-native` from npm + `react-native-webview`).
-3. **Run** — `npx expo run:android` or `npx expo run:ios` (prebuilds the native project with the `aiqrnexpo` scheme).
+2. **Install** — `pnpm install` (installs `@applaudiq/embed-react-native` from npm + `react-native-webview`;
+   `.npmrc` sets `node-linker=hoisted`: autolinking, Pods and Gradle expect a flat `node_modules`).
+3. **Run** — `pnpm exec expo run:android` or `pnpm exec expo run:ios` (prebuilds the native project with the `aiqrnexpo` scheme).
 4. Tap **Manual login** (works immediately) or **Auto-login**, then **Continue with Google/Microsoft** to test SSO.
 
 ## How it consumes the SDK
@@ -54,10 +55,11 @@ apps are installed. (Pick a scheme unique to your app.)
 - `MintClient.ts` — `getEmbedToken()` for auto-login (see [`../../MINTING.md`](../../MINTING.md)).
 - `app.json` — the `"scheme"` that registers the SSO deep link.
 - `metro.config.js` — the plain Expo default (the SDK comes from npm).
+- `.npmrc` — `node-linker=hoisted`: autolinking, Pods and Gradle expect a flat `node_modules`.
 
 ## Troubleshooting
 
 - **SSO returns but nothing happens** — the `scheme` in `app.json` must equal the scheme in `Config.SSO_CALLBACK`,
   and you must run a **dev build** (`expo run:*`), not Expo Go.
-- **Metro can't find the SDK** — re-run `npm install`, then restart with a clean cache
-  (`npx expo start --dev-client --clear`).
+- **Metro can't find the SDK** — re-run `pnpm install`, then restart with a clean cache
+  (`pnpm exec expo start --dev-client --clear`).

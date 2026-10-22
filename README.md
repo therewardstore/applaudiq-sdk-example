@@ -20,7 +20,7 @@ You can see the portal rendering **inside an example app in minutes** — manual
    IQ admin (see [Get your keys](#get-your-keys)).
 2. **Pick an example:** `cd web-integration/<example>` (see [Which example?](#which-example) below).
 3. **Paste your key + portal origin** into the example's config (the two `// 👉 REPLACE` lines).
-4. **Run** the example (`npm run dev`, or `npx serve` for the static ones).
+4. **Run** the example (`pnpm run dev`, or `pnpm dlx serve` for the static ones).
 5. **Open the `/manual` route** — the recognition portal renders inline, **no server**.
 
 Then **add auto-login** (silent sign-in) when you're ready: your backend mints a one-time token. See
@@ -206,13 +206,13 @@ first** — it needs only your publishable key (no server).
 
 | Framework | Folder | Run |
 |---|---|---|
-| Plain HTML (single file, no build) | [`web-integration/html/`](./web-integration/html/) | `npx serve -l 5181 web-integration/html` |
-| Vanilla JS (multi-page) | [`web-integration/vanilla/`](./web-integration/vanilla/) | `npx serve -l 5180 web-integration/vanilla` |
-| React (Vite) | [`web-integration/react-vite/`](./web-integration/react-vite/) | `cd web-integration/react-vite && npm i && npm run dev` |
-| Vue 3 (Vite) | [`web-integration/vue/`](./web-integration/vue/) | `cd web-integration/vue && npm i && npm run dev` |
-| Angular | [`web-integration/angular/`](./web-integration/angular/) | `cd web-integration/angular && npm i && npm start` |
-| Svelte (Vite) | [`web-integration/svelte/`](./web-integration/svelte/) | `cd web-integration/svelte && npm i && npm run dev` |
-| Next.js (App Router) — **canonical backend-mint reference** | [`web-integration/nextjs/`](./web-integration/nextjs/) | `cd web-integration/nextjs && npm i && npm run dev` |
+| Plain HTML (single file, no build) | [`web-integration/html/`](./web-integration/html/) | `pnpm dlx serve -l 5181 web-integration/html` |
+| Vanilla JS (multi-page) | [`web-integration/vanilla/`](./web-integration/vanilla/) | `pnpm dlx serve -l 5180 web-integration/vanilla` |
+| React (Vite) | [`web-integration/react-vite/`](./web-integration/react-vite/) | `cd web-integration/react-vite && pnpm install && pnpm run dev` |
+| Vue 3 (Vite) | [`web-integration/vue/`](./web-integration/vue/) | `cd web-integration/vue && pnpm install && pnpm run dev` |
+| Angular | [`web-integration/angular/`](./web-integration/angular/) | `cd web-integration/angular && pnpm install && pnpm start` |
+| Svelte (Vite) | [`web-integration/svelte/`](./web-integration/svelte/) | `cd web-integration/svelte && pnpm install && pnpm run dev` |
+| Next.js (App Router) — **canonical backend-mint reference** | [`web-integration/nextjs/`](./web-integration/nextjs/) | `cd web-integration/nextjs && pnpm install && pnpm run dev` |
 
 Every example does the same three things: load the SDK, render a container, call
 `ApplaudIQ.init({ key, baseUrl }).open({ mode, token?, render:'inline', container, …callbacks })`.

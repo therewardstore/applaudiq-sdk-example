@@ -11,7 +11,7 @@ import { EmbedViewComponent } from './embed-view.component';
 //    gateway and injects your aiq_embed_ secret (see proxy.conf.js), so the secret never
 //    reaches the browser. The Angular CLI does NOT auto-load .env, so run the dev server
 //    with the secret on the command line:
-//      APPLAUDIQ_SECRET=aiq_embed_… APPLAUDIQ_API_BASE=http://localhost:8000 npm start
+//      APPLAUDIQ_SECRET=aiq_embed_… APPLAUDIQ_API_BASE=http://localhost:8000 pnpm start
 //    In PRODUCTION your BACKEND must call POST /api/v1/embed/sessions with the secret and
 //    derive the employee from its OWN session — never the browser, never a client-supplied
 //    identity. See the nextjs example's app/api/mint/route.ts for the real backend pattern.

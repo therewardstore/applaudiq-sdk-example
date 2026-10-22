@@ -75,7 +75,7 @@ ApplaudIQ
 
 Auto-login signs the employee in **silently** with a server-minted token — and the `aiq_embed_…` secret
 must never touch the browser. **No separate mint server to run:** the Angular **dev server's own proxy**
-(`proxy.conf.js`, wired via `angular.json`'s `serve.proxyConfig` and the `npm start` script) forwards
+(`proxy.conf.js`, wired via `angular.json`'s `serve.proxyConfig` and the `pnpm start` script) forwards
 `/api/mint` → the gateway's `POST /api/v1/embed/sessions` and injects your secret **server-side**.
 
 Both values are **env-only** (no default baked into the code). The Angular CLI does **not** auto-load `.env`
@@ -85,7 +85,7 @@ files, so pass them on the dev command (the values are documented in `.env.examp
 ```bash
 APPLAUDIQ_SECRET=aiq_embed_xxxxx \
 APPLAUDIQ_API_BASE=http://localhost:8000 \
-npm start
+pnpm start
 ```
 
 Then open the **`/auto`** route → it mints a one-time token and the embed signs in **silently**. With **no
@@ -101,15 +101,15 @@ secret set**, the mint returns `401`; the embedded portal shows the error itself
 ## 4. Run
 
 ```bash
-npm install
-npm start        # http://localhost:5176
+pnpm install
+pnpm start       # http://localhost:5176
 ```
 
 Open **http://localhost:5176** and navigate **Home (`/`) → Auto-login (`/auto`) → Manual login (`/manual`)**
 from the top nav. The status pill on each mode page shows the result.
 
 > Clean-path routes need an SPA fallback when statically hosted (every path serves `index.html`).
-> `npm start` (the dev server) handles this out of the box.
+> `pnpm start` (the dev server) handles this out of the box.
 
 ## Verify
 
@@ -125,7 +125,7 @@ from the top nav. The status pill on each mode page shows the result.
 - `src/app/home.component.ts` — landing page with the two mode cards.
 - `src/app/manual-login.component.ts` / `src/app/auto-login.component.ts` — the two mode pages (Auto mints first).
 - `proxy.conf.js` — the dev proxy that mints `/api/mint` → the gateway and injects `APPLAUDIQ_SECRET`.
-- `.env.example` — the secret/API-base values for auto-login (the CLI doesn't auto-load `.env`; pass them on `npm start`).
+- `.env.example` — the secret/API-base values for auto-login (the CLI doesn't auto-load `.env`; pass them on `pnpm start`).
 - `src/app/embed-view.component.ts` — shared sub-header + status pill + HR-pending banner + the `#applaudiq-recognition` container.
 - `src/app/applaudiq.service.ts` — the `init().open()` call + cleanup.
 - `src/applaudiq.d.ts` — TypeScript types for the global SDK (copy into your app if you use TS).

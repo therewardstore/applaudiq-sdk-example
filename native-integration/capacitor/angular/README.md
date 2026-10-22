@@ -11,11 +11,12 @@ A **Capacitor + Angular** app (standalone components, no Ionic) embedding the Ap
 The `ios/` and `android/` projects are **committed** (the SSO scheme is already registered) — just install and run:
 
 ```bash
-npm install
-npx cap sync           # installs iOS pods + copies the web build into the native projects
-npm run local:web      # browser (http://localhost:4200)
-npm run local:ios      # iOS simulator
-npm run local:android  # Android emulator (auto-runs `adb reverse` for the local portal)
+pnpm install
+pnpm run build         # cap sync copies dist/ into the native projects
+pnpm exec cap sync     # installs iOS pods + copies the web build into the native projects
+pnpm run local:web     # browser (http://localhost:4200)
+pnpm run local:ios     # iOS simulator
+pnpm run local:android # Android emulator (auto-runs `adb reverse` for the local portal)
 ```
 
 `run-local.sh <web|ios|android>` builds, syncs, and launches the chosen target.

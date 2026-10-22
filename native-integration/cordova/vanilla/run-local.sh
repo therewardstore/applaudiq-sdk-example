@@ -7,7 +7,7 @@
 #   BASE_URL = http://localhost:3017,  PUBLISHABLE_KEY = <your local pk_live_…>,  TEST_EMBED_SECRET = <demo>.
 #
 # Native prereqs (one-time, restored from package.json's "cordova" field):
-#   npx cordova prepare        # adds android+ios platforms and the two plugins (SSO scheme aiqexample://)
+#   pnpm exec cordova prepare  # adds android+ios and the two plugins (SSO scheme aiqexample://)
 # The local portal runs on :3017.
 set -euo pipefail
 
@@ -23,12 +23,12 @@ echo "→ Reminder: src/config.ts should hold LOCAL values (BASE_URL=http://loca
 # web #aiq_sso SSO return is handled in the browser. No Cordova needed.
 if [ "$PLATFORM" = "web" ]; then
   echo "→ Serving on http://localhost:4200 (Ctrl-C to stop)."
-  exec npm run dev -- --port 4200
+  exec pnpm run dev --port 4200
 fi
 
 # Native (ios | android): web build → inject cordova.js → cordova prepare → run.
 echo "→ Building web assets into www/ …"
-npm run build
+pnpm run build
 
 # Cordova provides cordova.js per-platform, but the built index.html needs the <script> reference. We keep
 # it OUT of the source index.html (so the plain web `vite build` doesn't try to resolve a missing file) and
@@ -40,7 +40,7 @@ if ! grep -q 'src="cordova.js"' www/index.html; then
 fi
 
 echo "→ Reminder: the platforms + SSO scheme (aiqexample://sso-callback) come from package.json's cordova field."
-npx cordova prepare "$PLATFORM"
+pnpm exec cordova prepare "$PLATFORM"
 
 # Android: tunnel the emulator's localhost:3017 (and :8000 mint) to the host. localhost is a secure context,
 # so the embed's session cookie is accepted over local http (10.0.2.2 would not be).
@@ -54,4 +54,4 @@ if [ "$PLATFORM" = "android" ]; then
 fi
 
 # Launch on a booted simulator/emulator.
-npx cordova run "$PLATFORM"
+pnpm exec cordova run "$PLATFORM"
