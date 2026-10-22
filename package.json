@@ -17,5 +17,10 @@
     "vitepress": "^1.6.3",
     "husky": "^9.1.7"
   },
-  "packageManager": "pnpm@9.15.0"
+  "packageManager": "pnpm@9.15.0",
+  "pnpm": {
+    "overrides": {
+      "vite": "^6.4.4"
+    }
+  }
 }

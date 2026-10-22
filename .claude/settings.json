@@ -7,8 +7,6 @@
     "allow": [
       "Bash(bash scripts/agent/*)",
       "Bash(bash scripts/git/*)",
-      "Bash(npm run docs:build)",
-      "Bash(npm run audit:deps)",
       "Bash(pnpm run audit:deps)",
       "Bash(pnpm docs:build)"
     ]

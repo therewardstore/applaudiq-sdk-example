@@ -81,3 +81,10 @@ what each gate proves: `docs/GATES.md`.
 In this Orbit workspace a `pnpm install` runs husky (`prepare`), which points git at `.husky/_` and
 bypasses Orbit's gates: run `./orbit hooks install applaudiq-sdk-example` from `orbit/` afterwards.
 <!-- friday:agents:end -->
+
+## Dependency audit
+
+`pnpm run audit:deps` runs at pre-push. VitePress 1.x pins Vite 5, whose advisories (dev server only) are
+fixed in Vite 6: `pnpm.overrides` in `package.json` moves VitePress onto `vite ^6.4.4`. `docs:build` and
+`docs:dev` were proven on it, with the same pages and the same text. Remove the override when VitePress
+ships on Vite 6 itself.
