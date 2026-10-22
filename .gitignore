@@ -3,7 +3,6 @@ node_modules/
 # Lock files — each example is standalone and installs fresh; don't commit lockfiles.
 package-lock.json
 yarn.lock
-pnpm-lock.yaml
 
 dist/
 .next/
@@ -25,3 +24,9 @@ build/
 Pods/
 DerivedData/
 *.xcuserstate
+
+# Private QA notes, personal agent settings, upgrade backups and task state — never committed.
+.qa/
+.claude/settings.local.json
+.friday-backup/
+scripts/agent/state/

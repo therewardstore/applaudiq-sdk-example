@@ -1,0 +1,32 @@
+{
+  "name": "applaudiq-sdk-example",
+  "kind": "sdk",
+  "pm": "pnpm",
+  "node": "20",
+  "port": 5170,
+  "profile": "gates-only",
+  "branches": {
+    "default": "master",
+    "production": "master"
+  },
+  "remotes": [],
+  "exposes": [],
+  "consumesRoutes": [],
+  "env": {
+    "required": [],
+    "optional": []
+  },
+  "gates": {
+    "types": "",
+    "lint": "",
+    "test": "",
+    "build": "pnpm docs:build",
+    "size": "",
+    "audit": "pnpm run audit:deps"
+  },
+  "scripts": [
+    "dev"
+  ],
+  "friday": "0.7.13",
+  "modules": []
+}

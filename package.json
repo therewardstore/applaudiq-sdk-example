@@ -8,9 +8,14 @@
   "scripts": {
     "docs:dev": "vitepress dev docs --port 5170",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs --port 5170"
+    "docs:preview": "vitepress preview docs --port 5170",
+    "audit:deps": "pnpm audit --audit-level=moderate",
+    "prepare": "husky",
+    "dev": "vitepress dev docs --port 5170"
   },
   "devDependencies": {
-    "vitepress": "^1.6.3"
-  }
+    "vitepress": "^1.6.3",
+    "husky": "^9.1.7"
+  },
+  "packageManager": "pnpm@9.15.0"
 }
