@@ -75,7 +75,7 @@ and `.agents/rules/project.md`; don't copy it into any of them.
 
 ## Quality gates
 
-`pnpm docs:build` · `pnpm run audit:deps`. Pre-commit runs the code rules on the staged lines → the file cap; pre-push runs branch name → commits being pushed → docs moved → build → dependency audit. The full table, and
+`pnpm docs:build` · `pnpm run audit:deps`. Pre-commit runs the code rules on the staged lines → the file cap; pre-push runs branch name → commits being pushed → docs moved → build → dependency audit → audit exceptions. The full table, and
 what each gate proves: `docs/GATES.md`.
 
 In this Orbit workspace a `pnpm install` runs husky (`prepare`), which points git at `.husky/_` and

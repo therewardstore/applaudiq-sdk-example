@@ -2,7 +2,7 @@
   "name": "applaudiq-sdk-example-docs",
   "private": true,
   "version": "1.0.0",
-  "author": "Arulraj V <abofficial1997@gmail.com>",
+  "author": "Arulraj V <arulraj@vananam.com>",
   "type": "module",
   "description": "Docs/navigator site for the ApplaudIQ Web SDK examples (VitePress).",
   "scripts": {
