@@ -1,6 +1,6 @@
-# scripts/agent/agent.manifest — what friday (trs-app 0.7.25) installed here.
+# scripts/agent/agent.manifest — what friday (trs-app 0.7.26) installed here.
 # Do not edit: a re-run of `trs-app agents upgrade` rewrites it and removes what it no longer ships.
-# version: 0.7.25
+# version: 0.7.26
 # playbook: v19 2026-10-16
 # owned
 .agents/rules/commits-and-branches.md
@@ -106,8 +106,8 @@ scripts/git/doc-map.txt
 .github/workflows/pr-review.yml 8175863e9b3f085766824663c7ebf0e598a64682d782a27389d66bf4c6c47277
 docs/GATES.md 7149ea29dbf057f2c0a4f7dd1e4f4c1aa17f5f39740f70485887a9c5d474c43b
 docs/TOOLS.md 686b2dc777b3067492042adb0415a07fdc12bea7651cd31906297dc88d4451ef
-orbit.repo.json caa7bad9ea5a99d3e68e1e0960547fc21e6317a1d9176f1da71e6d69e959f089
-scripts/agent/audit-check.sh 5f285320ae9fc1babd6ad775834719411788110460d68b892999fa9eb61481cd
+orbit.repo.json 6d29e36d94719ebb35c1e62caaf991e111b02269f295bb683d5c65d2097ae928
+scripts/agent/audit-check.sh 40a46450a53c0dc4bb03c21dae9553fc0d5133c9556164d2bdd07fa234e87f77
 scripts/agent/ci/fe-agent-gates.tf.example c952abf416ebc3efa64b5f526325cac114fd901e53b65c862e7a893527de8e96
 scripts/agent/ci/orbit-hooks.example 46641ab023672da8e1ea8e8f648f62e27c424ffea657490b349a64b554ed4fd2
 scripts/agent/ci/pr-quality-gates.yml 65c73822bd4e8eb1a484237d723de33047f15cac089df1a07952ac455e9c808c
