@@ -21,9 +21,9 @@ scaffold the host once and drop these in — then register the SSO scheme in two
 
 ```sh
 # create the host app (RN 0.74), then copy the files from this folder over the generated ones:
-npx @react-native-community/cli init AiqRnCliExample --version 0.74.5
-#   → copy App.tsx, config.ts, MintClient.ts, index.js, metro.config.js, package.json into it
-npm install                     # installs @applaudiq/embed-react-native (npm) + react-native-webview
+pnpm dlx @react-native-community/cli init AiqRnCliExample --version 0.74.5 --skip-install
+#   → copy App.tsx, config.ts, MintClient.ts, index.js, metro.config.js, package.json, .npmrc into it
+pnpm install                    # installs @applaudiq/embed-react-native (npm) + react-native-webview
 cd ios && pod install && cd ..  # iOS only
 ```
 
@@ -66,7 +66,7 @@ exactly this app — no Android "Open with" chooser when two Applaud IQ apps are
 1. Edit `config.ts` — your `PUBLISHABLE_KEY` and `BASE_URL`. From an emulator the local portal is
    `http://10.0.2.2:3017` (Android) / `http://localhost:3017` (iOS sim). Auto-login: point `MINT_ENDPOINT` at your
    mint server, or set `TEST_EMBED_SECRET` for a quick local test (never ship a real secret).
-2. `npx react-native run-android` or `npx react-native run-ios`.
+2. `pnpm exec react-native run-android` or `pnpm exec react-native run-ios`.
 3. Tap **Manual login** (works immediately) or **Auto-login**, then **Continue with Google/Microsoft** for SSO.
 
 ## How it consumes the SDK
@@ -83,5 +83,5 @@ exactly this app — no Android "Open with" chooser when two Applaud IQ apps are
 
 - **SSO returns but nothing happens** — the native scheme (step 2) must equal `Config.SSO_CALLBACK`, on the
   platform you're running.
-- **Metro can't resolve the SDK** — re-run `npm install`, then restart Metro with a clean cache
-  (`npx react-native start --reset-cache`).
+- **Metro can't resolve the SDK** — re-run `pnpm install`, then restart Metro with a clean cache
+  (`pnpm exec react-native start --reset-cache`).

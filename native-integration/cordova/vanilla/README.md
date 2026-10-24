@@ -15,15 +15,15 @@ A tiny **query-based router** (History API, no framework) gives a Home → Embed
 ## Run it
 
 ```bash
-npm install
-npm run local:web      # browser (http://localhost:4200)
-npm run local:ios      # iOS simulator
-npm run local:android  # Android emulator (auto-runs `adb reverse` for the local portal)
+pnpm install
+pnpm run local:web     # browser (http://localhost:4200)
+pnpm run local:ios     # iOS simulator
+pnpm run local:android # Android emulator (auto-runs `adb reverse` for the local portal)
 ```
 
 `run-local.sh <web|ios|android>` builds the web app into `www/`, injects `cordova.js` (native only), runs
 `cordova prepare`, and launches the target. The first native run restores the `ios`/`android` platforms and
-the two plugins from `package.json`'s `cordova` field — or run `npx cordova prepare` once up front.
+the two plugins from `package.json`'s `cordova` field — or run `pnpm exec cordova prepare` once up front.
 
 1. **Configure** `src/config.ts` — `PUBLISHABLE_KEY` + `BASE_URL` (the committed file ships placeholders).
 2. **SSO scheme** `aiqexample://sso-callback` is declared in `config.xml` via `cordova-plugin-customurlscheme`

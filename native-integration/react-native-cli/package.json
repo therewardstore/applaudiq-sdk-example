@@ -2,7 +2,7 @@
   "name": "applaudiq-embed-rn-cli-example",
   "version": "1.0.0",
   "private": true,
-  "author": "Arulraj V <abofficial1997@gmail.com>",
+  "author": "Arulraj V <arulraj@vananam.com>",
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",

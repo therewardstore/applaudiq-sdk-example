@@ -114,7 +114,7 @@ everywhere — only the place that holds the secret differs** (one code path, no
   forwards `/api/mint` → this `POST /api/v1/embed/sessions` and injects `APPLAUDIQ_SECRET` from a gitignored
   `.env.local` (copy each example's `.env.example`). No separate server to run; this is **local testing only**.
 - **Angular** — the same, via `proxy.conf.js`. The CLI doesn't auto-load `.env`, so the secret is passed on
-  the `npm start` command line.
+  the `pnpm start` command line.
 - **Next.js** — the mint runs in a real backend route (`app/api/mint/route.ts`). **This is the canonical
   production pattern** — host an equivalent on your own backend.
 - **vanilla / html** — static, with no dev proxy, so their `getEmbedToken()` must call a backend mint

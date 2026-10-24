@@ -1,0 +1,8 @@
+{
+  "terminalAllowlist": [
+    "bash:scripts/agent/*",
+    "bash:scripts/git/*",
+    "pnpm docs:build",
+    "pnpm run audit:deps"
+  ]
+}

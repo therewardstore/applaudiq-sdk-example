@@ -1,6 +1,6 @@
 // ApplaudIQ Web SDK example (vanilla) — auto-login token.
 //
-// ⚠️ This example is STATIC (served by `npx serve`), so there is no dev server to inject
+// ⚠️ This example is STATIC (served by `pnpm dlx serve`), so there is no dev server to inject
 //    your aiq_embed_ secret. Auto-login therefore needs a real BACKEND mint endpoint that
 //    YOU host: it holds the secret, calls POST /api/v1/embed/sessions, and returns ONLY the
 //    one-time embedToken to the browser. The secret must NEVER appear in this page.

@@ -35,7 +35,7 @@ commented **auto-login** block showing how to swap in a one-time `token` your se
 It's a static file, but the SDK needs an `http(s)` origin (not `file://`), so serve the folder:
 
 ```bash
-npx serve -l 5181 html
+pnpm dlx serve -l 5181 html
 # then open http://localhost:5181
 ```
 

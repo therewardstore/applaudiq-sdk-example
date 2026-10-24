@@ -4,7 +4,7 @@
 // backend mints the token (see the nextjs example's app/api/mint/route.ts).
 //
 // Angular's CLI does NOT auto-load .env files — pass the secret on the dev command:
-//   APPLAUDIQ_SECRET=aiq_embed_… APPLAUDIQ_API_BASE=http://localhost:8000 npm start
+//   APPLAUDIQ_SECRET=aiq_embed_… APPLAUDIQ_API_BASE=http://localhost:8000 pnpm start
 // (See .env.example for the values; copy it to .env.local for reference — it is gitignored.)
 //
 // NOTE: Angular's modern `ng serve` (application builder) runs on **Vite**, so the header
