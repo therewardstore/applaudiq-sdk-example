@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
-  "author": "Arulraj V <abofficial1997@gmail.com>",
+  "author": "Arulraj V <arulraj@vananam.com>",
   "scripts": {
     "android": "expo run:android",
     "ios": "expo run:ios",

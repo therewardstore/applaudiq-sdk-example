@@ -2,7 +2,7 @@
   "name": "applaudiq-cap-ionic-react",
   "private": true,
   "version": "1.0.0",
-  "author": "Arulraj V <abofficial1997@gmail.com>",
+  "author": "Arulraj V <arulraj@vananam.com>",
   "type": "module",
   "description": "Applaud IQ embed — Capacitor + Ionic React example.",
   "scripts": {

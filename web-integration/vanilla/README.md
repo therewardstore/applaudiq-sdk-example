@@ -80,7 +80,7 @@ recognition feed. No mint endpoint, no `aiq_embed_…` secret.
 ## 3. Auto-login (needs a backend you host)
 
 Auto-login signs the employee in **silently** with a server-minted token (the `aiq_embed_…` secret never
-touches the browser). This example is **static** (`npx serve`), so there's **no dev server to inject the
+touches the browser). This example is **static** (`pnpm dlx serve`), so there's **no dev server to inject the
 secret** — `getEmbedToken()` in `src/mint.js` must call a **backend mint endpoint you host**:
 
 1. **Host a mint endpoint** that holds the secret, calls `POST /api/v1/embed/sessions`, and returns **only**
@@ -100,7 +100,7 @@ and in production alike). See
 The SDK needs an `http://` origin (not `file://`):
 
 ```bash
-npx serve -l 5180 .
+pnpm dlx serve -l 5180 .
 ```
 
 Open **http://localhost:5180** (`index.html`) and navigate Home → **`auto.html`** → **`manual.html`** from

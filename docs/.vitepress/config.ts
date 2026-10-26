@@ -8,6 +8,8 @@ export default defineConfig({
     'Copy-paste integrations that embed the Applaud IQ recognition portal in your web app — every major framework, auto-login or manual.',
   lang: 'en-US',
   cleanUrls: true,
+  // friday's developer docs share docs/; they are for this repo's developers, never the public site.
+  srcExclude: ['README.md', 'GATES.md', 'TOOLS.md', 'MIGRATION-0.7.md', 'COMPONENTS.md', 'CONVENTIONS.md', 'modules/**', 'qa/**'],
   appearance: 'dark',
   // Localhost dev URLs in the framework guides aren't reachable at build time —
   // ignore them, but keep validating internal links (sidebar / @include targets).

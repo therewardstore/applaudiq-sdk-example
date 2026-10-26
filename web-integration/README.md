@@ -26,13 +26,13 @@ Each example's README maps these steps to its own files.
 
 | Framework | Folder | Run | Dev port |
 |---|---|---|---|
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/html5/html5-original.svg" width="16" alt="HTML5"/> Plain HTML (single file, no build) | [`html/`](./html/) | `npx serve -l 5181 html` | 5181 |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/javascript/javascript-original.svg" width="16" alt="JS"/> Vanilla JS (multi-page) | [`vanilla/`](./vanilla/) | `npx serve -l 5180 vanilla` | 5180 |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/react/react-original.svg" width="16" alt="React"/> React (Vite) | [`react-vite/`](./react-vite/) | `cd react-vite && npm i && npm run dev` | 5173 |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/vuejs/vuejs-original.svg" width="16" alt="Vue"/> Vue 3 (Vite) | [`vue/`](./vue/) | `cd vue && npm i && npm run dev` | 5175 |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/angular/angular-original.svg" width="16" alt="Angular"/> Angular | [`angular/`](./angular/) | `cd angular && npm i && npm start` | 5176 |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/svelte/svelte-original.svg" width="16" alt="Svelte"/> Svelte (Vite) | [`svelte/`](./svelte/) | `cd svelte && npm i && npm run dev` | 5177 |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/nextjs/nextjs-original.svg" width="16" alt="Next.js"/> Next.js (App Router) — **canonical backend-mint reference** | [`nextjs/`](./nextjs/) | `cd nextjs && npm i && npm run dev` | 5174 |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/html5/html5-original.svg" width="16" alt="HTML5"/> Plain HTML (single file, no build) | [`html/`](./html/) | `pnpm dlx serve -l 5181 html` | 5181 |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/javascript/javascript-original.svg" width="16" alt="JS"/> Vanilla JS (multi-page) | [`vanilla/`](./vanilla/) | `pnpm dlx serve -l 5180 vanilla` | 5180 |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/react/react-original.svg" width="16" alt="React"/> React (Vite) | [`react-vite/`](./react-vite/) | `cd react-vite && pnpm install && pnpm run dev` | 5173 |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/vuejs/vuejs-original.svg" width="16" alt="Vue"/> Vue 3 (Vite) | [`vue/`](./vue/) | `cd vue && pnpm install && pnpm run dev` | 5175 |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/angular/angular-original.svg" width="16" alt="Angular"/> Angular | [`angular/`](./angular/) | `cd angular && pnpm install && pnpm start` | 5176 |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/svelte/svelte-original.svg" width="16" alt="Svelte"/> Svelte (Vite) | [`svelte/`](./svelte/) | `cd svelte && pnpm install && pnpm run dev` | 5177 |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons/nextjs/nextjs-original.svg" width="16" alt="Next.js"/> Next.js (App Router) — **canonical backend-mint reference** | [`nextjs/`](./nextjs/) | `cd nextjs && pnpm install && pnpm run dev` | 5174 |
 
 ### Which example?
 
@@ -71,17 +71,17 @@ the secret must never reach the browser. **There is no separate mint server to r
   APPLAUDIQ_API_BASE=http://localhost:8000  # 👉 your gateway origin (POST /api/v1/embed/sessions) — env-only, no default
   ```
 
-  Then `npm run dev`. (A direct browser fetch to the gateway is CORS-blocked — that's why the dev proxy
+  Then `pnpm run dev`. (A direct browser fetch to the gateway is CORS-blocked — that's why the dev proxy
   exists. The secret stays server-side and never reaches the browser.)
 
 - **Angular** — same idea, but the dev proxy is `proxy.conf.js` and the CLI does **not** auto-load `.env`,
   so pass the values on the command line:
-  `APPLAUDIQ_SECRET=aiq_embed_… APPLAUDIQ_API_BASE=http://localhost:8000 npm start`.
+  `APPLAUDIQ_SECRET=aiq_embed_… APPLAUDIQ_API_BASE=http://localhost:8000 pnpm start`.
 
 - **Next.js** — the mint runs in a real backend route, [`app/api/mint/route.ts`](./nextjs/app/api/mint/route.ts);
   set `APPLAUDIQ_SECRET` + `APPLAUDIQ_API_BASE` in its `.env.local`. **This is the canonical production pattern.**
 
-- **vanilla / html** — static (`npx serve`), so they have **no** dev proxy and cannot inject a secret. Their
+- **vanilla / html** — static (`pnpm dlx serve`), so they have **no** dev proxy and cannot inject a secret. Their
   auto-login `getEmbedToken()` must call a backend mint endpoint **you** host (the Next.js route is the model).
 
 > **Local vs production — the same request, only the place that holds the secret differs.** The dev proxies
