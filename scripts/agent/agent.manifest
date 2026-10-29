@@ -1,6 +1,6 @@
-# scripts/agent/agent.manifest — what friday (trs-app 0.12.2) installed here.
+# scripts/agent/agent.manifest — what friday (trs-app 0.13.1) installed here.
 # Do not edit: a re-run of `trs-app agents upgrade` rewrites it and removes what it no longer ships.
-# version: 0.12.2
+# version: 0.13.1
 # playbook: v19 2026-10-16
 # owned
 .agents/rules/commits-and-branches.md
@@ -51,6 +51,8 @@ orbit.repo.json
 scripts/agent/agent.conf
 scripts/agent/agent.manifest
 scripts/agent/audit-check.sh
+scripts/agent/build-scan.sh
+scripts/agent/deps-check.mjs
 scripts/agent/doctor.sh
 scripts/agent/drift-check.sh
 scripts/agent/env-check.sh
@@ -83,30 +85,32 @@ scripts/git/doc-map.txt
 # hashes
 .agents/rules/commits-and-branches.md 3553831e64c15fec1d86729bce9cbb70246de93dae14b4559c3b511d55c9ada1
 .agents/rules/project.md ee0ce2437c8c94aeb3b4ee46bf516d6af24a3f695118b823fd6be842b122b53f
-.claude/skills/finalize/SKILL.md 1bf629e907122bdb3fbda5e7f4675c6dd5b86d5f8adcff002bbf811b4409e081
-.claude/skills/flow/SKILL.md 899eba0c9195be14d74aca329e29442f9440cabc940d355191e59f0b725516b7
-.claude/skills/handoff/SKILL.md 8f02e7d15bbfef6f2429edbf09714c282670fe3353b979400b398e959219cc2f
-.claude/skills/review/SKILL.md 7bed75f25e1723c8900b8d9fa945cf96e9aa08551df3241e8de84d1f4fc76c04
+.claude/skills/finalize/SKILL.md 724f05367525ee82f0667703dc46536897f69b2ccff02ee9703f8471dffb6dd3
+.claude/skills/flow/SKILL.md e1397bdef3e62afe6c8ae5e38d70d1f416ddd534741764a6bcbb02d9d9d75202
+.claude/skills/handoff/SKILL.md 99957d297f98c9932188a28c45f53fc0763d01c26074a59d4b18892265be98d0
+.claude/skills/review/SKILL.md 0fe70ad3c34ca6eb5e14bac5e8268d8f6c0f9e67b2a8715a2a9cfb51666cec1e
 .claude/skills/scan/SKILL.md 6c6dd99e9e9a90989e4ed6e5e96c7e2d2632d8fd9e3aed2b85e76e5fc6a55e46
-.claude/skills/task/SKILL.md 37e2c1df3eafb1b9bd2d1dc77825aa4b8ed3addcaaf01b18c8feac33196dd226
+.claude/skills/task/SKILL.md 24bef9e33e9f2ccef08bf5769b19f667b09439c1cb30e1ec304d11ecc6b45241
 .codex/config.toml 576a72f25faa0c70d0187818f2c836a6965e2b29b587e06b4e066bf9173f2184
-.codex/rules/house.rules dcf7c5365a55fffd78d28dd6349bfca1c3f7c213a406b487307c7a585281f947
+.codex/rules/house.rules c4ab9ff26ce449e28638351866b496b6dcafd2693afaf9861150e0366919bd22
 .cursor/cli.json d59419b5392a9aafc9efed58f381da5a0d2604b56d99bf8ad77a20a2d838e0e2
 .cursor/permissions.json c36f1f0dfef2f1f07b1fb7c0b135a726fcdc19f173fb2959ea1eccc5eeb2c1bf
 .cursor/rules/commits-and-branches.mdc c75002af1ff6833b3cd1c24daa3fcfa74e0a78a2bc4c20b6d91f5e4d90d76389
 .cursor/rules/project.mdc 06cbd7579e10bb4309a87fd0c36a3856c81a69556f4d192ad63cf90fe328b591
 .cursor/rules/skills.mdc 9f7535eb341248bbef635f3b2fa648d2f474fb7ee4b2bef4e180b10886f32c20
-docs/GATES.md da10b3833ad250e582c661da1ff853b747277fe2fda0dd37e1a78cd04d169d7a
+docs/GATES.md 328edb7362bf8bdc997d6c9c66eb0d1979a69c9d9a0174863dd2617bcf813791
 docs/TOOLS.md 686b2dc777b3067492042adb0415a07fdc12bea7651cd31906297dc88d4451ef
-orbit.repo.json 6d29e36d94719ebb35c1e62caaf991e111b02269f295bb683d5c65d2097ae928
+orbit.repo.json c0eecb1926046c05482ed50323b91e3c9f23a9ac691303e89a7d9f8ca17a743f
 scripts/agent/audit-check.sh 40a46450a53c0dc4bb03c21dae9553fc0d5133c9556164d2bdd07fa234e87f77
+scripts/agent/build-scan.sh c02a51785aa60ce9f80f5bcfa15c43e04c17c566cb60203d70e33dd1b68b0202
+scripts/agent/deps-check.mjs 0fe6f31b4f628552a947c6893f484f5e61440a2023277d90ee898441edb90550
 scripts/agent/doctor.sh 7cdc5022fe33de2247e2cc8c2463d3e12bf0cf38eb05d5fea976fc13c2bdc5cf
 scripts/agent/drift-check.sh d04898c9a36edff5ab578f80a9ae05ee6605a9dcfb3a5259c9379747dddee90e
 scripts/agent/env-check.sh ad3e8bd1b2d77a9dc9a4cd679dbc0d8acd1da28b143e9bc8ae1bbf42e52f109c
 scripts/agent/fingerprint.sh 45c086830eb7e7e02dff1bf9913d7ecdc57ad9f7ea66ebbc26b5f7c57064cd94
-scripts/agent/gates.sh 30a8eba37ac86004ac1193eaa47c3043f6f537b8870e10bbad8e510525e4650f
+scripts/agent/gates.sh 4fb182d53207249fbd10cd6bec8c7c3d4583634ec31fbcc7cb6582e3d58e8d02
 scripts/agent/guard-shell.sh 539842a7c688c7b36abdd5984759b2c95f95a9ca665f234dce5c394cacc9ea77
-scripts/agent/lib.sh 61ac7ea500c870c6f56fe8767b18e07030b9a0dd1e48523af6df10af4e8cd831
+scripts/agent/lib.sh 6780110b47e00b9802f4c44b77eb3c40e1b0371c86b689b74213809ebf7e1336
 scripts/agent/playbook-version f9d4d808da198f758443a1d426e4fcf1c0ba6f7928ad645a40415c9679ce20d0
 scripts/agent/prompt-check.sh facc21610e403e7d31a256199729736715e3ec67fc172ce8ec5b945b0a5e6d26
 scripts/agent/qa-confirmed.sh b8d831d88228551cf87210fe134f42e8b53480dc2fbab254b5c6075879d3899d
@@ -118,7 +122,7 @@ scripts/agent/ship.sh f23b2bc7cc7ac9d2c7e54c061a1cc948ea40fd4359b910ce5cbb7700e0
 scripts/agent/status.sh 074779db2383b519f2c0527fdd58bde7c25966982c8070c987e955c1a4c15dce
 scripts/agent/test-changed.sh 26043e555aaa2222952454bf31087307eaaeb5efa2867b0568d0115d231ed415
 scripts/git/check-branch.sh 3633ebcda31e1a3ed9437b3f8fb5b9e235433f3d225ff87a9701cf7e96d954f3
-scripts/git/check-commit-msg.sh 2dcde848f04c8ece20ed543f5719e3fbf8cef1e34c5f6d176db372eca7db96e6
+scripts/git/check-commit-msg.sh d3fac586289416efaa10c714fbcb90a9aff382cb2a4a9ae8f5f883c5cf25a007
 scripts/git/check-commit-range.sh 7d4b519c430628070c094dad6ddb701649668f092acba7ee3c059a49a0f69a36
 scripts/git/check-docs-moved.sh 3a53a5f0bffce9ffb1a4c324a5e81f79b753ccc687ff51bc41b70d746ae59e41
 scripts/git/check-file-cap.sh 445102f6fc9f55a915914527c237abebdf375bf24ce4302eaad36e28f9e9848b
